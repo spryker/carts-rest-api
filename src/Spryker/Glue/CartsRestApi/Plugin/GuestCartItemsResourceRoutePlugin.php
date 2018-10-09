@@ -11,13 +11,9 @@ use Generated\Shared\Transfer\RestCartItemsAttributesTransfer;
 use Spryker\Glue\CartsRestApi\CartsRestApiConfig;
 use Spryker\Glue\GlueApplicationExtension\Dependency\Plugin\ResourceRouteCollectionInterface;
 use Spryker\Glue\GlueApplicationExtension\Dependency\Plugin\ResourceRoutePluginInterface;
-use Spryker\Glue\GlueApplicationExtension\Dependency\Plugin\ResourceWithParentPluginInterface;
 use Spryker\Glue\Kernel\AbstractPlugin;
 
-/**
- * @method \Spryker\Glue\ProductsRestApi\ProductsRestApiFactory getFactory()
- */
-class CartItemsResourceRoutePlugin extends AbstractPlugin implements ResourceRoutePluginInterface, ResourceWithParentPluginInterface
+class GuestCartItemsResourceRoutePlugin extends AbstractPlugin implements ResourceRoutePluginInterface
 {
     /**
      * {@inheritdoc}
@@ -30,9 +26,7 @@ class CartItemsResourceRoutePlugin extends AbstractPlugin implements ResourceRou
      */
     public function configure(ResourceRouteCollectionInterface $resourceRouteCollection): ResourceRouteCollectionInterface
     {
-        $resourceRouteCollection->addPost(CartsRestApiConfig::ACTION_CART_ITEMS_POST)
-            ->addPatch(CartsRestApiConfig::ACTION_CART_ITEMS_PATCH)
-            ->addDelete(CartsRestApiConfig::ACTION_CART_ITEMS_DELETE);
+        $resourceRouteCollection->addPost(CartsRestApiConfig::ACTION_GUEST_CART_ITEMS_POST, false);
 
         return $resourceRouteCollection;
     }
@@ -46,7 +40,7 @@ class CartItemsResourceRoutePlugin extends AbstractPlugin implements ResourceRou
      */
     public function getResourceType(): string
     {
-        return CartsRestApiConfig::RESOURCE_CART_ITEMS;
+        return CartsRestApiConfig::RESOURCE_GUEST_CARTS_ITEMS;
     }
 
     /**
@@ -58,7 +52,7 @@ class CartItemsResourceRoutePlugin extends AbstractPlugin implements ResourceRou
      */
     public function getController(): string
     {
-        return CartsRestApiConfig::CONTROLLER_CART_ITEMS;
+        return CartsRestApiConfig::CONTROLLER_GUEST_CART_ITEMS;
     }
 
     /**
@@ -71,17 +65,5 @@ class CartItemsResourceRoutePlugin extends AbstractPlugin implements ResourceRou
     public function getResourceAttributesClassName(): string
     {
         return RestCartItemsAttributesTransfer::class;
-    }
-
-    /**
-     * {@inheritdoc}
-     *
-     * @api
-     *
-     * @return string
-     */
-    public function getParentResourceType(): string
-    {
-        return CartsRestApiConfig::RESOURCE_CARTS;
     }
 }
