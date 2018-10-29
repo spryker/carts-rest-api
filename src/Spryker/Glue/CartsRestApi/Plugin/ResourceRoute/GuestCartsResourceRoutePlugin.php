@@ -1,11 +1,11 @@
 <?php
 
 /**
- * Copyright© 2016-present Spryker Systems GmbH. All rights reserved.
+ * Copyright © 2016-present Spryker Systems GmbH. All rights reserved.
  * Use of this software requires acceptance of the Evaluation License Agreement. See LICENSE file.
  */
 
-namespace Spryker\Glue\CartsRestApi\Plugin;
+namespace Spryker\Glue\CartsRestApi\Plugin\ResourceRoute;
 
 use Generated\Shared\Transfer\RestCartsAttributesTransfer;
 use Spryker\Glue\CartsRestApi\CartsRestApiConfig;
@@ -13,13 +13,11 @@ use Spryker\Glue\GlueApplicationExtension\Dependency\Plugin\ResourceRouteCollect
 use Spryker\Glue\GlueApplicationExtension\Dependency\Plugin\ResourceRoutePluginInterface;
 use Spryker\Glue\Kernel\AbstractPlugin;
 
-/**
- * @method \Spryker\Glue\ProductsRestApi\ProductsRestApiFactory getFactory()
- */
-class CartsResourceRoutePlugin extends AbstractPlugin implements ResourceRoutePluginInterface
+class GuestCartsResourceRoutePlugin extends AbstractPlugin implements ResourceRoutePluginInterface
 {
     /**
      * {@inheritdoc}
+     *  - Configures available actions for guest-carts resource.
      *
      * @api
      *
@@ -29,12 +27,8 @@ class CartsResourceRoutePlugin extends AbstractPlugin implements ResourceRoutePl
      */
     public function configure(ResourceRouteCollectionInterface $resourceRouteCollection): ResourceRouteCollectionInterface
     {
-        $resourceRouteCollection
-            ->addGet(CartsRestApiConfig::ACTION_CARTS_GET)
-            ->addPost(CartsRestApiConfig::ACTION_CARTS_POST)
-            ->addDelete(CartsRestApiConfig::ACTION_CARTS_DELETE);
-
-        return $resourceRouteCollection;
+        return $resourceRouteCollection
+            ->addGet(CartsRestApiConfig::ACTION_GUEST_CARTS_GET, false);
     }
 
     /**
@@ -46,7 +40,7 @@ class CartsResourceRoutePlugin extends AbstractPlugin implements ResourceRoutePl
      */
     public function getResourceType(): string
     {
-        return CartsRestApiConfig::RESOURCE_CARTS;
+        return CartsRestApiConfig::RESOURCE_GUEST_CARTS;
     }
 
     /**
@@ -58,7 +52,7 @@ class CartsResourceRoutePlugin extends AbstractPlugin implements ResourceRoutePl
      */
     public function getController(): string
     {
-        return CartsRestApiConfig::CONTROLLER_CARTS;
+        return CartsRestApiConfig::CONTROLLER_GUEST_CARTS;
     }
 
     /**
