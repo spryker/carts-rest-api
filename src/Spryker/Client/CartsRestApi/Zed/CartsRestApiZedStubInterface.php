@@ -5,31 +5,14 @@
  * Use of this software requires acceptance of the Evaluation License Agreement. See LICENSE file.
  */
 
-namespace Spryker\Zed\CartsRestApi\Business;
+namespace Spryker\Client\CartsRestApi\Zed;
 
 use Generated\Shared\Transfer\QuoteResponseTransfer;
 use Generated\Shared\Transfer\QuoteTransfer;
 
-interface CartsRestApiFacadeInterface
+interface CartsRestApiZedStubInterface
 {
     /**
-     * Specification:
-     * - Retrieves the list of quotes that do not have the uuid set.
-     * - Saves them one by one to trigger uuid generation.
-     *
-     * @api
-     *
-     * @return void
-     */
-    public function updateQuoteUuid(): void;
-
-    /**
-     * Specification:
-     * - Finds customer quote by uuid.
-     * - Uuid and customerReference must be set in the QuoteTransfer taken as parameter.
-     *
-     * @api
-     *
      * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
      *
      * @return \Generated\Shared\Transfer\QuoteResponseTransfer
