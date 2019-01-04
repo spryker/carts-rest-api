@@ -5,32 +5,17 @@
  * Use of this software requires acceptance of the Evaluation License Agreement. See LICENSE file.
  */
 
-namespace Spryker\Zed\CartsRestApi\Business;
+namespace Spryker\Client\CartsRestApi;
 
 use Generated\Shared\Transfer\QuoteResponseTransfer;
 use Generated\Shared\Transfer\QuoteTransfer;
-use Spryker\Zed\Kernel\Business\AbstractFacade;
+use Spryker\Client\Kernel\AbstractClient;
 
 /**
- * @api
- *
- * @method \Spryker\Zed\CartsRestApi\Business\CartsRestApiBusinessFactory getFactory()
- * @method \Spryker\Zed\CartsRestApi\Persistence\CartsRestApiEntityManagerInterface getEntityManager()
+ * @method \Spryker\Client\CartsRestApi\CartsRestApiFactory getFactory()
  */
-class CartsRestApiFacade extends AbstractFacade implements CartsRestApiFacadeInterface
+class CartsRestApiClient extends AbstractClient implements CartsRestApiClientInterface
 {
-    /**
-     * {@inheritdoc}
-     *
-     * @api
-     *
-     * @return void
-     */
-    public function updateQuoteUuid(): void
-    {
-        $this->getFactory()->createQuoteUuidWriter()->updateQuotesUuid();
-    }
-
     /**
      * {@inheritdoc}
      *
@@ -43,7 +28,7 @@ class CartsRestApiFacade extends AbstractFacade implements CartsRestApiFacadeInt
     public function findQuoteByUuid(QuoteTransfer $quoteTransfer): QuoteResponseTransfer
     {
         return $this->getFactory()
-            ->createQuoteReader()
+            ->createCartsRestApiZedStub()
             ->findQuoteByUuid($quoteTransfer);
     }
 }
