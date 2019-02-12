@@ -5,7 +5,9 @@
  * Use of this software requires acceptance of the Evaluation License Agreement. See LICENSE file.
  */
 
-namespace Spryker\Glue\CartsRestApi\Dependency\Client;
+namespace Spryker\Client\CartsRestApi\Dependency\Client;
+
+use Spryker\Shared\Kernel\Transfer\TransferInterface;
 
 class CartsRestApiToZedRequestClientBridge implements CartsRestApiToZedRequestClientInterface
 {
@@ -23,18 +25,14 @@ class CartsRestApiToZedRequestClientBridge implements CartsRestApiToZedRequestCl
     }
 
     /**
-     * @return \Generated\Shared\Transfer\MessageTransfer[]
+     * @param string $url
+     * @param \Spryker\Shared\Kernel\Transfer\TransferInterface $object
+     * @param array|int|null $requestOptions Deprecated: Do not use "int" anymore, please use an array for requestOptions.
+     *
+     * @return \Spryker\Shared\Kernel\Transfer\TransferInterface
      */
-    public function getLastResponseErrorMessages(): array
+    public function call($url, TransferInterface $object, $requestOptions = null)
     {
-        return $this->zedRequestClient->getLastResponseErrorMessages();
-    }
-
-    /**
-     * @return \Generated\Shared\Transfer\MessageTransfer[]
-     */
-    public function getResponsesErrorMessages(): array
-    {
-        return $this->zedRequestClient->getResponsesErrorMessages();
+        return $this->zedRequestClient->call($url, $object, $requestOptions);
     }
 }
