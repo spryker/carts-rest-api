@@ -5,7 +5,7 @@
  * Use of this software requires acceptance of the Evaluation License Agreement. See LICENSE file.
  */
 
-namespace Spryker\Glue\CartsRestApi\Plugin\CustomerPostCreate;
+namespace Spryker\Glue\CartsRestApi\Plugin\CustomersRestApi;
 
 use Generated\Shared\Transfer\CustomerTransfer;
 use Spryker\Glue\CustomersRestApiExtension\Dependency\Plugin\CustomerPostCreatePluginInterface;

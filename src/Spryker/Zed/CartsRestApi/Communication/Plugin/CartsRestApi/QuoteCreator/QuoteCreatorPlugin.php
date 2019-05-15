@@ -16,7 +16,7 @@ use Spryker\Zed\Kernel\Communication\AbstractPlugin;
  * @method \Spryker\Zed\CartsRestApi\Business\CartsRestApiFacadeInterface getFacade()
  * @method \Spryker\Zed\CartsRestApi\CartsRestApiConfig getConfig()
  */
-class SingleQuoteCreatorPlugin extends AbstractPlugin implements QuoteCreatorPluginInterface
+class QuoteCreatorPlugin extends AbstractPlugin implements QuoteCreatorPluginInterface
 {
     /**
      * {@inheritdoc}
