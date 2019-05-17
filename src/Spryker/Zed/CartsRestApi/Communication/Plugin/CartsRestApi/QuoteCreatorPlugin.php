@@ -5,7 +5,7 @@
  * Use of this software requires acceptance of the Evaluation License Agreement. See LICENSE file.
  */
 
-namespace Spryker\Zed\CartsRestApi\Communication\Plugin\CartsRestApi\QuoteCreator;
+namespace Spryker\Zed\CartsRestApi\Communication\Plugin\CartsRestApi;
 
 use Generated\Shared\Transfer\QuoteResponseTransfer;
 use Generated\Shared\Transfer\QuoteTransfer;
