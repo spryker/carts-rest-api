@@ -5,7 +5,7 @@
  * Use of this software requires acceptance of the Evaluation License Agreement. See LICENSE file.
  */
 
-namespace Spryker\Zed\CartsRestApi\Communication\Plugin\CartsRestApi\QuoteCreator;
+namespace Spryker\Zed\CartsRestApi\Communication\Plugin\CartsRestApi;
 
 use Generated\Shared\Transfer\QuoteResponseTransfer;
 use Generated\Shared\Transfer\QuoteTransfer;
@@ -16,7 +16,7 @@ use Spryker\Zed\Kernel\Communication\AbstractPlugin;
  * @method \Spryker\Zed\CartsRestApi\Business\CartsRestApiFacadeInterface getFacade()
  * @method \Spryker\Zed\CartsRestApi\CartsRestApiConfig getConfig()
  */
-class SingleQuoteCreatorPlugin extends AbstractPlugin implements QuoteCreatorPluginInterface
+class QuoteCreatorPlugin extends AbstractPlugin implements QuoteCreatorPluginInterface
 {
     /**
      * {@inheritdoc}

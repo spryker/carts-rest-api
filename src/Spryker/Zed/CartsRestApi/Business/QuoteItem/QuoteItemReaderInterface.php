@@ -10,12 +10,12 @@ namespace Spryker\Zed\CartsRestApi\Business\QuoteItem;
 use Generated\Shared\Transfer\QuoteResponseTransfer;
 use Generated\Shared\Transfer\RestCartItemsAttributesTransfer;
 
-interface QuoteItemAdderInterface
+interface QuoteItemReaderInterface
 {
-    /**
-     * @param \Generated\Shared\Transfer\RestCartItemsAttributesTransfer $restCartItemsAttributesTransfer
-     *
-     * @return \Generated\Shared\Transfer\QuoteResponseTransfer
-     */
-    public function add(RestCartItemsAttributesTransfer $restCartItemsAttributesTransfer): QuoteResponseTransfer;
+  /**
+   * @param \Generated\Shared\Transfer\RestCartItemsAttributesTransfer $restCartItemsAttributesTransfer
+   *
+   * @return \Generated\Shared\Transfer\QuoteResponseTransfer
+   */
+    public function readQuoteItem(RestCartItemsAttributesTransfer $restCartItemsAttributesTransfer): QuoteResponseTransfer;
 }
