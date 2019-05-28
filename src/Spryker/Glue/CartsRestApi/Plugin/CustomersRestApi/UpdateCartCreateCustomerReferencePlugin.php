@@ -5,16 +5,17 @@
  * Use of this software requires acceptance of the Evaluation License Agreement. See LICENSE file.
  */
 
-namespace Spryker\Glue\CartsRestApi\Plugin\CustomerPostRegister;
+namespace Spryker\Glue\CartsRestApi\Plugin\CustomersRestApi;
 
 use Generated\Shared\Transfer\CustomerTransfer;
-use Spryker\Glue\CustomersRestApiExtension\Dependency\Plugin\CustomerPostRegisterPluginInterface;
+use Spryker\Glue\CustomersRestApiExtension\Dependency\Plugin\CustomerPostCreatePluginInterface;
+use Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface;
 use Spryker\Glue\Kernel\AbstractPlugin;
 
 /**
  * @method \Spryker\Glue\CartsRestApi\CartsRestApiFactory getFactory()
  */
-class UpdateCartCustomerReferencePlugin extends AbstractPlugin implements CustomerPostRegisterPluginInterface
+class UpdateCartCreateCustomerReferencePlugin extends AbstractPlugin implements CustomerPostCreatePluginInterface
 {
     /**
      * {@inheritdoc}
@@ -22,14 +23,15 @@ class UpdateCartCustomerReferencePlugin extends AbstractPlugin implements Custom
      *
      * @api
      *
+     * @param \Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface $restRequest
      * @param \Generated\Shared\Transfer\CustomerTransfer $customerTransfer
      *
      * @return \Generated\Shared\Transfer\CustomerTransfer
      */
-    public function postRegister(CustomerTransfer $customerTransfer): CustomerTransfer
+    public function postCreate(RestRequestInterface $restRequest, CustomerTransfer $customerTransfer): CustomerTransfer
     {
         return $this->getFactory()
             ->createGuestCartUpdater()
-            ->updateGuestCartCustomerReferenceOnRegistration($customerTransfer);
+            ->updateGuestCartCustomerReferenceOnCreate($restRequest, $customerTransfer);
     }
 }
