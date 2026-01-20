@@ -40,21 +40,29 @@ class QuoteMerger implements QuoteMergerInterface
     protected $cartRestApiConfig;
 
     /**
+     * @var array<int, \Spryker\Zed\CartsRestApiExtension\Dependency\Plugin\QuoteMergePersistentCartChangeExpanderPluginInterface>
+     */
+    protected array $quoteMergePersistentCartChangeExpanderPlugins;
+
+    /**
      * @param \Spryker\Zed\CartsRestApi\Business\Quote\QuoteReaderInterface $quoteReader
      * @param \Spryker\Zed\CartsRestApi\Dependency\Facade\CartsRestApiToPersistentCartFacadeInterface $persistentCartFacade
      * @param \Spryker\Zed\CartsRestApi\Dependency\Facade\CartsRestApiToQuoteFacadeInterface $quoteFacade
      * @param \Spryker\Zed\CartsRestApi\CartsRestApiConfig $cartRestApiConfig
+     * @param array<int, \Spryker\Zed\CartsRestApiExtension\Dependency\Plugin\QuoteMergePersistentCartChangeExpanderPluginInterface> $quoteMergePersistentCartChangeExpanderPlugins
      */
     public function __construct(
         QuoteReaderInterface $quoteReader,
         CartsRestApiToPersistentCartFacadeInterface $persistentCartFacade,
         CartsRestApiToQuoteFacadeInterface $quoteFacade,
-        CartsRestApiConfig $cartRestApiConfig
+        CartsRestApiConfig $cartRestApiConfig,
+        array $quoteMergePersistentCartChangeExpanderPlugins
     ) {
         $this->quoteReader = $quoteReader;
         $this->persistentCartFacade = $persistentCartFacade;
         $this->quoteFacade = $quoteFacade;
         $this->cartRestApiConfig = $cartRestApiConfig;
+        $this->quoteMergePersistentCartChangeExpanderPlugins = $quoteMergePersistentCartChangeExpanderPlugins;
     }
 
     /**
@@ -136,6 +144,8 @@ class QuoteMerger implements QuoteMergerInterface
             ->setIdQuote($customerQuoteTransfer->getIdQuote())
             ->setItems($guestQuoteTransfer->getItems());
 
+        $persistentCartChangeTransfer = $this->expandPersistentCartChangeTransfer($persistentCartChangeTransfer, $guestQuoteTransfer);
+
         $this->persistentCartFacade->add($persistentCartChangeTransfer);
     }
 
@@ -150,5 +160,22 @@ class QuoteMerger implements QuoteMergerInterface
             ->setCustomer((new CustomerTransfer())->setCustomerReference($customerReference));
 
         return $this->persistentCartFacade->createQuote($quoteTransfer);
+    }
+
+    /**
+     * @param \Generated\Shared\Transfer\PersistentCartChangeTransfer $persistentCartChangeTransfer
+     * @param \Generated\Shared\Transfer\QuoteTransfer $guestQuoteTransfer
+     *
+     * @return \Generated\Shared\Transfer\PersistentCartChangeTransfer
+     */
+    protected function expandPersistentCartChangeTransfer(
+        PersistentCartChangeTransfer $persistentCartChangeTransfer,
+        QuoteTransfer $guestQuoteTransfer
+    ): PersistentCartChangeTransfer {
+        foreach ($this->quoteMergePersistentCartChangeExpanderPlugins as $quoteMergePersistentCartChangeExpanderPlugin) {
+            $persistentCartChangeTransfer = $quoteMergePersistentCartChangeExpanderPlugin->expand($persistentCartChangeTransfer, $guestQuoteTransfer);
+        }
+
+        return $persistentCartChangeTransfer;
     }
 }

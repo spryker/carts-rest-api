@@ -73,6 +73,11 @@ class CartsRestApiDependencyProvider extends AbstractBundleDependencyProvider
     public const PLUGINS_QUOTE_ITEM_READ_VALIDATOR = 'PLUGINS_QUOTE_ITEM_READ_VALIDATOR';
 
     /**
+     * @var string
+     */
+    public const PLUGINS_QUOTE_MERGE_PERSISTENT_CART_EXPANDER = 'PLUGINS_QUOTE_MERGE_PERSISTENT_CART_EXPANDER';
+
+    /**
      * @param \Spryker\Zed\Kernel\Container $container
      *
      * @return \Spryker\Zed\Kernel\Container
@@ -89,6 +94,7 @@ class CartsRestApiDependencyProvider extends AbstractBundleDependencyProvider
         $container = $this->addQuoteExpanderPlugins($container);
         $container = $this->addCartItemMapperPlugins($container);
         $container = $this->addQuoteItemReadValidatorPlugins($container);
+        $container = $this->addQuoteMergePersistentCartChangeExpanderPlugins($container);
 
         return $container;
     }
@@ -282,6 +288,28 @@ class CartsRestApiDependencyProvider extends AbstractBundleDependencyProvider
      * @return array<\Spryker\Zed\CartsRestApiExtension\Dependency\Plugin\QuoteItemReadValidatorPluginInterface>
      */
     protected function getQuoteItemReadValidatorPlugins(): array
+    {
+        return [];
+    }
+
+    /**
+     * @param \Spryker\Zed\Kernel\Container $container
+     *
+     * @return \Spryker\Zed\Kernel\Container
+     */
+    protected function addQuoteMergePersistentCartChangeExpanderPlugins(Container $container): Container
+    {
+        $container->set(static::PLUGINS_QUOTE_MERGE_PERSISTENT_CART_EXPANDER, function () {
+            return $this->getQuoteMergePersistentCartChangeExpanderPlugins();
+        });
+
+        return $container;
+    }
+
+    /**
+     * @return array<int, \Spryker\Zed\CartsRestApiExtension\Dependency\Plugin\QuoteMergePersistentCartChangeExpanderPluginInterface>
+     */
+    protected function getQuoteMergePersistentCartChangeExpanderPlugins(): array
     {
         return [];
     }

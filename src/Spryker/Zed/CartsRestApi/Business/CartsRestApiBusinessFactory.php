@@ -140,6 +140,7 @@ class CartsRestApiBusinessFactory extends AbstractBusinessFactory
             $this->getPersistentCartFacade(),
             $this->getQuoteFacade(),
             $this->getConfig(),
+            $this->getQuoteMergePersistentCartChangeExpanderPlugins(),
         );
     }
 
@@ -322,5 +323,13 @@ class CartsRestApiBusinessFactory extends AbstractBusinessFactory
     public function getQuoteItemReadValidatorPlugins(): array
     {
         return $this->getProvidedDependency(CartsRestApiDependencyProvider::PLUGINS_QUOTE_ITEM_READ_VALIDATOR);
+    }
+
+    /**
+     * @return array<int, \Spryker\Zed\CartsRestApiExtension\Dependency\Plugin\QuoteMergePersistentCartChangeExpanderPluginInterface>
+     */
+    public function getQuoteMergePersistentCartChangeExpanderPlugins(): array
+    {
+        return $this->getProvidedDependency(CartsRestApiDependencyProvider::PLUGINS_QUOTE_MERGE_PERSISTENT_CART_EXPANDER);
     }
 }
