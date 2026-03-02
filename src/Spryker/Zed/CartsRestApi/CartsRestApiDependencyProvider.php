@@ -77,11 +77,6 @@ class CartsRestApiDependencyProvider extends AbstractBundleDependencyProvider
      */
     public const PLUGINS_QUOTE_MERGE_PERSISTENT_CART_EXPANDER = 'PLUGINS_QUOTE_MERGE_PERSISTENT_CART_EXPANDER';
 
-    /**
-     * @param \Spryker\Zed\Kernel\Container $container
-     *
-     * @return \Spryker\Zed\Kernel\Container
-     */
     public function provideBusinessLayerDependencies(Container $container): Container
     {
         $container = parent::provideBusinessLayerDependencies($container);
@@ -99,11 +94,6 @@ class CartsRestApiDependencyProvider extends AbstractBundleDependencyProvider
         return $container;
     }
 
-    /**
-     * @param \Spryker\Zed\Kernel\Container $container
-     *
-     * @return \Spryker\Zed\Kernel\Container
-     */
     public function providePersistenceLayerDependencies(Container $container): Container
     {
         $container = parent::providePersistenceLayerDependencies($container);
@@ -112,11 +102,6 @@ class CartsRestApiDependencyProvider extends AbstractBundleDependencyProvider
         return $container;
     }
 
-    /**
-     * @param \Spryker\Zed\Kernel\Container $container
-     *
-     * @return \Spryker\Zed\Kernel\Container
-     */
     protected function addQuotePropelQuery(Container $container): Container
     {
         $container->set(static::PROPEL_QUERY_QUOTE, $container->factory(function () {
@@ -126,11 +111,6 @@ class CartsRestApiDependencyProvider extends AbstractBundleDependencyProvider
         return $container;
     }
 
-    /**
-     * @param \Spryker\Zed\Kernel\Container $container
-     *
-     * @return \Spryker\Zed\Kernel\Container
-     */
     protected function addQuoteFacade(Container $container): Container
     {
         $container->set(static::FACADE_QUOTE, function (Container $container) {
@@ -140,11 +120,6 @@ class CartsRestApiDependencyProvider extends AbstractBundleDependencyProvider
         return $container;
     }
 
-    /**
-     * @param \Spryker\Zed\Kernel\Container $container
-     *
-     * @return \Spryker\Zed\Kernel\Container
-     */
     protected function addPersistentCartFacade(Container $container): Container
     {
         $container->set(static::FACADE_PERSISTENT_CART, function (Container $container) {
@@ -154,11 +129,6 @@ class CartsRestApiDependencyProvider extends AbstractBundleDependencyProvider
         return $container;
     }
 
-    /**
-     * @param \Spryker\Zed\Kernel\Container $container
-     *
-     * @return \Spryker\Zed\Kernel\Container
-     */
     protected function addCartFacade(Container $container): Container
     {
         $container->set(static::FACADE_CART, function (Container $container) {
@@ -168,11 +138,6 @@ class CartsRestApiDependencyProvider extends AbstractBundleDependencyProvider
         return $container;
     }
 
-    /**
-     * @param \Spryker\Zed\Kernel\Container $container
-     *
-     * @return \Spryker\Zed\Kernel\Container
-     */
     protected function addStoreFacade(Container $container): Container
     {
         $container->set(static::FACADE_STORE, function (Container $container) {
@@ -182,11 +147,6 @@ class CartsRestApiDependencyProvider extends AbstractBundleDependencyProvider
         return $container;
     }
 
-    /**
-     * @param \Spryker\Zed\Kernel\Container $container
-     *
-     * @return \Spryker\Zed\Kernel\Container
-     */
     protected function addQuoteCreatorPlugin(Container $container): Container
     {
         $container->set(static::PLUGIN_QUOTE_CREATOR, function () {
@@ -196,19 +156,11 @@ class CartsRestApiDependencyProvider extends AbstractBundleDependencyProvider
         return $container;
     }
 
-    /**
-     * @return \Spryker\Zed\CartsRestApiExtension\Dependency\Plugin\QuoteCreatorPluginInterface
-     */
     protected function getQuoteCreatorPlugin(): QuoteCreatorPluginInterface
     {
         return new QuoteCreatorPlugin();
     }
 
-    /**
-     * @param \Spryker\Zed\Kernel\Container $container
-     *
-     * @return \Spryker\Zed\Kernel\Container
-     */
     protected function addQuoteCollectionExpanderPlugins(Container $container): Container
     {
         $container->set(static::PLUGINS_QUOTE_COLLECTION_EXPANDER, function () {
@@ -226,11 +178,6 @@ class CartsRestApiDependencyProvider extends AbstractBundleDependencyProvider
         return [];
     }
 
-    /**
-     * @param \Spryker\Zed\Kernel\Container $container
-     *
-     * @return \Spryker\Zed\Kernel\Container
-     */
     protected function addQuoteExpanderPlugins(Container $container): Container
     {
         $container->set(static::PLUGINS_QUOTE_EXPANDER, function () {
@@ -248,11 +195,6 @@ class CartsRestApiDependencyProvider extends AbstractBundleDependencyProvider
         return [];
     }
 
-    /**
-     * @param \Spryker\Zed\Kernel\Container $container
-     *
-     * @return \Spryker\Zed\Kernel\Container
-     */
     protected function addCartItemMapperPlugins(Container $container): Container
     {
         $container->set(static::PLUGINS_CART_ITEM_MAPPER, function () {
@@ -270,11 +212,6 @@ class CartsRestApiDependencyProvider extends AbstractBundleDependencyProvider
         return [];
     }
 
-    /**
-     * @param \Spryker\Zed\Kernel\Container $container
-     *
-     * @return \Spryker\Zed\Kernel\Container
-     */
     protected function addQuoteItemReadValidatorPlugins(Container $container): Container
     {
         $container->set(static::PLUGINS_QUOTE_ITEM_READ_VALIDATOR, function () {
@@ -292,11 +229,6 @@ class CartsRestApiDependencyProvider extends AbstractBundleDependencyProvider
         return [];
     }
 
-    /**
-     * @param \Spryker\Zed\Kernel\Container $container
-     *
-     * @return \Spryker\Zed\Kernel\Container
-     */
     protected function addQuoteMergePersistentCartChangeExpanderPlugins(Container $container): Container
     {
         $container->set(static::PLUGINS_QUOTE_MERGE_PERSISTENT_CART_EXPANDER, function () {

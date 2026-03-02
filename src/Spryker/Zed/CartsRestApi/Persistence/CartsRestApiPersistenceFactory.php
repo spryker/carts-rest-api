@@ -17,9 +17,6 @@ use Spryker\Zed\Kernel\Persistence\AbstractPersistenceFactory;
  */
 class CartsRestApiPersistenceFactory extends AbstractPersistenceFactory
 {
-    /**
-     * @return \Orm\Zed\Quote\Persistence\SpyQuoteQuery
-     */
     public function getQuoteQuery(): SpyQuoteQuery
     {
         return $this->getProvidedDependency(CartsRestApiDependencyProvider::PROPEL_QUERY_QUOTE);

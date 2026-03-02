@@ -48,9 +48,6 @@ class CartsRestApiFacadeTest extends Unit
      */
     protected $cartsRestApiFacade;
 
-    /**
-     * @return void
-     */
     public function setUp(): void
     {
         parent::setUp();
@@ -59,9 +56,6 @@ class CartsRestApiFacadeTest extends Unit
         $this->cartsRestApiFacade->setFactory($this->getMockCartsRestApiBusinessFactory());
     }
 
-    /**
-     * @return void
-     */
     public function testCartsFacadeWillFindQuoteByUuid(): void
     {
         $quoteTransfer = $this->tester->prepareQuoteTransfer();
@@ -74,9 +68,6 @@ class CartsRestApiFacadeTest extends Unit
         $this->assertEquals($quoteTransfer->getUuid(), $actualQuoteResponseTransfer->getQuoteTransfer()->getUuid());
     }
 
-    /**
-     * @return void
-     */
     public function testCartsFacadeWillNotFindQuoteByUuidWithoutCartUuid(): void
     {
         $quoteTransfer = $this->tester->prepareQuoteTransferWithoutCartUuid();
@@ -85,9 +76,6 @@ class CartsRestApiFacadeTest extends Unit
         $this->cartsRestApiFacade->findQuoteByUuid($quoteTransfer);
     }
 
-    /**
-     * @return void
-     */
     public function testCartsFacadeWillNotFindQuoteByUuidWithoutCustomerReference(): void
     {
         $quoteTransfer = $this->tester->prepareQuoteTransferWithoutCustomerReference();
@@ -96,9 +84,6 @@ class CartsRestApiFacadeTest extends Unit
         $this->cartsRestApiFacade->findQuoteByUuid($quoteTransfer);
     }
 
-    /**
-     * @return void
-     */
     public function testGetQuoteCollectionWillReturnCollectionOfQuotes(): void
     {
         $quoteCriteriaFilterTransfer = $this->tester->prepareQuoteCriteriaFilterTransfer();
@@ -107,9 +92,6 @@ class CartsRestApiFacadeTest extends Unit
         $this->assertNotEmpty($quoteCollectionTransfer->getQuotes());
     }
 
-    /**
-     * @return void
-     */
     public function testCreateQuoteWillCreateQuote(): void
     {
         $quoteTransfer = $this->tester->prepareQuoteTransfer();
@@ -119,9 +101,6 @@ class CartsRestApiFacadeTest extends Unit
         $this->assertTrue($quoteResponseTransfer->getIsSuccessful());
     }
 
-    /**
-     * @return void
-     */
     public function testCreateQuoteWillNotCreateQuoteWithoutCustomer(): void
     {
         $quoteTransfer = $this->tester->prepareQuoteTransferWithoutCustomer();
@@ -129,9 +108,6 @@ class CartsRestApiFacadeTest extends Unit
         $this->cartsRestApiFacade->createQuote($quoteTransfer);
     }
 
-    /**
-     * @return void
-     */
     public function testCreateSingleQuoteWillNotAllowCreateMoreThanOneQuote(): void
     {
         $quoteTransfer = $this->tester->prepareQuoteTransfer();
@@ -142,9 +118,6 @@ class CartsRestApiFacadeTest extends Unit
         $this->assertFalse($quoteResponseTransfer->getIsSuccessful());
     }
 
-    /**
-     * @return void
-     */
     public function testUpdateQuoteWillUpdateQuote(): void
     {
         $quoteTransfer = $this->tester->prepareQuoteTransfer();
@@ -154,9 +127,6 @@ class CartsRestApiFacadeTest extends Unit
         $this->assertTrue($quoteResponseTransfer->getIsSuccessful());
     }
 
-    /**
-     * @return void
-     */
     public function testUpdateQuoteWillNotAllowUpdateQuoteWithoutUuid(): void
     {
         $quoteTransfer = $this->tester->prepareQuoteTransferWithoutCartUuid();
@@ -164,9 +134,6 @@ class CartsRestApiFacadeTest extends Unit
         $this->cartsRestApiFacade->updateQuote($quoteTransfer);
     }
 
-    /**
-     * @return void
-     */
     public function testUpdateQuoteWillNotAllowUpdateQuoteWithoutCustomer(): void
     {
         $quoteTransfer = $this->tester->prepareQuoteTransferWithoutCustomer();
@@ -174,9 +141,6 @@ class CartsRestApiFacadeTest extends Unit
         $this->cartsRestApiFacade->updateQuote($quoteTransfer);
     }
 
-    /**
-     * @return void
-     */
     public function testDeleteQuoteWillDeleteQuote(): void
     {
         $quoteTransfer = $this->tester->prepareQuoteTransfer();
@@ -186,9 +150,6 @@ class CartsRestApiFacadeTest extends Unit
         $this->assertTrue($quoteResponseTransfer->getIsSuccessful());
     }
 
-    /**
-     * @return void
-     */
     public function testDeleteQuoteWillNotAllowDeleteQuoteWithoutCustomer(): void
     {
         $quoteTransfer = $this->tester->prepareQuoteTransferWithoutCustomer();
@@ -196,9 +157,6 @@ class CartsRestApiFacadeTest extends Unit
         $this->cartsRestApiFacade->deleteQuote($quoteTransfer);
     }
 
-    /**
-     * @return void
-     */
     public function testDeleteQuoteWillNotAllowDeleteQuoteWithoutUuid(): void
     {
         $quoteTransfer = $this->tester->prepareQuoteTransferWithoutCartUuid();
@@ -206,9 +164,6 @@ class CartsRestApiFacadeTest extends Unit
         $this->cartsRestApiFacade->deleteQuote($quoteTransfer);
     }
 
-    /**
-     * @return void
-     */
     public function testAddItemWillAddItem(): void
     {
         $restCartItemsAttributesTransfer = $this->tester->prepareRestCartItemsAttributesTransferWithQuantity();
@@ -219,9 +174,6 @@ class CartsRestApiFacadeTest extends Unit
         $this->assertTrue($quoteResponseTransfer->getIsSuccessful());
     }
 
-    /**
-     * @return void
-     */
     public function testAddItemWillNotAllowAddItemWithoutCustomerReference(): void
     {
         $restCartItemsAttributesTransfer = $this->tester->prepareRestCartItemsAttributesTransferWithoutCustomerReference();
@@ -229,9 +181,6 @@ class CartsRestApiFacadeTest extends Unit
         $this->cartsRestApiFacade->addItem($restCartItemsAttributesTransfer);
     }
 
-    /**
-     * @return void
-     */
     public function testAddItemWillNotAllowAddItemWithoutSku(): void
     {
         $restCartItemsAttributesTransfer = $this->tester->prepareRestCartItemsAttributesTransferWithoutSku();
@@ -239,9 +188,6 @@ class CartsRestApiFacadeTest extends Unit
         $this->cartsRestApiFacade->addItem($restCartItemsAttributesTransfer);
     }
 
-    /**
-     * @return void
-     */
     public function testAddItemWillNotAllowAddItemWithoutUuid(): void
     {
         $restCartItemsAttributesTransfer = $this->tester->prepareRestCartItemsAttributesTransferWithoutUuid();
@@ -249,9 +195,6 @@ class CartsRestApiFacadeTest extends Unit
         $this->cartsRestApiFacade->addItem($restCartItemsAttributesTransfer);
     }
 
-    /**
-     * @return void
-     */
     public function testAddItemWillNotAllowAddItemWithoutQuantity(): void
     {
         $restCartItemsAttributesTransfer = $this->tester->prepareRestCartItemsAttributesTransferWithoutQuantity();
@@ -259,9 +202,6 @@ class CartsRestApiFacadeTest extends Unit
         $this->cartsRestApiFacade->addItem($restCartItemsAttributesTransfer);
     }
 
-    /**
-     * @return void
-     */
     public function testUpdateItemWillUpdateItem(): void
     {
         $restCartItemsAttributesTransfer = $this->tester->prepareRestCartItemsAttributesTransferWithQuantity();
@@ -272,9 +212,6 @@ class CartsRestApiFacadeTest extends Unit
         $this->assertTrue($quoteResponseTransfer->getIsSuccessful());
     }
 
-    /**
-     * @return void
-     */
     public function testUpdateItemWillUpdateSecondItem(): void
     {
         $restCartItemsAttributesTransfer = $this->tester->prepareRestCartItemsAttributesTransferForSecondItem();
@@ -285,9 +222,6 @@ class CartsRestApiFacadeTest extends Unit
         $this->assertTrue($quoteResponseTransfer->getIsSuccessful());
     }
 
-    /**
-     * @return void
-     */
     public function testUpdateItemWillNotAllowUpdateItemWithoutCustomerReference(): void
     {
         $restCartItemsAttributesTransfer = $this->tester->prepareRestCartItemsAttributesTransferWithoutCustomerReference();
@@ -295,9 +229,6 @@ class CartsRestApiFacadeTest extends Unit
         $this->cartsRestApiFacade->updateItem($restCartItemsAttributesTransfer);
     }
 
-    /**
-     * @return void
-     */
     public function testUpdateItemWillNotAllowUpdateItemWithoutSku(): void
     {
         $restCartItemsAttributesTransfer = $this->tester->prepareRestCartItemsAttributesTransferWithoutSku();
@@ -305,9 +236,6 @@ class CartsRestApiFacadeTest extends Unit
         $this->cartsRestApiFacade->updateItem($restCartItemsAttributesTransfer);
     }
 
-    /**
-     * @return void
-     */
     public function testUpdateItemWillNotAllowUpdateItemWithoutUuid(): void
     {
         $restCartItemsAttributesTransfer = $this->tester->prepareRestCartItemsAttributesTransferWithoutUuid();
@@ -315,9 +243,6 @@ class CartsRestApiFacadeTest extends Unit
         $this->cartsRestApiFacade->updateItem($restCartItemsAttributesTransfer);
     }
 
-    /**
-     * @return void
-     */
     public function testUpdateItemWillNotAllowUpdateItemWithoutQuantity(): void
     {
         $restCartItemsAttributesTransfer = $this->tester->prepareRestCartItemsAttributesTransferWithoutQuantity();
@@ -325,9 +250,6 @@ class CartsRestApiFacadeTest extends Unit
         $this->cartsRestApiFacade->updateItem($restCartItemsAttributesTransfer);
     }
 
-    /**
-     * @return void
-     */
     public function testDeleteItemWillDeleteItem(): void
     {
         $restCartItemsAttributesTransfer = $this->tester->prepareRestCartItemsAttributesTransferWithQuantity();
@@ -338,9 +260,6 @@ class CartsRestApiFacadeTest extends Unit
         $this->assertTrue($quoteResponseTransfer->getIsSuccessful());
     }
 
-    /**
-     * @return void
-     */
     public function testDeleteItemWillDeleteSecondItem(): void
     {
         $restCartItemsAttributesTransfer = $this->tester->prepareRestCartItemsAttributesTransferForSecondItem();
@@ -351,9 +270,6 @@ class CartsRestApiFacadeTest extends Unit
         $this->assertTrue($quoteResponseTransfer->getIsSuccessful());
     }
 
-    /**
-     * @return void
-     */
     public function testDeleteItemWillNotAllowDeleteItemWithoutCustomerReference(): void
     {
         $restCartItemsAttributesTransfer = $this->tester->prepareRestCartItemsAttributesTransferWithoutCustomerReference();
@@ -361,9 +277,6 @@ class CartsRestApiFacadeTest extends Unit
         $this->cartsRestApiFacade->deleteItem($restCartItemsAttributesTransfer);
     }
 
-    /**
-     * @return void
-     */
     public function testDeleteItemWillNotAllowDeleteItemWithoutSku(): void
     {
         $restCartItemsAttributesTransfer = $this->tester->prepareRestCartItemsAttributesTransferWithoutSku();
@@ -371,9 +284,6 @@ class CartsRestApiFacadeTest extends Unit
         $this->cartsRestApiFacade->deleteItem($restCartItemsAttributesTransfer);
     }
 
-    /**
-     * @return void
-     */
     public function testDeleteItemWillNotAllowDeleteItemWithoutUuid(): void
     {
         $restCartItemsAttributesTransfer = $this->tester->prepareRestCartItemsAttributesTransferWithoutUuid();
@@ -381,9 +291,6 @@ class CartsRestApiFacadeTest extends Unit
         $this->cartsRestApiFacade->deleteItem($restCartItemsAttributesTransfer);
     }
 
-    /**
-     * @return void
-     */
     public function testAddItemToGuestCartWillAddItemToGuest(): void
     {
         $restCartItemsAttributesTransfer = $this->tester->prepareRestCartItemsAttributesTransferWithQuantity();
@@ -394,9 +301,6 @@ class CartsRestApiFacadeTest extends Unit
         $this->assertTrue($quoteResponseTransfer->getIsSuccessful());
     }
 
-    /**
-     * @return void
-     */
     public function testAddItemToGuestCartWillNotAllowAddItemToGuestCartWithoutSku(): void
     {
         $restCartItemsAttributesTransfer = $this->tester->prepareRestCartItemsAttributesTransferWithoutSku();
@@ -404,9 +308,6 @@ class CartsRestApiFacadeTest extends Unit
         $this->cartsRestApiFacade->addItemToGuestCart($restCartItemsAttributesTransfer);
     }
 
-    /**
-     * @return void
-     */
     public function testAddItemToGuestCartWillNotAllowAddItemToGuestCartWithoutCustomerReference(): void
     {
         $restCartItemsAttributesTransfer = $this->tester->prepareRestCartItemsAttributesTransferWithoutCustomerReference();
@@ -414,9 +315,6 @@ class CartsRestApiFacadeTest extends Unit
         $this->cartsRestApiFacade->addItemToGuestCart($restCartItemsAttributesTransfer);
     }
 
-    /**
-     * @return void
-     */
     public function testAssignGuestCartToRegisteredCustomerWillAssignGuestCartToRegisteredCustomer(): void
     {
         $assignGuestQuoteRequestTransfer = $this->tester->prepareAssignGuestQuoteRequestTransfer();
@@ -427,9 +325,6 @@ class CartsRestApiFacadeTest extends Unit
         $this->assertTrue($quoteResponseTransfer->getIsSuccessful());
     }
 
-    /**
-     * @return void
-     */
     public function testAssignGuestCartToRegisteredCustomerWillNotAllowAssignWithoutCustomerReference(): void
     {
         $assignGuestQuoteRequestTransfer = $this->tester->prepareAssignGuestQuoteRequestTransferWithoutCustomerReference();
@@ -437,9 +332,6 @@ class CartsRestApiFacadeTest extends Unit
         $this->cartsRestApiFacade->assignGuestCartToRegisteredCustomer($assignGuestQuoteRequestTransfer);
     }
 
-    /**
-     * @return void
-     */
     public function testAssignGuestCartToRegisteredCustomerWillNotAllowAssignWithoutAnonymousCustomerReference(): void
     {
         $assignGuestQuoteRequestTransfer = $this->tester->prepareAssignGuestQuoteRequestTransferWithoutAnonymousCustomerReference();
@@ -447,9 +339,6 @@ class CartsRestApiFacadeTest extends Unit
         $this->cartsRestApiFacade->assignGuestCartToRegisteredCustomer($assignGuestQuoteRequestTransfer);
     }
 
-    /**
-     * @return void
-     */
     public function testUpdateItemQuantityWillUpdateItemQuantity(): void
     {
         $cartItemRequestTransfer = $this->tester->prepareCartItemRequestTransferWithQuantity();
@@ -459,9 +348,6 @@ class CartsRestApiFacadeTest extends Unit
         $this->assertTrue($quoteResponseTransfer->getIsSuccessful());
     }
 
-    /**
-     * @return void
-     */
     public function testUpdateItemQuantityWillNotAllowUpdateItemQuantityWithoutCustomer(): void
     {
         $cartItemRequestTransfer = $this->tester->prepareCartItemRequestTransferWithoutCustomer();
@@ -469,9 +355,6 @@ class CartsRestApiFacadeTest extends Unit
         $this->cartsRestApiFacade->updateItemQuantity($cartItemRequestTransfer);
     }
 
-    /**
-     * @return void
-     */
     public function testUpdateItemQuantityWillNotAllowUpdateItemQuantityWithoutQuantity(): void
     {
         $cartItemRequestTransfer = $this->tester->prepareCartItemRequestTransferWithoutQuantity();
@@ -479,9 +362,6 @@ class CartsRestApiFacadeTest extends Unit
         $this->cartsRestApiFacade->updateItemQuantity($cartItemRequestTransfer);
     }
 
-    /**
-     * @return void
-     */
     public function testAddToCartWillAddItemToCart(): void
     {
         $cartItemRequestTransfer = $this->tester->prepareCartItemRequestTransferWithQuantity();
@@ -491,9 +371,6 @@ class CartsRestApiFacadeTest extends Unit
         $this->assertTrue($quoteResponseTransfer->getIsSuccessful());
     }
 
-    /**
-     * @return void
-     */
     public function testAddToCartWillNotAllowAddItemWithoutCustomer(): void
     {
         $cartItemRequestTransfer = $this->tester->prepareCartItemRequestTransferWithoutCustomer();
@@ -501,9 +378,6 @@ class CartsRestApiFacadeTest extends Unit
         $this->cartsRestApiFacade->addToCart($cartItemRequestTransfer);
     }
 
-    /**
-     * @return void
-     */
     public function testAddToCartWillNotAllowAddItemWithoutSku(): void
     {
         $cartItemRequestTransfer = $this->tester->prepareCartItemRequestTransferWithoutSku();
@@ -511,9 +385,6 @@ class CartsRestApiFacadeTest extends Unit
         $this->cartsRestApiFacade->addToCart($cartItemRequestTransfer);
     }
 
-    /**
-     * @return void
-     */
     public function testAddToCartWillNotAllowAddItemWithoutUuid(): void
     {
         $cartItemRequestTransfer = $this->tester->prepareCartItemRequestTransferWithoutUuid();
@@ -521,9 +392,6 @@ class CartsRestApiFacadeTest extends Unit
         $this->cartsRestApiFacade->addToCart($cartItemRequestTransfer);
     }
 
-    /**
-     * @return void
-     */
     public function testAddToCartWillNotAllowAddItemWithoutQuantity(): void
     {
         $cartItemRequestTransfer = $this->tester->prepareCartItemRequestTransferWithoutQuantity();
@@ -531,9 +399,6 @@ class CartsRestApiFacadeTest extends Unit
         $this->cartsRestApiFacade->addToCart($cartItemRequestTransfer);
     }
 
-    /**
-     * @return void
-     */
     public function testRemoveItemWillRemoveItem(): void
     {
         $cartItemRequestTransfer = $this->tester->prepareCartItemRequestTransferWithQuantity();
@@ -544,9 +409,6 @@ class CartsRestApiFacadeTest extends Unit
         $this->assertTrue($quoteResponseTransfer->getIsSuccessful());
     }
 
-    /**
-     * @return void
-     */
     public function testRemoveItemWillNotAllowRemoveItemWithoutCustomer(): void
     {
         $cartItemRequestTransfer = $this->tester->prepareCartItemRequestTransferWithoutCustomer();
@@ -554,9 +416,6 @@ class CartsRestApiFacadeTest extends Unit
         $this->cartsRestApiFacade->removeItem($cartItemRequestTransfer);
     }
 
-    /**
-     * @return void
-     */
     public function testRemoveItemWillNotAllowRemoveItemWithoutSku(): void
     {
         $cartItemRequestTransfer = $this->tester->prepareCartItemRequestTransferWithoutSku();
@@ -564,9 +423,6 @@ class CartsRestApiFacadeTest extends Unit
         $this->cartsRestApiFacade->removeItem($cartItemRequestTransfer);
     }
 
-    /**
-     * @return void
-     */
     public function testRemoveItemWillNotAllowRemoveItemWithoutUuid(): void
     {
         $cartItemRequestTransfer = $this->tester->prepareCartItemRequestTransferWithoutuuid();
@@ -574,9 +430,6 @@ class CartsRestApiFacadeTest extends Unit
         $this->cartsRestApiFacade->removeItem($cartItemRequestTransfer);
     }
 
-    /**
-     * @return void
-     */
     public function testAddToGuestCartWillAddItemToGuest(): void
     {
         $cartItemRequestTransfer = $this->tester->prepareCartItemRequestTransferWithQuantity();
@@ -587,9 +440,6 @@ class CartsRestApiFacadeTest extends Unit
         $this->assertTrue($quoteResponseTransfer->getIsSuccessful());
     }
 
-    /**
-     * @return void
-     */
     public function testAddToGuestCartWillNotAllowAddItemToGuestCartWithoutSku(): void
     {
         $cartItemRequestTransfer = $this->tester->prepareCartItemRequestTransferWithoutSku();
@@ -597,9 +447,6 @@ class CartsRestApiFacadeTest extends Unit
         $this->cartsRestApiFacade->addToGuestCart($cartItemRequestTransfer);
     }
 
-    /**
-     * @return void
-     */
     public function testAddToGuestCartWillNotAllowAddItemToGuestCartWithoutCustomer(): void
     {
         $cartItemRequestTransfer = $this->tester->prepareCartItemRequestTransferWithoutCustomer();

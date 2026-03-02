@@ -65,11 +65,6 @@ class QuoteMerger implements QuoteMergerInterface
         $this->quoteMergePersistentCartChangeExpanderPlugins = $quoteMergePersistentCartChangeExpanderPlugins;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\OauthResponseTransfer $oauthResponseTransfer
-     *
-     * @return void
-     */
     public function mergeGuestQuoteAndCustomerQuote(OauthResponseTransfer $oauthResponseTransfer): void
     {
         $customerReference = $oauthResponseTransfer->getCustomerReference();
@@ -110,11 +105,6 @@ class QuoteMerger implements QuoteMergerInterface
         $this->quoteFacade->deleteQuote($guestQuoteTransfer);
     }
 
-    /**
-     * @param string $customerReference
-     *
-     * @return \Generated\Shared\Transfer\QuoteTransfer|null
-     */
     protected function findQuoteByCustomerReference(string $customerReference): ?QuoteTransfer
     {
         $quoteCollectionTransfer = $this->quoteReader->getQuoteCollection(
@@ -129,12 +119,6 @@ class QuoteMerger implements QuoteMergerInterface
         return $quoteTransfers[0];
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\QuoteTransfer $guestQuoteTransfer
-     * @param \Generated\Shared\Transfer\QuoteTransfer $customerQuoteTransfer
-     *
-     * @return void
-     */
     protected function addGuestQuoteItemsToCustomerCart(
         QuoteTransfer $guestQuoteTransfer,
         QuoteTransfer $customerQuoteTransfer
@@ -149,11 +133,6 @@ class QuoteMerger implements QuoteMergerInterface
         $this->persistentCartFacade->add($persistentCartChangeTransfer);
     }
 
-    /**
-     * @param string $customerReference
-     *
-     * @return \Generated\Shared\Transfer\QuoteResponseTransfer
-     */
     protected function createMissingQuoteForCustomer(string $customerReference): QuoteResponseTransfer
     {
         $quoteTransfer = (new QuoteTransfer())
@@ -162,12 +141,6 @@ class QuoteMerger implements QuoteMergerInterface
         return $this->persistentCartFacade->createQuote($quoteTransfer);
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\PersistentCartChangeTransfer $persistentCartChangeTransfer
-     * @param \Generated\Shared\Transfer\QuoteTransfer $guestQuoteTransfer
-     *
-     * @return \Generated\Shared\Transfer\PersistentCartChangeTransfer
-     */
     protected function expandPersistentCartChangeTransfer(
         PersistentCartChangeTransfer $persistentCartChangeTransfer,
         QuoteTransfer $guestQuoteTransfer

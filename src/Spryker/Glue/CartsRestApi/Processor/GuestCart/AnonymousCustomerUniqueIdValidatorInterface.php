@@ -13,11 +13,5 @@ use Symfony\Component\HttpFoundation\Request;
 
 interface AnonymousCustomerUniqueIdValidatorInterface
 {
-    /**
-     * @param \Symfony\Component\HttpFoundation\Request $httpRequest
-     * @param \Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface $restRequest
-     *
-     * @return \Generated\Shared\Transfer\RestErrorMessageTransfer|null
-     */
     public function validate(Request $httpRequest, RestRequestInterface $restRequest): ?RestErrorMessageTransfer;
 }

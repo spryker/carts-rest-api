@@ -27,10 +27,6 @@ class ItemResponseBuilder implements ItemResponseBuilderInterface
      */
     protected $cartItemMapper;
 
-    /**
-     * @param \Spryker\Glue\GlueApplication\Rest\JsonApi\RestResourceBuilderInterface $restResourceBuilder
-     * @param \Spryker\Glue\CartsRestApi\Processor\Mapper\CartItemMapperInterface $cartItemMapper
-     */
     public function __construct(
         RestResourceBuilderInterface $restResourceBuilder,
         CartItemMapperInterface $cartItemMapper
@@ -39,13 +35,6 @@ class ItemResponseBuilder implements ItemResponseBuilderInterface
         $this->cartItemMapper = $cartItemMapper;
     }
 
-    /**
-     * @param \Spryker\Glue\GlueApplication\Rest\JsonApi\RestResourceInterface $cartResource
-     * @param \Generated\Shared\Transfer\ItemTransfer $itemTransfer
-     * @param string $localeName
-     *
-     * @return \Spryker\Glue\GlueApplication\Rest\JsonApi\RestResourceInterface
-     */
     public function createCartItemResource(
         RestResourceInterface $cartResource,
         ItemTransfer $itemTransfer,
@@ -64,13 +53,6 @@ class ItemResponseBuilder implements ItemResponseBuilderInterface
         return $this->addSelfLinkToCartItemResource($itemResource, $cartResource, $itemTransfer);
     }
 
-    /**
-     * @param \Spryker\Glue\GlueApplication\Rest\JsonApi\RestResourceInterface $guestCartResource
-     * @param \Generated\Shared\Transfer\ItemTransfer $itemTransfer
-     * @param string $localeName
-     *
-     * @return \Spryker\Glue\GlueApplication\Rest\JsonApi\RestResourceInterface
-     */
     public function createGuestCartItemResource(
         RestResourceInterface $guestCartResource,
         ItemTransfer $itemTransfer,
@@ -89,13 +71,6 @@ class ItemResponseBuilder implements ItemResponseBuilderInterface
         return $this->addSelfLinkToCartGuestItemResource($itemResource, $guestCartResource, $itemTransfer);
     }
 
-    /**
-     * @param \Spryker\Glue\GlueApplication\Rest\JsonApi\RestResourceInterface $itemResource
-     * @param \Spryker\Glue\GlueApplication\Rest\JsonApi\RestResourceInterface $cartResource
-     * @param \Generated\Shared\Transfer\ItemTransfer $itemTransfer
-     *
-     * @return \Spryker\Glue\GlueApplication\Rest\JsonApi\RestResourceInterface
-     */
     protected function addSelfLinkToCartItemResource(
         RestResourceInterface $itemResource,
         RestResourceInterface $cartResource,
@@ -113,13 +88,6 @@ class ItemResponseBuilder implements ItemResponseBuilderInterface
         );
     }
 
-    /**
-     * @param \Spryker\Glue\GlueApplication\Rest\JsonApi\RestResourceInterface $itemResource
-     * @param \Spryker\Glue\GlueApplication\Rest\JsonApi\RestResourceInterface $guestCartResource
-     * @param \Generated\Shared\Transfer\ItemTransfer $itemTransfer
-     *
-     * @return \Spryker\Glue\GlueApplication\Rest\JsonApi\RestResourceInterface
-     */
     protected function addSelfLinkToCartGuestItemResource(
         RestResourceInterface $itemResource,
         RestResourceInterface $guestCartResource,

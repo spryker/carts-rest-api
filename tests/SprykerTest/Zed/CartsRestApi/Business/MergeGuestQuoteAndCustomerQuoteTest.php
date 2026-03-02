@@ -51,9 +51,6 @@ class MergeGuestQuoteAndCustomerQuoteTest extends Unit
      */
     protected $cartsRestApiFacade;
 
-    /**
-     * @return void
-     */
     public function setUp(): void
     {
         parent::setUp();
@@ -64,9 +61,6 @@ class MergeGuestQuoteAndCustomerQuoteTest extends Unit
         $this->tester->addCurrentStore($this->tester->haveStore([StoreTransfer::NAME => 'DE']));
     }
 
-    /**
-     * @return void
-     */
     public function testGuestQuoteAndCustomerQuoteWillBeMerged(): void
     {
         // Arrange
@@ -163,9 +157,6 @@ class MergeGuestQuoteAndCustomerQuoteTest extends Unit
         (new CartsRestApiFacade())->mergeGuestQuoteAndCustomerQuote($oauthResponseTransfer);
     }
 
-    /**
-     * @return void
-     */
     public function testGuestQuoteAndCustomerQuoteWillNotBeMergedWithoutCustomerReference(): void
     {
         // Arrange
@@ -188,9 +179,6 @@ class MergeGuestQuoteAndCustomerQuoteTest extends Unit
         $this->assertTrue($findGuestQuoteResponseTransfer->getIsSuccessful());
     }
 
-    /**
-     * @return void
-     */
     public function testGuestQuoteAndCustomerQuoteWillNotBeMergedWithoutAnonymousCustomerReference(): void
     {
         // Arrange
@@ -213,9 +201,6 @@ class MergeGuestQuoteAndCustomerQuoteTest extends Unit
         $this->assertTrue($findGuestQuoteResponseTransfer->getIsSuccessful());
     }
 
-    /**
-     * @return void
-     */
     public function testEmptyGuestQuoteAndCustomerQuoteWillNotBeMerged(): void
     {
         // Arrange
@@ -236,9 +221,6 @@ class MergeGuestQuoteAndCustomerQuoteTest extends Unit
         $this->assertTrue($findGuestQuoteResponseTransfer->getIsSuccessful());
     }
 
-    /**
-     * @return void
-     */
     public function testCustomerQuoteWillBeCreatedIfNotExistsByEnableMergingWithGuestQuote(): void
     {
         // Arrange
@@ -266,9 +248,6 @@ class MergeGuestQuoteAndCustomerQuoteTest extends Unit
         $this->assertEmpty($guestQuoteCollectionTransfer->getQuotes());
     }
 
-    /**
-     * @return void
-     */
     public function testCustomerQuoteWillNotBeCreatedIfNotExistsByDisableMergingWithGuestQuote(): void
     {
         // Arrange
@@ -292,11 +271,6 @@ class MergeGuestQuoteAndCustomerQuoteTest extends Unit
         $this->assertNotEmpty($guestQuoteCollectionTransfer->getQuotes());
     }
 
-    /**
-     * @param bool $isQuoteCreationWhileQuoteMergingEnabled
-     *
-     * @return \Spryker\Zed\CartsRestApi\Business\CartsRestApiFacadeInterface
-     */
     protected function createCartsRestApiFacadeWithMockedConfig(
         bool $isQuoteCreationWhileQuoteMergingEnabled
     ): CartsRestApiFacadeInterface {

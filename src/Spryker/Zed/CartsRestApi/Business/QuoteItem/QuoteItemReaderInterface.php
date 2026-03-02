@@ -12,10 +12,5 @@ use Generated\Shared\Transfer\QuoteResponseTransfer;
 
 interface QuoteItemReaderInterface
 {
-  /**
-   * @param \Generated\Shared\Transfer\CartItemRequestTransfer $cartItemRequestTransfer
-   *
-   * @return \Generated\Shared\Transfer\QuoteResponseTransfer
-   */
     public function readItem(CartItemRequestTransfer $cartItemRequestTransfer): QuoteResponseTransfer;
 }

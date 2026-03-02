@@ -19,19 +19,11 @@ class RestRequestUpdater implements RestRequestUpdaterInterface
      */
     protected $persistentCartClient;
 
-    /**
-     * @param \Spryker\Glue\CartsRestApi\Dependency\Client\CartsRestApiToPersistentCartClientInterface $persistentCartClient
-     */
     public function __construct(CartsRestApiToPersistentCartClientInterface $persistentCartClient)
     {
         $this->persistentCartClient = $persistentCartClient;
     }
 
-    /**
-     * @param \Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface $restRequest
-     *
-     * @return void
-     */
     public function updateRestRequestWithAnonymousCustomerId(RestRequestInterface $restRequest): void
     {
         if ($restRequest->getRestUser()) {

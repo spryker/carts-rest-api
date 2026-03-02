@@ -41,12 +41,6 @@ class QuoteItemUpdater implements QuoteItemUpdaterInterface
      */
     protected $quoteReloader;
 
-    /**
-     * @param \Spryker\Zed\CartsRestApi\Dependency\Facade\CartsRestApiToPersistentCartFacadeInterface $persistentCartFacade
-     * @param \Spryker\Zed\CartsRestApi\Business\QuoteItem\QuoteItemReaderInterface $quoteItemReader
-     * @param \Spryker\Zed\CartsRestApi\Business\PermissionChecker\QuotePermissionCheckerInterface $quotePermissionChecker
-     * @param \Spryker\Zed\CartsRestApi\Business\Reloader\QuoteReloaderInterface $quoteReloader
-     */
     public function __construct(
         CartsRestApiToPersistentCartFacadeInterface $persistentCartFacade,
         QuoteItemReaderInterface $quoteItemReader,
@@ -79,11 +73,6 @@ class QuoteItemUpdater implements QuoteItemUpdaterInterface
         return $this->updateItemQuantity($cartItemRequestTransfer);
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\CartItemRequestTransfer $cartItemRequestTransfer
-     *
-     * @return \Generated\Shared\Transfer\QuoteResponseTransfer
-     */
     public function updateItemQuantity(CartItemRequestTransfer $cartItemRequestTransfer): QuoteResponseTransfer
     {
         $cartItemRequestTransfer
@@ -126,12 +115,6 @@ class QuoteItemUpdater implements QuoteItemUpdaterInterface
         return $quoteResponseTransfer->setQuoteTransfer($quoteTransfer);
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
-     * @param \Generated\Shared\Transfer\CartItemRequestTransfer $cartItemRequestTransfer
-     *
-     * @return \Generated\Shared\Transfer\PersistentCartChangeQuantityTransfer
-     */
     protected function createPersistentCartChangeQuantityTransfer(
         QuoteTransfer $quoteTransfer,
         CartItemRequestTransfer $cartItemRequestTransfer

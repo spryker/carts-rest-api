@@ -43,12 +43,6 @@ class GuestQuoteItemAdder implements GuestQuoteItemAdderInterface
      */
     protected $storeFacade;
 
-    /**
-     * @param \Spryker\Zed\CartsRestApi\Business\Quote\QuoteReaderInterface $quoteReader
-     * @param \Spryker\Zed\CartsRestApi\Business\QuoteItem\QuoteItemAdderInterface $quoteItemAdder
-     * @param \Spryker\Zed\CartsRestApi\Business\Quote\QuoteCreatorInterface $quoteCreator
-     * @param \Spryker\Zed\CartsRestApi\Dependency\Facade\CartsRestApiToStoreFacadeInterface $storeFacade
-     */
     public function __construct(
         QuoteReaderInterface $quoteReader,
         QuoteItemAdderInterface $quoteItemAdder,
@@ -80,11 +74,6 @@ class GuestQuoteItemAdder implements GuestQuoteItemAdderInterface
         return $this->addToGuestCart($cartItemRequestTransfer);
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\CartItemRequestTransfer $cartItemRequestTransfer
-     *
-     * @return \Generated\Shared\Transfer\QuoteResponseTransfer
-     */
     public function addToGuestCart(CartItemRequestTransfer $cartItemRequestTransfer): QuoteResponseTransfer
     {
         $cartItemRequestTransfer
@@ -121,11 +110,6 @@ class GuestQuoteItemAdder implements GuestQuoteItemAdderInterface
         return $this->addItem($cartItemRequestTransfer);
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\CartItemRequestTransfer $cartItemRequestTransfer
-     *
-     * @return \Generated\Shared\Transfer\QuoteResponseTransfer
-     */
     protected function createGuestQuote(CartItemRequestTransfer $cartItemRequestTransfer): QuoteResponseTransfer
     {
         $quoteTransfer = $this->createQuoteTransfer();
@@ -146,19 +130,11 @@ class GuestQuoteItemAdder implements GuestQuoteItemAdderInterface
         return $this->addItem($cartItemRequestTransfer);
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\CartItemRequestTransfer $cartItemRequestTransfer
-     *
-     * @return \Generated\Shared\Transfer\QuoteResponseTransfer
-     */
     protected function addItem(CartItemRequestTransfer $cartItemRequestTransfer): QuoteResponseTransfer
     {
         return $this->quoteItemAdder->addToCart($cartItemRequestTransfer);
     }
 
-    /**
-     * @return \Generated\Shared\Transfer\QuoteTransfer
-     */
     protected function createQuoteTransfer(): QuoteTransfer
     {
         $currentStore = $this->storeFacade->getCurrentStore();
@@ -169,9 +145,6 @@ class GuestQuoteItemAdder implements GuestQuoteItemAdderInterface
                 ->setCode($currentStore->getDefaultCurrencyIsoCode()));
     }
 
-    /**
-     * @return \Generated\Shared\Transfer\QuoteResponseTransfer
-     */
     protected function createCartNotFoundError(): QuoteResponseTransfer
     {
         return (new QuoteResponseTransfer())

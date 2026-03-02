@@ -55,9 +55,6 @@ use Spryker\Zed\Kernel\Business\AbstractBusinessFactory;
  */
 class CartsRestApiBusinessFactory extends AbstractBusinessFactory
 {
-    /**
-     * @return \Spryker\Zed\CartsRestApi\Business\Quote\QuoteUuidWriterInterface
-     */
     public function createQuoteUuidWriter(): QuoteUuidWriterInterface
     {
         return new QuoteUuidWriter(
@@ -65,9 +62,6 @@ class CartsRestApiBusinessFactory extends AbstractBusinessFactory
         );
     }
 
-    /**
-     * @return \Spryker\Zed\CartsRestApi\Business\Quote\QuoteReaderInterface
-     */
     public function createQuoteReader(): QuoteReaderInterface
     {
         return new QuoteReader(
@@ -80,9 +74,6 @@ class CartsRestApiBusinessFactory extends AbstractBusinessFactory
         );
     }
 
-    /**
-     * @return \Spryker\Zed\CartsRestApi\Business\Quote\QuoteCreatorInterface
-     */
     public function createQuoteCreator(): QuoteCreatorInterface
     {
         return new QuoteCreator(
@@ -92,9 +83,6 @@ class CartsRestApiBusinessFactory extends AbstractBusinessFactory
         );
     }
 
-    /**
-     * @return \Spryker\Zed\CartsRestApi\Business\Quote\SingleQuoteCreatorInterface
-     */
     public function createSingleQuoteCreator(): SingleQuoteCreatorInterface
     {
         return new SingleQuoteCreator(
@@ -103,9 +91,6 @@ class CartsRestApiBusinessFactory extends AbstractBusinessFactory
         );
     }
 
-    /**
-     * @return \Spryker\Zed\CartsRestApi\Business\Quote\QuoteDeleterInterface
-     */
     public function createQuoteDeleter(): QuoteDeleterInterface
     {
         return new QuoteDeleter(
@@ -115,9 +100,6 @@ class CartsRestApiBusinessFactory extends AbstractBusinessFactory
         );
     }
 
-    /**
-     * @return \Spryker\Zed\CartsRestApi\Business\Quote\QuoteUpdaterInterface
-     */
     public function createQuoteUpdater(): QuoteUpdaterInterface
     {
         return new QuoteUpdater(
@@ -130,9 +112,6 @@ class CartsRestApiBusinessFactory extends AbstractBusinessFactory
         );
     }
 
-    /**
-     * @return \Spryker\Zed\CartsRestApi\Business\Quote\QuoteMergerInterface
-     */
     public function createQuoteMerger(): QuoteMergerInterface
     {
         return new QuoteMerger(
@@ -144,9 +123,6 @@ class CartsRestApiBusinessFactory extends AbstractBusinessFactory
         );
     }
 
-    /**
-     * @return \Spryker\Zed\CartsRestApi\Business\QuoteItem\QuoteItemAdderInterface
-     */
     public function createQuoteItemAdder(): QuoteItemAdderInterface
     {
         return new QuoteItemAdder(
@@ -159,9 +135,6 @@ class CartsRestApiBusinessFactory extends AbstractBusinessFactory
         );
     }
 
-    /**
-     * @return \Spryker\Zed\CartsRestApi\Business\QuoteItem\GuestQuoteItemAdderInterface
-     */
     public function createGuestQuoteItemAdder(): GuestQuoteItemAdderInterface
     {
         return new GuestQuoteItemAdder(
@@ -172,9 +145,6 @@ class CartsRestApiBusinessFactory extends AbstractBusinessFactory
         );
     }
 
-    /**
-     * @return \Spryker\Zed\CartsRestApi\Business\QuoteItem\QuoteItemReaderInterface
-     */
     public function createQuoteItemReader(): QuoteItemReaderInterface
     {
         return new QuoteItemReader(
@@ -184,9 +154,6 @@ class CartsRestApiBusinessFactory extends AbstractBusinessFactory
         );
     }
 
-    /**
-     * @return \Spryker\Zed\CartsRestApi\Business\QuoteItem\QuoteItemDeleterInterface
-     */
     public function createQuoteItemDeleter(): QuoteItemDeleterInterface
     {
         return new QuoteItemDeleter(
@@ -197,9 +164,6 @@ class CartsRestApiBusinessFactory extends AbstractBusinessFactory
         );
     }
 
-    /**
-     * @return \Spryker\Zed\CartsRestApi\Business\QuoteItem\QuoteItemUpdaterInterface
-     */
     public function createQuoteItemUpdater(): QuoteItemUpdaterInterface
     {
         return new QuoteItemUpdater(
@@ -210,41 +174,26 @@ class CartsRestApiBusinessFactory extends AbstractBusinessFactory
         );
     }
 
-    /**
-     * @return \Spryker\Zed\CartsRestApi\Business\Quote\QuoteErrorIdentifierAdderInterface
-     */
     public function createQuoteErrorIdentifierAdder(): QuoteErrorIdentifierAdderInterface
     {
         return new QuoteErrorIdentifierAdder();
     }
 
-    /**
-     * @return \Spryker\Zed\CartsRestApi\Business\PermissionChecker\QuotePermissionCheckerInterface
-     */
     public function createQuotePermissionChecker(): QuotePermissionCheckerInterface
     {
         return new QuotePermissionChecker();
     }
 
-    /**
-     * @return \Spryker\Zed\CartsRestApi\Business\QuoteItem\Mapper\QuoteItemMapperInterface
-     */
     public function createQuoteItemMapper(): QuoteItemMapperInterface
     {
         return new QuoteItemMapper();
     }
 
-    /**
-     * @return \Spryker\Zed\CartsRestApi\Business\Quote\Mapper\QuoteMapperInterface
-     */
     public function createQuoteMapper(): QuoteMapperInterface
     {
         return new QuoteMapper();
     }
 
-    /**
-     * @return \Spryker\Zed\CartsRestApi\Business\Reloader\QuoteReloaderInterface
-     */
     public function createQuoteReloader(): QuoteReloaderInterface
     {
         return new QuoteReloader(
@@ -253,41 +202,26 @@ class CartsRestApiBusinessFactory extends AbstractBusinessFactory
         );
     }
 
-    /**
-     * @return \Spryker\Zed\CartsRestApi\Dependency\Facade\CartsRestApiToQuoteFacadeInterface
-     */
     public function getQuoteFacade(): CartsRestApiToQuoteFacadeInterface
     {
         return $this->getProvidedDependency(CartsRestApiDependencyProvider::FACADE_QUOTE);
     }
 
-    /**
-     * @return \Spryker\Zed\CartsRestApi\Dependency\Facade\CartsRestApiToStoreFacadeInterface
-     */
     public function getStoreFacade(): CartsRestApiToStoreFacadeInterface
     {
         return $this->getProvidedDependency(CartsRestApiDependencyProvider::FACADE_STORE);
     }
 
-    /**
-     * @return \Spryker\Zed\CartsRestApi\Dependency\Facade\CartsRestApiToPersistentCartFacadeInterface
-     */
     public function getPersistentCartFacade(): CartsRestApiToPersistentCartFacadeInterface
     {
         return $this->getProvidedDependency(CartsRestApiDependencyProvider::FACADE_PERSISTENT_CART);
     }
 
-    /**
-     * @return \Spryker\Zed\CartsRestApi\Dependency\Facade\CartsRestApiToCartFacadeInterface
-     */
     public function getCartFacade(): CartsRestApiToCartFacadeInterface
     {
         return $this->getProvidedDependency(CartsRestApiDependencyProvider::FACADE_CART);
     }
 
-    /**
-     * @return \Spryker\Zed\CartsRestApiExtension\Dependency\Plugin\QuoteCreatorPluginInterface
-     */
     public function getQuoteCreatorPlugin(): QuoteCreatorPluginInterface
     {
         return $this->getProvidedDependency(CartsRestApiDependencyProvider::PLUGIN_QUOTE_CREATOR);

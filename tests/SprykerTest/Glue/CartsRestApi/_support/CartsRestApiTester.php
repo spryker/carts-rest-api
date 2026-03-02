@@ -36,12 +36,6 @@ class CartsRestApiTester extends Actor
 {
     use _generated\CartsRestApiTesterActions;
 
-    /**
-     * @param \Spryker\Glue\GlueApplication\Rest\JsonApi\RestResourceInterface $actualCartsRestResource
-     * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
-     *
-     * @return void
-     */
     public function assertCartsResource(RestResourceInterface $actualCartsRestResource, QuoteTransfer $quoteTransfer): void
     {
         /** @var \Generated\Shared\Transfer\RestCartsAttributesTransfer $actualCartsRestResourceAttributesTransfer */
@@ -53,12 +47,6 @@ class CartsRestApiTester extends Actor
         $this->assertCartsTotalsAttributes($quoteTransfer, $actualCartsRestResourceAttributesTransfer);
     }
 
-    /**
-     * @param \Spryker\Glue\GlueApplication\Rest\JsonApi\RestResourceInterface $actualCartsRestResource
-     * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
-     *
-     * @return void
-     */
     public function assertGuestCartsResource(RestResourceInterface $actualCartsRestResource, QuoteTransfer $quoteTransfer): void
     {
         /** @var \Generated\Shared\Transfer\RestCartsAttributesTransfer $actualCartsRestResourceAttributesTransfer */
@@ -70,12 +58,6 @@ class CartsRestApiTester extends Actor
         $this->assertCartsTotalsAttributes($quoteTransfer, $actualCartsRestResourceAttributesTransfer);
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
-     * @param \Generated\Shared\Transfer\RestCartsAttributesTransfer $actualCartsRestResourceAttributesTransfer
-     *
-     * @return void
-     */
     protected function assertCartsBaseAttributes(
         QuoteTransfer $quoteTransfer,
         RestCartsAttributesTransfer $actualCartsRestResourceAttributesTransfer
@@ -86,12 +68,6 @@ class CartsRestApiTester extends Actor
         $this->assertSame($quoteTransfer->getPriceMode(), $actualCartsRestResourceAttributesTransfer->getPriceMode());
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
-     * @param \Generated\Shared\Transfer\RestCartsAttributesTransfer $actualCartsRestResourceAttributesTransfer
-     *
-     * @return void
-     */
     protected function assertCartsDiscountsAttributes(
         QuoteTransfer $quoteTransfer,
         RestCartsAttributesTransfer $actualCartsRestResourceAttributesTransfer
@@ -138,12 +114,6 @@ class CartsRestApiTester extends Actor
         return true;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\DiscountTransfer $expectedDiscountTransfer
-     * @param \Generated\Shared\Transfer\RestCartsDiscountsTransfer $actualRestCartsDiscountsTransfer
-     *
-     * @return void
-     */
     protected function assertDiscountAttributes(
         DiscountTransfer $expectedDiscountTransfer,
         RestCartsDiscountsTransfer $actualRestCartsDiscountsTransfer
@@ -153,12 +123,6 @@ class CartsRestApiTester extends Actor
         $this->assertSame($expectedDiscountTransfer->getDisplayName(), $actualRestCartsDiscountsTransfer->getDisplayName());
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
-     * @param \Generated\Shared\Transfer\RestCartsAttributesTransfer $actualCartsRestResourceAttributesTransfer
-     *
-     * @return void
-     */
     protected function assertCartsTotalsAttributes(
         QuoteTransfer $quoteTransfer,
         RestCartsAttributesTransfer $actualCartsRestResourceAttributesTransfer
@@ -173,12 +137,6 @@ class CartsRestApiTester extends Actor
         $this->assertSame($expectedTotalsTransfer->getTaxTotal(), $expectedRestCartsTotalsTransfer->getTaxTotal());
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
-     * @param \Spryker\Glue\GlueApplication\Rest\JsonApi\RestResourceInterface $actualCartsRestResource
-     *
-     * @return void
-     */
     protected function assertCartsResourceStructure(QuoteTransfer $quoteTransfer, RestResourceInterface $actualCartsRestResource): void
     {
         $this->assertSame($quoteTransfer->getUuid(), $actualCartsRestResource->getId());
@@ -186,12 +144,6 @@ class CartsRestApiTester extends Actor
         $this->assertSame($quoteTransfer, $actualCartsRestResource->getPayload());
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
-     * @param \Spryker\Glue\GlueApplication\Rest\JsonApi\RestResourceInterface $actualCartsRestResource
-     *
-     * @return void
-     */
     protected function assertGuestCartsResourceStructure(QuoteTransfer $quoteTransfer, RestResourceInterface $actualCartsRestResource): void
     {
         $this->assertSame($quoteTransfer->getUuid(), $actualCartsRestResource->getId());

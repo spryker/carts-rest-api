@@ -18,19 +18,11 @@ class QuoteCollectionReader implements QuoteCollectionReaderInterface
      */
     protected $cartsRestApiClient;
 
-    /**
-     * @param \Spryker\Client\CartsRestApi\CartsRestApiClientInterface $cartsRestApiClient
-     */
     public function __construct(CartsRestApiClientInterface $cartsRestApiClient)
     {
         $this->cartsRestApiClient = $cartsRestApiClient;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\QuoteCriteriaFilterTransfer $quoteCriteriaFilterTransfer
-     *
-     * @return \Generated\Shared\Transfer\QuoteCollectionTransfer
-     */
     public function getQuoteCollectionByCriteria(QuoteCriteriaFilterTransfer $quoteCriteriaFilterTransfer): QuoteCollectionTransfer
     {
         return $this->cartsRestApiClient->getQuoteCollection($quoteCriteriaFilterTransfer);

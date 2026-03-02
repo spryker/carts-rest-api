@@ -32,11 +32,6 @@ class GuestCartReader implements GuestCartReaderInterface
      */
     protected $cartsRestApiClient;
 
-    /**
-     * @param \Spryker\Glue\CartsRestApi\Processor\RestResponseBuilder\GuestCartRestResponseBuilderInterface $guestCartRestResponseBuilder
-     * @param \Spryker\Glue\CartsRestApi\Processor\Cart\CartReaderInterface $cartReader
-     * @param \Spryker\Client\CartsRestApi\CartsRestApiClientInterface $cartsRestApiClient
-     */
     public function __construct(
         GuestCartRestResponseBuilderInterface $guestCartRestResponseBuilder,
         CartReaderInterface $cartReader,
@@ -47,12 +42,6 @@ class GuestCartReader implements GuestCartReaderInterface
         $this->cartsRestApiClient = $cartsRestApiClient;
     }
 
-    /**
-     * @param string $uuidCart
-     * @param \Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface $restRequest
-     *
-     * @return \Spryker\Glue\GlueApplication\Rest\JsonApi\RestResponseInterface
-     */
     public function readByIdentifier(string $uuidCart, RestRequestInterface $restRequest): RestResponseInterface
     {
         $customerReference = $restRequest->getRestUser()->getNaturalIdentifier();
@@ -74,11 +63,6 @@ class GuestCartReader implements GuestCartReaderInterface
         );
     }
 
-    /**
-     * @param \Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface $restRequest
-     *
-     * @return \Spryker\Glue\GlueApplication\Rest\JsonApi\RestResponseInterface
-     */
     public function readCurrentCustomerCarts(RestRequestInterface $restRequest): RestResponseInterface
     {
         $quoteCollectionTransfer = $this->cartReader->getCustomerQuotes($restRequest);

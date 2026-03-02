@@ -12,11 +12,6 @@ use Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface;
 
 class CartsRestApiValidator implements CartsRestApiValidatorInterface
 {
-    /**
-     * @param \Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface $restRequest
-     *
-     * @return bool
-     */
     public function isSameCustomerReference(RestRequestInterface $restRequest): bool
     {
         $restUser = $restRequest->getRestUser();

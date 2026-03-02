@@ -26,13 +26,6 @@ class CartItemMapper implements CartItemMapperInterface
         $this->restCartItemsAttributesMapperPlugins = $restCartItemsAttributesMapperPlugins;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\ItemTransfer $itemTransfer
-     * @param \Generated\Shared\Transfer\RestItemsAttributesTransfer $restItemsAttributesTransfer
-     * @param string $localeName
-     *
-     * @return \Generated\Shared\Transfer\RestItemsAttributesTransfer
-     */
     public function mapItemTransferToRestItemsAttributesTransfer(
         ItemTransfer $itemTransfer,
         RestItemsAttributesTransfer $restItemsAttributesTransfer,
@@ -55,13 +48,6 @@ class CartItemMapper implements CartItemMapperInterface
         );
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\ItemTransfer $itemTransfer
-     * @param \Generated\Shared\Transfer\RestItemsAttributesTransfer $restItemsAttributesTransfer
-     * @param string $localeName
-     *
-     * @return \Generated\Shared\Transfer\RestItemsAttributesTransfer
-     */
     protected function executeRestCartItemsAttributesMapperPlugins(
         ItemTransfer $itemTransfer,
         RestItemsAttributesTransfer $restItemsAttributesTransfer,

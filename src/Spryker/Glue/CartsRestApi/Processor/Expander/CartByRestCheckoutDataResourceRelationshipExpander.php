@@ -20,9 +20,6 @@ class CartByRestCheckoutDataResourceRelationshipExpander implements CartByQuoteR
      */
     protected CartRestResponseBuilderInterface $cartRestResponseBuilder;
 
-    /**
-     * @param \Spryker\Glue\CartsRestApi\Processor\RestResponseBuilder\CartRestResponseBuilderInterface $cartRestResponseBuilder
-     */
     public function __construct(
         CartRestResponseBuilderInterface $cartRestResponseBuilder
     ) {
@@ -55,12 +52,6 @@ class CartByRestCheckoutDataResourceRelationshipExpander implements CartByQuoteR
         }
     }
 
-    /**
-     * @param \Spryker\Glue\GlueApplication\Rest\JsonApi\RestResourceInterface $resource
-     * @param string $locale
-     *
-     * @return void
-     */
     protected function addCartResourceRelationships(RestResourceInterface $resource, string $locale): void
     {
         /** @var \Generated\Shared\Transfer\RestCheckoutDataTransfer $restCheckoutDataTransfer */
@@ -74,11 +65,6 @@ class CartByRestCheckoutDataResourceRelationshipExpander implements CartByQuoteR
         }
     }
 
-    /**
-     * @param \Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface $restRequest
-     *
-     * @return bool
-     */
     protected function isAuthorisedUser(RestRequestInterface $restRequest): bool
     {
         return $restRequest->getHttpRequest()->headers->has(CartsRestApiConfig::HEADER_AUTHORIZATION);

@@ -28,32 +28,16 @@ class QuotePermissionChecker implements QuotePermissionCheckerInterface
      */
     protected const PERMISSION_PLUGIN_KEY_WRITE_SHARED_CART = 'WriteSharedCartPermissionPlugin';
 
-    /**
-     * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
-     *
-     * @return bool
-     */
     public function checkQuoteReadPermission(QuoteTransfer $quoteTransfer): bool
     {
         return $this->checkQuotePermission($quoteTransfer, static::PERMISSION_PLUGIN_KEY_READ_SHARED_CART);
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
-     *
-     * @return bool
-     */
     public function checkQuoteWritePermission(QuoteTransfer $quoteTransfer): bool
     {
         return $this->checkQuotePermission($quoteTransfer, static::PERMISSION_PLUGIN_KEY_WRITE_SHARED_CART);
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
-     * @param string $permissionPluginKey
-     *
-     * @return bool
-     */
     protected function checkQuotePermission(QuoteTransfer $quoteTransfer, string $permissionPluginKey): bool
     {
         $quoteTransfer->requireIdQuote();

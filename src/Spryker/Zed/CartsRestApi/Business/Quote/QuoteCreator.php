@@ -31,11 +31,6 @@ class QuoteCreator implements QuoteCreatorInterface
      */
     protected $quoteErrorIdentifierAdder;
 
-    /**
-     * @param \Spryker\Zed\CartsRestApiExtension\Dependency\Plugin\QuoteCreatorPluginInterface $quoteCreatorPlugin
-     * @param \Spryker\Zed\CartsRestApi\Dependency\Facade\CartsRestApiToStoreFacadeInterface $storeFacade
-     * @param \Spryker\Zed\CartsRestApi\Business\Quote\QuoteErrorIdentifierAdderInterface $quoteErrorIdentifierAdder
-     */
     public function __construct(
         QuoteCreatorPluginInterface $quoteCreatorPlugin,
         CartsRestApiToStoreFacadeInterface $storeFacade,
@@ -46,11 +41,6 @@ class QuoteCreator implements QuoteCreatorInterface
         $this->quoteErrorIdentifierAdder = $quoteErrorIdentifierAdder;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
-     *
-     * @return \Generated\Shared\Transfer\QuoteResponseTransfer
-     */
     public function createQuote(QuoteTransfer $quoteTransfer): QuoteResponseTransfer
     {
         $quoteTransfer->requireCustomer();

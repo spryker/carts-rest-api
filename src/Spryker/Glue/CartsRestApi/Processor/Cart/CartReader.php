@@ -57,12 +57,6 @@ class CartReader implements CartReaderInterface
         $this->restApiValidator = $restApiValidator;
     }
 
-    /**
-     * @param string $uuidCart
-     * @param \Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface $restRequest
-     *
-     * @return \Spryker\Glue\GlueApplication\Rest\JsonApi\RestResponseInterface
-     */
     public function getCustomerQuoteByUuid(string $uuidCart, RestRequestInterface $restRequest): RestResponseInterface
     {
         $customerTransfer = (new CustomerTransfer())
@@ -87,11 +81,6 @@ class CartReader implements CartReaderInterface
         );
     }
 
-    /**
-     * @param \Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface $restRequest
-     *
-     * @return \Spryker\Glue\GlueApplication\Rest\JsonApi\RestResponseInterface
-     */
     public function readCustomerCarts(RestRequestInterface $restRequest): RestResponseInterface
     {
         if (!$this->restApiValidator->isSameCustomerReference($restRequest)) {
@@ -101,11 +90,6 @@ class CartReader implements CartReaderInterface
         return $this->readCurrentCustomerCarts($restRequest);
     }
 
-    /**
-     * @param \Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface $restRequest
-     *
-     * @return \Spryker\Glue\GlueApplication\Rest\JsonApi\RestResponseInterface
-     */
     public function readCurrentCustomerCarts(RestRequestInterface $restRequest): RestResponseInterface
     {
         $quoteCollectionTransfer = $this->getCustomerQuotes($restRequest);
@@ -117,11 +101,6 @@ class CartReader implements CartReaderInterface
         return $this->cartRestResponseBuilder->createRestQuoteCollectionResponse($quoteCollectionTransfer, $restRequest);
     }
 
-    /**
-     * @param \Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface $restRequest
-     *
-     * @return \Generated\Shared\Transfer\QuoteCollectionTransfer
-     */
     public function getCustomerQuotes(RestRequestInterface $restRequest): QuoteCollectionTransfer
     {
         $quoteCollectionTransfer = $this->cartsRestApiClient->getQuoteCollection(
@@ -134,12 +113,6 @@ class CartReader implements CartReaderInterface
         return $quoteCollectionTransfer;
     }
 
-    /**
-     * @param string|null $customerReference
-     * @param int|null $idCompanyUser
-     *
-     * @return \Generated\Shared\Transfer\QuoteCriteriaFilterTransfer
-     */
     protected function createQuoteCriteriaFilter(?string $customerReference, ?int $idCompanyUser): QuoteCriteriaFilterTransfer
     {
         return (new QuoteCriteriaFilterTransfer())
@@ -147,12 +120,6 @@ class CartReader implements CartReaderInterface
             ->setIdCompanyUser($idCompanyUser);
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\CustomerTransfer $customerTransfer
-     * @param \Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface $restRequest
-     *
-     * @return \Generated\Shared\Transfer\CustomerTransfer
-     */
     protected function executeCustomerExpanderPlugins(CustomerTransfer $customerTransfer, RestRequestInterface $restRequest): CustomerTransfer
     {
         foreach ($this->customerExpanderPlugins as $customerExpanderPlugin) {

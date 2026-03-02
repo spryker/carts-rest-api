@@ -61,11 +61,6 @@ class CartsRestApiDependencyProvider extends AbstractBundleDependencyProvider
      */
     public const PLUGINS_REST_CART_ATTRIBUTES_MAPPER = 'PLUGINS_REST_CART_ATTRIBUTES_MAPPER';
 
-    /**
-     * @param \Spryker\Glue\Kernel\Container $container
-     *
-     * @return \Spryker\Glue\Kernel\Container
-     */
     public function provideDependencies(Container $container): Container
     {
         $container = parent::provideDependencies($container);
@@ -79,11 +74,6 @@ class CartsRestApiDependencyProvider extends AbstractBundleDependencyProvider
         return $container;
     }
 
-    /**
-     * @param \Spryker\Glue\Kernel\Container $container
-     *
-     * @return \Spryker\Glue\Kernel\Container
-     */
     protected function addPersistentCartClient(Container $container): Container
     {
         $container->set(static::CLIENT_PERSISTENT_CART, function (Container $container) {
@@ -93,11 +83,6 @@ class CartsRestApiDependencyProvider extends AbstractBundleDependencyProvider
         return $container;
     }
 
-    /**
-     * @param \Spryker\Glue\Kernel\Container $container
-     *
-     * @return \Spryker\Glue\Kernel\Container
-     */
     protected function addCustomerExpanderPlugins(Container $container): Container
     {
         $container->set(static::PLUGINS_CUSTOMER_EXPANDER, function () {
@@ -107,11 +92,6 @@ class CartsRestApiDependencyProvider extends AbstractBundleDependencyProvider
         return $container;
     }
 
-    /**
-     * @param \Spryker\Glue\Kernel\Container $container
-     *
-     * @return \Spryker\Glue\Kernel\Container
-     */
     protected function addRestCartItemsAttributesMapperPlugins(Container $container): Container
     {
         $container->set(static::PLUGINS_REST_CART_ITEMS_ATTRIBUTES_MAPPER, function () {
@@ -121,11 +101,6 @@ class CartsRestApiDependencyProvider extends AbstractBundleDependencyProvider
         return $container;
     }
 
-    /**
-     * @param \Spryker\Glue\Kernel\Container $container
-     *
-     * @return \Spryker\Glue\Kernel\Container
-     */
     protected function addCartItemExpanderPlugins(Container $container): Container
     {
         $container->set(static::PLUGINS_CART_ITEM_EXPANDER, function () {
@@ -135,11 +110,6 @@ class CartsRestApiDependencyProvider extends AbstractBundleDependencyProvider
         return $container;
     }
 
-    /**
-     * @param \Spryker\Glue\Kernel\Container $container
-     *
-     * @return \Spryker\Glue\Kernel\Container
-     */
     protected function addCartItemFilterPlugins(Container $container): Container
     {
         $container->set(static::PLUGINS_CART_ITEM_FILTER, function () {
@@ -149,11 +119,6 @@ class CartsRestApiDependencyProvider extends AbstractBundleDependencyProvider
         return $container;
     }
 
-    /**
-     * @param \Spryker\Glue\Kernel\Container $container
-     *
-     * @return \Spryker\Glue\Kernel\Container
-     */
     protected function addRestCartAttributesMapperPlugins(Container $container): Container
     {
         $container->set(static::PLUGINS_REST_CART_ATTRIBUTES_MAPPER, function () {

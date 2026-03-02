@@ -60,9 +60,6 @@ class ExpandRequestWithCustomerReferenceFormattedControllerBeforeActionPluginTes
      */
     protected CartRestApiGlueTester $tester;
 
-    /**
-     * @return void
-     */
     public function _before(): void
     {
         parent::_before();
@@ -73,9 +70,6 @@ class ExpandRequestWithCustomerReferenceFormattedControllerBeforeActionPluginTes
         );
     }
 
-    /**
-     * @return void
-     */
     public function testBeforeActionShouldNotExpandRequestWhenCustomerReferenceIsAlreadySet(): void
     {
         // Arrange
@@ -93,9 +87,6 @@ class ExpandRequestWithCustomerReferenceFormattedControllerBeforeActionPluginTes
         $this->assertSame(static::TEST_CUSTOMER_REFERENCE, $request->request->get(static::REQUEST_KEY_CUSTOMER_REFERENCE));
     }
 
-    /**
-     * @return void
-     */
     public function testBeforeActionShouldNotExpandRequestWhenAnonymousCustomerUniqueIdHeaderIsNotProvided(): void
     {
         // Arrange
@@ -109,9 +100,6 @@ class ExpandRequestWithCustomerReferenceFormattedControllerBeforeActionPluginTes
         $this->assertNull($request->request->get(static::REQUEST_KEY_CUSTOMER_REFERENCE));
     }
 
-    /**
-     * @return void
-     */
     public function testBeforeActionShouldExpandRequestWithCustomerReference(): void
     {
         // Arrange

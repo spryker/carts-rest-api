@@ -48,11 +48,6 @@ class CartItemDeleter implements CartItemDeleterInterface
         $this->customerExpanderPlugins = $customerExpanderPlugins;
     }
 
-    /**
-     * @param \Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface $restRequest
-     *
-     * @return \Spryker\Glue\GlueApplication\Rest\JsonApi\RestResponseInterface
-     */
     public function deleteItem(RestRequestInterface $restRequest): RestResponseInterface
     {
         $cartItemRequestTransfer = $this->createCartItemRequestTransfer($restRequest);
@@ -69,11 +64,6 @@ class CartItemDeleter implements CartItemDeleterInterface
         return $this->cartRestResponseBuilder->createRestResponse();
     }
 
-    /**
-     * @param \Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface $restRequest
-     *
-     * @return string|null
-     */
     protected function findCartIdentifier(RestRequestInterface $restRequest): ?string
     {
         $cartsResource = $restRequest->findParentResourceByType(CartsRestApiConfig::RESOURCE_CARTS);
@@ -84,13 +74,6 @@ class CartItemDeleter implements CartItemDeleterInterface
         return null;
     }
 
-    /**
-     * @param string $itemIdentifier
-     * @param \Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface $restRequest
-     * @param string|null $uuidQuote
-     *
-     * @return \Generated\Shared\Transfer\RestCartItemsAttributesTransfer
-     */
     protected function createRestCartItemsAttributesTransfer(
         string $itemIdentifier,
         RestRequestInterface $restRequest,
@@ -102,12 +85,6 @@ class CartItemDeleter implements CartItemDeleterInterface
             ->setCustomerReference($restRequest->getRestUser()->getNaturalIdentifier());
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\CustomerTransfer $customerTransfer
-     * @param \Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface $restRequest
-     *
-     * @return \Generated\Shared\Transfer\CustomerTransfer
-     */
     protected function executeCustomerExpanderPlugins(CustomerTransfer $customerTransfer, RestRequestInterface $restRequest): CustomerTransfer
     {
         foreach ($this->customerExpanderPlugins as $customerExpanderPlugin) {
@@ -117,11 +94,6 @@ class CartItemDeleter implements CartItemDeleterInterface
         return $customerTransfer;
     }
 
-    /**
-     * @param \Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface $restRequest
-     *
-     * @return \Generated\Shared\Transfer\CartItemRequestTransfer
-     */
     protected function createCartItemRequestTransfer(RestRequestInterface $restRequest): CartItemRequestTransfer
     {
         $uuidQuote = $this->findCartIdentifier($restRequest);

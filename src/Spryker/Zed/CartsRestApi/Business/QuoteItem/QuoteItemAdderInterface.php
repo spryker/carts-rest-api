@@ -22,10 +22,5 @@ interface QuoteItemAdderInterface
      */
     public function add(RestCartItemsAttributesTransfer $restCartItemsAttributesTransfer): QuoteResponseTransfer;
 
-    /**
-     * @param \Generated\Shared\Transfer\CartItemRequestTransfer $cartItemRequestTransfer
-     *
-     * @return \Generated\Shared\Transfer\QuoteResponseTransfer
-     */
     public function addToCart(CartItemRequestTransfer $cartItemRequestTransfer): QuoteResponseTransfer;
 }

@@ -12,11 +12,6 @@ use Spryker\Zed\CartsRestApi\CartsRestApiConfig;
 
 class QuoteErrorIdentifierAdder implements QuoteErrorIdentifierAdderInterface
 {
-    /**
-     * @param \Generated\Shared\Transfer\QuoteResponseTransfer $quoteResponseTransfer
-     *
-     * @return \Generated\Shared\Transfer\QuoteResponseTransfer
-     */
     public function addErrorIdentifiersToQuoteResponseErrors(QuoteResponseTransfer $quoteResponseTransfer): QuoteResponseTransfer
     {
         $quoteErrorTransfers = $quoteResponseTransfer->getErrors();

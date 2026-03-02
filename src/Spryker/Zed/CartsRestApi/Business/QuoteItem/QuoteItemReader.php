@@ -47,11 +47,6 @@ class QuoteItemReader implements QuoteItemReaderInterface
         $this->quoteItemReadValidatorPlugins = $quoteItemReadValidatorPlugins;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\CartItemRequestTransfer $cartItemRequestTransfer
-     *
-     * @return \Generated\Shared\Transfer\QuoteResponseTransfer
-     */
     public function readItem(CartItemRequestTransfer $cartItemRequestTransfer): QuoteResponseTransfer
     {
         $quoteTransfer = $this->quoteItemMapper->mapCartItemsRequestTransferToQuoteTransfer(
@@ -79,12 +74,6 @@ class QuoteItemReader implements QuoteItemReaderInterface
         return $quoteResponseTransfer;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\CartItemRequestTransfer $cartItemRequestTransfer
-     * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
-     *
-     * @return bool
-     */
     protected function isCartItemInQuote(CartItemRequestTransfer $cartItemRequestTransfer, QuoteTransfer $quoteTransfer): bool
     {
         foreach ($this->quoteItemReadValidatorPlugins as $quoteItemReadValidatorPlugin) {
@@ -96,12 +85,6 @@ class QuoteItemReader implements QuoteItemReaderInterface
         return $this->isItemInQuote($cartItemRequestTransfer, $quoteTransfer);
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\CartItemRequestTransfer $cartItemRequestTransfer
-     * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
-     *
-     * @return bool
-     */
     protected function isItemInQuote(CartItemRequestTransfer $cartItemRequestTransfer, QuoteTransfer $quoteTransfer): bool
     {
         if (!$quoteTransfer->getItems()->count()) {

@@ -74,11 +74,6 @@ class QuoteReader implements QuoteReaderInterface
         $this->quoteExpanderPlugins = $quoteExpanderPlugins;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
-     *
-     * @return \Generated\Shared\Transfer\QuoteResponseTransfer
-     */
     public function findQuoteByUuid(QuoteTransfer $quoteTransfer): QuoteResponseTransfer
     {
         $quoteTransfer->requireUuid();
@@ -104,11 +99,6 @@ class QuoteReader implements QuoteReaderInterface
         return $quoteResponseTransfer->setQuoteTransfer($expandedQuoteTransfer);
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\QuoteCriteriaFilterTransfer $quoteCriteriaFilterTransfer
-     *
-     * @return \Generated\Shared\Transfer\QuoteCollectionTransfer
-     */
     public function getQuoteCollection(QuoteCriteriaFilterTransfer $quoteCriteriaFilterTransfer): QuoteCollectionTransfer
     {
         $storeTransfer = $this->storeFacade->getCurrentStore();
@@ -122,11 +112,6 @@ class QuoteReader implements QuoteReaderInterface
         );
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
-     *
-     * @return \Generated\Shared\Transfer\QuoteResponseTransfer
-     */
     public function findQuoteByUuidWithQuoteItemReload(QuoteTransfer $quoteTransfer): QuoteResponseTransfer
     {
         $quoteResponseTransfer = $this->findQuoteByUuid($quoteTransfer);
@@ -140,12 +125,6 @@ class QuoteReader implements QuoteReaderInterface
         return $quoteResponseTransfer->setQuoteTransfer($quoteTransfer);
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\QuoteCriteriaFilterTransfer $quoteCriteriaFilterTransfer
-     * @param \Generated\Shared\Transfer\QuoteCollectionTransfer $quoteCollectionTransfer
-     *
-     * @return \Generated\Shared\Transfer\QuoteCollectionTransfer
-     */
     protected function executeQuoteCollectionExpanderPlugins(
         QuoteCriteriaFilterTransfer $quoteCriteriaFilterTransfer,
         QuoteCollectionTransfer $quoteCollectionTransfer
@@ -160,11 +139,6 @@ class QuoteReader implements QuoteReaderInterface
         return $quoteCollectionTransfer;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
-     *
-     * @return \Generated\Shared\Transfer\QuoteTransfer
-     */
     protected function executeQuoteExpanderPlugins(QuoteTransfer $quoteTransfer): QuoteTransfer
     {
         foreach ($this->quoteExpanderPlugins as $quoteExpanderPlugin) {

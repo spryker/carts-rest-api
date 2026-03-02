@@ -53,14 +53,6 @@ class QuoteUpdater implements QuoteUpdaterInterface
      */
     protected $quoteErrorIdentifierAdder;
 
-    /**
-     * @param \Spryker\Zed\CartsRestApi\Dependency\Facade\CartsRestApiToPersistentCartFacadeInterface $persistentCartFacade
-     * @param \Spryker\Zed\CartsRestApi\Dependency\Facade\CartsRestApiToCartFacadeInterface $cartFacade
-     * @param \Spryker\Zed\CartsRestApi\Business\Quote\QuoteReaderInterface $quoteReader
-     * @param \Spryker\Zed\CartsRestApi\Business\Quote\Mapper\QuoteMapperInterface $quoteMapper
-     * @param \Spryker\Zed\CartsRestApi\Business\PermissionChecker\QuotePermissionCheckerInterface $quotePermissionChecker
-     * @param \Spryker\Zed\CartsRestApi\Business\Quote\QuoteErrorIdentifierAdderInterface $quoteErrorIdentifierAdder
-     */
     public function __construct(
         CartsRestApiToPersistentCartFacadeInterface $persistentCartFacade,
         CartsRestApiToCartFacadeInterface $cartFacade,
@@ -77,11 +69,6 @@ class QuoteUpdater implements QuoteUpdaterInterface
         $this->quoteErrorIdentifierAdder = $quoteErrorIdentifierAdder;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
-     *
-     * @return \Generated\Shared\Transfer\QuoteResponseTransfer
-     */
     public function updateQuote(QuoteTransfer $quoteTransfer): QuoteResponseTransfer
     {
         $quoteTransfer->requireCustomer();
@@ -115,11 +102,6 @@ class QuoteUpdater implements QuoteUpdaterInterface
         return $this->performQuoteUpdate($quoteTransfer);
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\AssignGuestQuoteRequestTransfer $assignGuestQuoteRequestTransfer
-     *
-     * @return \Generated\Shared\Transfer\QuoteResponseTransfer
-     */
     public function assignGuestCartToRegisteredCustomer(AssignGuestQuoteRequestTransfer $assignGuestQuoteRequestTransfer): QuoteResponseTransfer
     {
         $assignGuestQuoteRequestTransfer
@@ -143,11 +125,6 @@ class QuoteUpdater implements QuoteUpdaterInterface
         return $this->performQuoteUpdate($quoteTransfer);
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\OauthResponseTransfer $oauthResponseTransfer
-     *
-     * @return void
-     */
     public function convertGuestQuoteToCustomerQuote(OauthResponseTransfer $oauthResponseTransfer): void
     {
         $customerReference = $oauthResponseTransfer->getCustomerReference();
@@ -176,12 +153,6 @@ class QuoteUpdater implements QuoteUpdaterInterface
         $this->performQuoteUpdate($this->updateQuoteTransferWithCustomerReference($customerReference, $guestQuoteTransfer));
     }
 
-    /**
-     * @param string $customerReference
-     * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
-     *
-     * @return \Generated\Shared\Transfer\QuoteTransfer
-     */
     protected function updateQuoteTransferWithCustomerReference(
         string $customerReference,
         QuoteTransfer $quoteTransfer
@@ -192,13 +163,6 @@ class QuoteUpdater implements QuoteUpdaterInterface
         return $quoteTransfer->setCustomer($registeredCustomer);
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\QuoteTransfer $originalQuoteTransfer
-     * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
-     * @param \Generated\Shared\Transfer\QuoteResponseTransfer $quoteResponseTransfer
-     *
-     * @return \Generated\Shared\Transfer\QuoteResponseTransfer
-     */
     protected function validateQuoteResponse(
         QuoteTransfer $originalQuoteTransfer,
         QuoteTransfer $quoteTransfer,
@@ -217,11 +181,6 @@ class QuoteUpdater implements QuoteUpdaterInterface
         return $quoteResponseTransfer;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
-     *
-     * @return \Generated\Shared\Transfer\QuoteResponseTransfer
-     */
     protected function performQuoteUpdate(QuoteTransfer $quoteTransfer): QuoteResponseTransfer
     {
         $quoteResponseTransfer = $this->persistentCartFacade

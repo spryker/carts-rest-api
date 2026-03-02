@@ -9,8 +9,5 @@ namespace Spryker\Zed\CartsRestApi\Business\Quote;
 
 interface QuoteUuidWriterInterface
 {
-    /**
-     * @return void
-     */
     public function updateQuotesUuid(): void;
 }

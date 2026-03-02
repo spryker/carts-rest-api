@@ -67,9 +67,6 @@ class ReloadQuoteTest extends Unit
      */
     protected $tester;
 
-    /**
-     * @return void
-     */
     protected function _setUp(): void
     {
         parent::_setUp();
@@ -88,9 +85,6 @@ class ReloadQuoteTest extends Unit
         $this->tester->addCurrentStore($this->tester->haveStore([StoreTransfer::NAME => 'DE']));
     }
 
-    /**
-     * @return void
-     */
     public function testFindQuoteByUuidWithQuoteItemReload(): void
     {
         // Arrange
@@ -110,9 +104,6 @@ class ReloadQuoteTest extends Unit
         $this->assertSame(static::UPDATED_PRODUCT_GROSS_PRICE, $itemTransfer->getSumGrossPriceOrFail());
     }
 
-    /**
-     * @return void
-     */
     public function testUpdateItemQuantityWillReloadQuote(): void
     {
         // Arrange
@@ -140,9 +131,6 @@ class ReloadQuoteTest extends Unit
         $this->assertSame(static::UPDATED_PRODUCT_GROSS_PRICE * $updatedQuantity, $itemTransfer->getSumGrossPriceOrFail());
     }
 
-    /**
-     * @return void
-     */
     public function testAddToCartWillReloadQuote(): void
     {
         // Arrange
@@ -173,9 +161,6 @@ class ReloadQuoteTest extends Unit
         $this->assertSame(static::UPDATED_PRODUCT_GROSS_PRICE, $itemTransfer->getSumGrossPriceOrFail());
     }
 
-    /**
-     * @return void
-     */
     public function testAddToGuestCartWillReloadQuote(): void
     {
         // Arrange
@@ -206,12 +191,6 @@ class ReloadQuoteTest extends Unit
         $this->assertSame(static::UPDATED_PRODUCT_GROSS_PRICE, $itemTransfer->getSumGrossPriceOrFail());
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\ProductConcreteTransfer $productConcreteTransfer
-     * @param int $grossAmount
-     *
-     * @return \Generated\Shared\Transfer\PriceProductTransfer
-     */
     protected function createPriceProductTransfer(ProductConcreteTransfer $productConcreteTransfer, int $grossAmount): PriceProductTransfer
     {
         return $this->tester->havePriceProduct([
@@ -224,12 +203,6 @@ class ReloadQuoteTest extends Unit
         ]);
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\PriceProductTransfer $priceProductTransfer
-     * @param int $updatedGrossPrice
-     *
-     * @return void
-     */
     protected function updatePriceProduct(PriceProductTransfer $priceProductTransfer, int $updatedGrossPrice): void
     {
         $priceProductEntity = SpyPriceProductStoreQuery::create()
@@ -243,12 +216,6 @@ class ReloadQuoteTest extends Unit
             ->save();
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\CustomerTransfer $customerTransfer
-     * @param \Generated\Shared\Transfer\ProductConcreteTransfer $productConcreteTransfer
-     *
-     * @return \Generated\Shared\Transfer\QuoteTransfer
-     */
     protected function createQuote(CustomerTransfer $customerTransfer, ProductConcreteTransfer $productConcreteTransfer): QuoteTransfer
     {
         return $this->tester->havePersistentQuote([
@@ -263,9 +230,6 @@ class ReloadQuoteTest extends Unit
         ]);
     }
 
-    /**
-     * @return \Spryker\Zed\PriceCartConnector\Business\PriceCartConnectorFacadeInterface
-     */
     protected function getFacadeWithMockedConfig(): PriceCartConnectorFacadeInterface
     {
         $priceCartConnectorFacade = new PriceCartConnectorFacade();

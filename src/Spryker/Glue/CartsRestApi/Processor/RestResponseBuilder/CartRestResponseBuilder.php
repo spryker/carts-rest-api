@@ -67,31 +67,16 @@ class CartRestResponseBuilder implements CartRestResponseBuilderInterface
         $this->cartItemFilterPlugins = $cartItemFilterPlugins;
     }
 
-    /**
-     * @return \Spryker\Glue\GlueApplication\Rest\JsonApi\RestResponseInterface
-     */
     public function createRestResponse(): RestResponseInterface
     {
         return $this->restResourceBuilder->createRestResponse();
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
-     * @param string $localeName
-     *
-     * @return \Spryker\Glue\GlueApplication\Rest\JsonApi\RestResponseInterface
-     */
     public function createCartRestResponse(QuoteTransfer $quoteTransfer, string $localeName): RestResponseInterface
     {
         return $this->createRestResponse()->addResource($this->createCartResourceWithItems($quoteTransfer, $localeName));
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\QuoteCollectionTransfer $quoteCollectionTransfer
-     * @param \Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface $restRequest
-     *
-     * @return \Spryker\Glue\GlueApplication\Rest\JsonApi\RestResponseInterface
-     */
     public function createRestQuoteCollectionResponse(
         QuoteCollectionTransfer $quoteCollectionTransfer,
         RestRequestInterface $restRequest
@@ -130,12 +115,6 @@ class CartRestResponseBuilder implements CartRestResponseBuilderInterface
         return $restResponse;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
-     * @param string $localeName
-     *
-     * @return \Spryker\Glue\GlueApplication\Rest\JsonApi\RestResourceInterface
-     */
     protected function createCartResourceWithItems(QuoteTransfer $quoteTransfer, string $localeName): RestResourceInterface
     {
         $cartResource = $this->restResourceBuilder->createRestResource(
@@ -149,9 +128,6 @@ class CartRestResponseBuilder implements CartRestResponseBuilderInterface
         return $this->addCartItemRelationships($cartResource, $quoteTransfer, $localeName);
     }
 
-    /**
-     * @return \Spryker\Glue\GlueApplication\Rest\JsonApi\RestResponseInterface
-     */
     public function createCartIdMissingErrorResponse(): RestResponseInterface
     {
         $restErrorMessageTransfer = (new RestErrorMessageTransfer())
@@ -164,13 +140,6 @@ class CartRestResponseBuilder implements CartRestResponseBuilderInterface
             ->addError($restErrorMessageTransfer);
     }
 
-    /**
-     * @param \Spryker\Glue\GlueApplication\Rest\JsonApi\RestResourceInterface $cartResource
-     * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
-     * @param string $localeName
-     *
-     * @return \Spryker\Glue\GlueApplication\Rest\JsonApi\RestResourceInterface
-     */
     protected function addCartItemRelationships(
         RestResourceInterface $cartResource,
         QuoteTransfer $quoteTransfer,
@@ -213,9 +182,6 @@ class CartRestResponseBuilder implements CartRestResponseBuilderInterface
         return $itemTransfers;
     }
 
-    /**
-     * @return \Spryker\Glue\GlueApplication\Rest\JsonApi\RestResponseInterface
-     */
     public function createCustomerUnauthorizedErrorResponse(): RestResponseInterface
     {
         $restErrorMessageTransfer = (new RestErrorMessageTransfer())

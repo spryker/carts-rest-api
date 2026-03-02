@@ -78,11 +78,6 @@ class CartRestApiGlueTester extends Actor
         return (new RestCheckoutDataBuilder($data))->build();
     }
 
-    /**
-     * @param string $quoteUuid
-     *
-     * @return \Generated\Shared\Transfer\QuoteTransfer
-     */
     public function createQuoteTransfer(string $quoteUuid): QuoteTransfer
     {
         return (new QuoteBuilder([
@@ -92,9 +87,6 @@ class CartRestApiGlueTester extends Actor
         ]))->build();
     }
 
-    /**
-     * @return \Spryker\Glue\GlueApplication\Rest\JsonApi\RestResourceInterface
-     */
     public function createCheckoutDataRestResource(): RestResourceInterface
     {
         return new RestResource(static::RESOURCE_CHECKOUT_DATA);

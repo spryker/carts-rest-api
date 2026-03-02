@@ -9,8 +9,5 @@ namespace Spryker\Zed\CartsRestApi\Persistence;
 
 interface CartsRestApiEntityManagerInterface
 {
-    /**
-     * @return void
-     */
     public function setEmptyQuoteUuids(): void;
 }

@@ -11,10 +11,5 @@ use Generated\Shared\Transfer\OauthResponseTransfer;
 
 interface QuoteMergerInterface
 {
-    /**
-     * @param \Generated\Shared\Transfer\OauthResponseTransfer $oauthResponseTransfer
-     *
-     * @return void
-     */
     public function mergeGuestQuoteAndCustomerQuote(OauthResponseTransfer $oauthResponseTransfer): void;
 }

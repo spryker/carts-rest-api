@@ -32,9 +32,6 @@ class ConvertGuestQuoteToCustomerQuoteTest extends Unit
      */
     protected $cartsRestApiFacade;
 
-    /**
-     * @return void
-     */
     public function setUp(): void
     {
         parent::setUp();
@@ -46,9 +43,6 @@ class ConvertGuestQuoteToCustomerQuoteTest extends Unit
         $this->tester->addCurrentStore($this->tester->haveStore([StoreTransfer::NAME => 'DE']));
     }
 
-    /**
-     * @return void
-     */
     public function testGuestQuoteWillBeConvertedToCustomerQuote(): void
     {
         // Arrange
@@ -88,9 +82,6 @@ class ConvertGuestQuoteToCustomerQuoteTest extends Unit
         $this->assertEmpty($guestQuoteCollectionTransfer->getQuotes());
     }
 
-    /**
-     * @return void
-     */
     public function testEmptyGuestQuoteWillNotBeConvertedToCustomerQuote(): void
     {
         // Arrange
@@ -119,9 +110,6 @@ class ConvertGuestQuoteToCustomerQuoteTest extends Unit
         $this->assertNotEmpty($guestQuoteCollectionTransfer->getQuotes());
     }
 
-    /**
-     * @return void
-     */
     public function testGuestQuoteWillNotBeConvertedToCustomerQuoteWithoutAnonymousCustomerReference(): void
     {
         // Arrange
@@ -150,9 +138,6 @@ class ConvertGuestQuoteToCustomerQuoteTest extends Unit
         $this->assertNotEmpty($guestQuoteCollectionTransfer->getQuotes());
     }
 
-    /**
-     * @return void
-     */
     public function testGuestQuoteWillNotBeConvertedToCustomerQuoteWithoutCustomerReference(): void
     {
         // Arrange

@@ -12,12 +12,6 @@ use Generated\Shared\Transfer\QuoteTransfer;
 
 interface QuoteItemMapperInterface
 {
-    /**
-     * @param \Generated\Shared\Transfer\CartItemRequestTransfer $cartItemRequestTransfer
-     * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
-     *
-     * @return \Generated\Shared\Transfer\QuoteTransfer
-     */
     public function mapCartItemsRequestTransferToQuoteTransfer(
         CartItemRequestTransfer $cartItemRequestTransfer,
         QuoteTransfer $quoteTransfer

@@ -26,10 +26,6 @@ class SingleQuoteCreator implements SingleQuoteCreatorInterface
      */
     protected $quoteReader;
 
-    /**
-     * @param \Spryker\Zed\CartsRestApi\Dependency\Facade\CartsRestApiToPersistentCartFacadeInterface $persistentCartFacade
-     * @param \Spryker\Zed\CartsRestApi\Business\Quote\QuoteReaderInterface $quoteReader
-     */
     public function __construct(
         CartsRestApiToPersistentCartFacadeInterface $persistentCartFacade,
         QuoteReaderInterface $quoteReader
@@ -38,11 +34,6 @@ class SingleQuoteCreator implements SingleQuoteCreatorInterface
         $this->quoteReader = $quoteReader;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
-     *
-     * @return \Generated\Shared\Transfer\QuoteResponseTransfer
-     */
     public function createSingleQuote(QuoteTransfer $quoteTransfer): QuoteResponseTransfer
     {
         $customerReference = $quoteTransfer->getCustomerReference() ?? $quoteTransfer->getCustomer()->getCustomerReference();

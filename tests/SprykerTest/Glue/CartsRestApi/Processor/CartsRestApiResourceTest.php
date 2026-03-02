@@ -44,9 +44,6 @@ class CartsRestApiResourceTest extends Unit
      */
     protected $cartsRestApiResource;
 
-    /**
-     * @return void
-     */
     public function _before(): void
     {
         parent::_before();
@@ -57,9 +54,6 @@ class CartsRestApiResourceTest extends Unit
         );
     }
 
-    /**
-     * @return void
-     */
     public function setUp(): void
     {
         parent::setUp();
@@ -111,9 +105,6 @@ class CartsRestApiResourceTest extends Unit
         return $this->getMockBuilder(RestRequestInterface::class)->getMock();
     }
 
-    /**
-     * @return array
-     */
     public function getCreateCartRestResponseDataProvider(): array
     {
         return [

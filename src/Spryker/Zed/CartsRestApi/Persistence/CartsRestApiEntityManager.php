@@ -20,9 +20,6 @@ class CartsRestApiEntityManager extends AbstractEntityManager implements CartsRe
      */
     protected const BATCH_SIZE = 200;
 
-    /**
-     * @return void
-     */
     public function setEmptyQuoteUuids(): void
     {
         $quoteQuery = $this->getFactory()->getQuoteQuery();

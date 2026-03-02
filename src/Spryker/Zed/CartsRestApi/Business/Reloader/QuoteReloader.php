@@ -23,10 +23,6 @@ class QuoteReloader implements QuoteReloaderInterface
      */
     protected $cartRestApiConfig;
 
-    /**
-     * @param \Spryker\Zed\CartsRestApi\Dependency\Facade\CartsRestApiToCartFacadeInterface $cartFacade
-     * @param \Spryker\Zed\CartsRestApi\CartsRestApiConfig $cartRestApiConfig
-     */
     public function __construct(
         CartsRestApiToCartFacadeInterface $cartFacade,
         CartsRestApiConfig $cartRestApiConfig
@@ -35,11 +31,6 @@ class QuoteReloader implements QuoteReloaderInterface
         $this->cartRestApiConfig = $cartRestApiConfig;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
-     *
-     * @return \Generated\Shared\Transfer\QuoteTransfer
-     */
     public function reloadQuoteItems(QuoteTransfer $quoteTransfer): QuoteTransfer
     {
         if (!$this->cartRestApiConfig->isQuoteReloadEnabled()) {

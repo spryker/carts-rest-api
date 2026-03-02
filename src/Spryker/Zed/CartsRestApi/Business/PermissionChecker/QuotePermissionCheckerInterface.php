@@ -11,17 +11,7 @@ use Generated\Shared\Transfer\QuoteTransfer;
 
 interface QuotePermissionCheckerInterface
 {
-    /**
-     * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
-     *
-     * @return bool
-     */
     public function checkQuoteReadPermission(QuoteTransfer $quoteTransfer): bool;
 
-    /**
-     * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
-     *
-     * @return bool
-     */
     public function checkQuoteWritePermission(QuoteTransfer $quoteTransfer): bool;
 }

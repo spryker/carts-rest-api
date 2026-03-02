@@ -19,9 +19,6 @@ class GuestCartByRestCheckoutDataResourceRelationshipExpander implements GuestCa
      */
     protected GuestCartRestResponseBuilderInterface $guestCartRestResponseBuilder;
 
-    /**
-     * @param \Spryker\Glue\CartsRestApi\Processor\RestResponseBuilder\GuestCartRestResponseBuilderInterface $guestCartRestResponseBuilder
-     */
     public function __construct(
         GuestCartRestResponseBuilderInterface $guestCartRestResponseBuilder
     ) {
@@ -60,11 +57,6 @@ class GuestCartByRestCheckoutDataResourceRelationshipExpander implements GuestCa
         }
     }
 
-    /**
-     * @param \Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface $restRequest
-     *
-     * @return bool
-     */
     protected function isAnonymousUser(RestRequestInterface $restRequest): bool
     {
         return $restRequest->getHttpRequest()->headers->has(CartsRestApiConfig::HEADER_ANONYMOUS_CUSTOMER_UNIQUE_ID);

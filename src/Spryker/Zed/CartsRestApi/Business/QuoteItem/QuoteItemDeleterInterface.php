@@ -22,10 +22,5 @@ interface QuoteItemDeleterInterface
      */
     public function remove(RestCartItemsAttributesTransfer $restCartItemsAttributesTransfer): QuoteResponseTransfer;
 
-    /**
-     * @param \Generated\Shared\Transfer\CartItemRequestTransfer $cartItemRequestTransfer
-     *
-     * @return \Generated\Shared\Transfer\QuoteResponseTransfer
-     */
     public function removeItem(CartItemRequestTransfer $cartItemRequestTransfer): QuoteResponseTransfer;
 }

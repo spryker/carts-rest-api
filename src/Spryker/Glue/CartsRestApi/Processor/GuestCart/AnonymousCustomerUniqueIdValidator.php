@@ -20,20 +20,11 @@ class AnonymousCustomerUniqueIdValidator implements AnonymousCustomerUniqueIdVal
      */
     protected $config;
 
-    /**
-     * @param \Spryker\Glue\CartsRestApi\CartsRestApiConfig $config
-     */
     public function __construct(CartsRestApiConfig $config)
     {
         $this->config = $config;
     }
 
-    /**
-     * @param \Symfony\Component\HttpFoundation\Request $httpRequest
-     * @param \Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface $restRequest
-     *
-     * @return \Generated\Shared\Transfer\RestErrorMessageTransfer|null
-     */
     public function validate(Request $httpRequest, RestRequestInterface $restRequest): ?RestErrorMessageTransfer
     {
         if (!$this->isAnonymousHeaderSet($httpRequest) && $this->isAnonymousHeaderRequired($restRequest)) {
@@ -46,22 +37,12 @@ class AnonymousCustomerUniqueIdValidator implements AnonymousCustomerUniqueIdVal
         return null;
     }
 
-    /**
-     * @param \Symfony\Component\HttpFoundation\Request $httpRequest
-     *
-     * @return bool
-     */
     protected function isAnonymousHeaderSet(Request $httpRequest): bool
     {
         return $httpRequest->headers->has(CartsRestApiConfig::HEADER_ANONYMOUS_CUSTOMER_UNIQUE_ID)
             && $httpRequest->headers->get(CartsRestApiConfig::HEADER_ANONYMOUS_CUSTOMER_UNIQUE_ID);
     }
 
-    /**
-     * @param \Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface $restRequest
-     *
-     * @return bool
-     */
     protected function isAnonymousHeaderRequired(RestRequestInterface $restRequest): bool
     {
         if (in_array($restRequest->getResource()->getType(), $this->config->getGuestCartResources(), true)) {

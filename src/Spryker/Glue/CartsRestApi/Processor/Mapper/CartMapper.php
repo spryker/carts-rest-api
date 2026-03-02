@@ -53,11 +53,6 @@ class CartMapper implements CartMapperInterface
         $this->restCartAttributesMapperPlugins = $restCartAttributesMapperPlugins;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
-     *
-     * @return \Generated\Shared\Transfer\RestCartsAttributesTransfer
-     */
     public function mapQuoteTransferToRestCartsAttributesTransfer(QuoteTransfer $quoteTransfer): RestCartsAttributesTransfer
     {
         $restCartsAttributesTransfer = new RestCartsAttributesTransfer();
@@ -69,12 +64,6 @@ class CartMapper implements CartMapperInterface
         return $this->executeRestCartAttributesMapperPlugins($quoteTransfer, $restCartsAttributesTransfer);
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\RestCartsAttributesTransfer $restCartsAttributesTransfer
-     * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
-     *
-     * @return \Generated\Shared\Transfer\QuoteTransfer
-     */
     public function mapRestCartsAttributesTransferToQuoteTransfer(
         RestCartsAttributesTransfer $restCartsAttributesTransfer,
         QuoteTransfer $quoteTransfer
@@ -91,12 +80,6 @@ class CartMapper implements CartMapperInterface
             ->setStore($storeTransfer);
     }
 
-    /**
-     * @param \Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface $restRequest
-     * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
-     *
-     * @return \Generated\Shared\Transfer\QuoteTransfer
-     */
     public function mapRestRequestToQuoteTransfer(RestRequestInterface $restRequest, QuoteTransfer $quoteTransfer): QuoteTransfer
     {
         $restUserTransfer = $restRequest->getRestUser();
@@ -111,12 +94,6 @@ class CartMapper implements CartMapperInterface
             ->setUuid($restRequest->getResource()->getId());
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\QuoteErrorTransfer $quoteErrorTransfer
-     * @param \Generated\Shared\Transfer\RestErrorMessageTransfer $restErrorMessageTransfer
-     *
-     * @return \Generated\Shared\Transfer\RestErrorMessageTransfer
-     */
     public function mapQuoteErrorTransferToRestErrorMessageTransfer(
         QuoteErrorTransfer $quoteErrorTransfer,
         RestErrorMessageTransfer $restErrorMessageTransfer
@@ -137,12 +114,6 @@ class CartMapper implements CartMapperInterface
         return $restErrorMessageTransfer;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
-     * @param \Generated\Shared\Transfer\RestCartsAttributesTransfer $restCartsAttributesTransfer
-     *
-     * @return \Generated\Shared\Transfer\RestCartsAttributesTransfer
-     */
     protected function executeRestCartAttributesMapperPlugins(
         QuoteTransfer $quoteTransfer,
         RestCartsAttributesTransfer $restCartsAttributesTransfer
@@ -157,11 +128,6 @@ class CartMapper implements CartMapperInterface
         return $restCartsAttributesTransfer;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\QuoteErrorTransfer $quoteErrorTransfer
-     *
-     * @return \Generated\Shared\Transfer\RestErrorMessageTransfer
-     */
     protected function createErrorMessageTransfer(QuoteErrorTransfer $quoteErrorTransfer): RestErrorMessageTransfer
     {
         return (new RestErrorMessageTransfer())
@@ -170,12 +136,6 @@ class CartMapper implements CartMapperInterface
             ->setDetail($quoteErrorTransfer->getMessage());
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
-     * @param \Generated\Shared\Transfer\RestCartsAttributesTransfer $restCartsAttributesTransfer
-     *
-     * @return void
-     */
     protected function setDiscounts(QuoteTransfer $quoteTransfer, RestCartsAttributesTransfer $restCartsAttributesTransfer): void
     {
         foreach ($quoteTransfer->getVoucherDiscounts() as $discountTransfer) {
@@ -192,12 +152,6 @@ class CartMapper implements CartMapperInterface
         }
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
-     * @param \Generated\Shared\Transfer\RestCartsAttributesTransfer $restCartsAttributesTransfer
-     *
-     * @return void
-     */
     protected function setTotals(QuoteTransfer $quoteTransfer, RestCartsAttributesTransfer $restCartsAttributesTransfer): void
     {
         if ($quoteTransfer->getTotals() === null) {
@@ -217,12 +171,6 @@ class CartMapper implements CartMapperInterface
         $restCartsAttributesTransfer->setTotals($cartsTotalsTransfer);
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
-     * @param \Generated\Shared\Transfer\RestCartsAttributesTransfer $restCartsAttributesTransfer
-     *
-     * @return void
-     */
     protected function setBaseCartData(
         QuoteTransfer $quoteTransfer,
         RestCartsAttributesTransfer $restCartsAttributesTransfer

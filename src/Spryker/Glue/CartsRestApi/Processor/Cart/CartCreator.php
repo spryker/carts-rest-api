@@ -32,11 +32,6 @@ class CartCreator implements CartCreatorInterface
      */
     protected $cartRestResponseBuilder;
 
-    /**
-     * @param \Spryker\Glue\CartsRestApi\Processor\Mapper\CartMapperInterface $cartMapper
-     * @param \Spryker\Client\CartsRestApi\CartsRestApiClientInterface $cartsRestApiClient
-     * @param \Spryker\Glue\CartsRestApi\Processor\RestResponseBuilder\CartRestResponseBuilderInterface $cartRestResponseBuilder
-     */
     public function __construct(
         CartMapperInterface $cartMapper,
         CartsRestApiClientInterface $cartsRestApiClient,
@@ -47,12 +42,6 @@ class CartCreator implements CartCreatorInterface
         $this->cartRestResponseBuilder = $cartRestResponseBuilder;
     }
 
-    /**
-     * @param \Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface $restRequest
-     * @param \Generated\Shared\Transfer\RestCartsAttributesTransfer $restCartsAttributesTransfer
-     *
-     * @return \Spryker\Glue\GlueApplication\Rest\JsonApi\RestResponseInterface
-     */
     public function create(
         RestRequestInterface $restRequest,
         RestCartsAttributesTransfer $restCartsAttributesTransfer

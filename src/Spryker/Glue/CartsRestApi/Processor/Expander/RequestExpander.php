@@ -23,19 +23,11 @@ class RequestExpander implements RequestExpanderInterface
      */
     protected CartsRestApiToPersistentCartClientInterface $persistentCartClient;
 
-    /**
-     * @param \Spryker\Glue\CartsRestApi\Dependency\Client\CartsRestApiToPersistentCartClientInterface $persistentCartClient
-     */
     public function __construct(CartsRestApiToPersistentCartClientInterface $persistentCartClient)
     {
         $this->persistentCartClient = $persistentCartClient;
     }
 
-    /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     *
-     * @return void
-     */
     public function expandRequestWithCustomerReference(Request $request): void
     {
         if ($request->request->get(static::REQUEST_KEY_CUSTOMER_REFERENCE)) {

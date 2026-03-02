@@ -16,17 +16,11 @@ class QuoteUuidWriter implements QuoteUuidWriterInterface
      */
     protected $quoteEntityManager;
 
-    /**
-     * @param \Spryker\Zed\CartsRestApi\Persistence\CartsRestApiEntityManagerInterface $quoteEntityManager
-     */
     public function __construct(CartsRestApiEntityManagerInterface $quoteEntityManager)
     {
         $this->quoteEntityManager = $quoteEntityManager;
     }
 
-    /**
-     * @return void
-     */
     public function updateQuotesUuid(): void
     {
         $this->quoteEntityManager->setEmptyQuoteUuids();

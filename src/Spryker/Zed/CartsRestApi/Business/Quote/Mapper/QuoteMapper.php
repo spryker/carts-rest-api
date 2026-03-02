@@ -13,12 +13,6 @@ use Generated\Shared\Transfer\QuoteUpdateRequestTransfer;
 
 class QuoteMapper implements QuoteMapperInterface
 {
-    /**
-     * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
-     * @param \Generated\Shared\Transfer\QuoteUpdateRequestTransfer $quoteUpdateRequestTransfer
-     *
-     * @return \Generated\Shared\Transfer\QuoteUpdateRequestTransfer
-     */
     public function mapQuoteTransferToQuoteUpdateRequestTransfer(
         QuoteTransfer $quoteTransfer,
         QuoteUpdateRequestTransfer $quoteUpdateRequestTransfer
@@ -31,12 +25,6 @@ class QuoteMapper implements QuoteMapperInterface
         return $quoteUpdateRequestTransfer;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
-     * @param \Generated\Shared\Transfer\QuoteTransfer $originalQuoteTransfer
-     *
-     * @return \Generated\Shared\Transfer\QuoteTransfer
-     */
     public function mapQuoteTransferToOriginalQuoteTransfer(
         QuoteTransfer $quoteTransfer,
         QuoteTransfer $originalQuoteTransfer

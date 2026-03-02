@@ -50,9 +50,6 @@ class CartByRestCheckoutDataResourceRelationshipPluginTest extends Unit
      */
     protected CartRestApiGlueTester $tester;
 
-    /**
-     * @return void
-     */
     public function _before(): void
     {
         parent::_before();
@@ -63,9 +60,6 @@ class CartByRestCheckoutDataResourceRelationshipPluginTest extends Unit
         );
     }
 
-    /**
-     * @return void
-     */
     public function testAddResourceRelationshipsWillAddCartsResource(): void
     {
         // Arrange
@@ -85,9 +79,6 @@ class CartByRestCheckoutDataResourceRelationshipPluginTest extends Unit
         $this->assertCount(1, $restCheckoutDataResource->getRelationshipByType(static::RESOURCE_CARTS));
     }
 
-    /**
-     * @return void
-     */
     public function testAddResourceRelationshipsWillNotAddCartResourcesWithoutQuoteInRestCheckoutDataPayload(): void
     {
         // Arrange
@@ -105,9 +96,6 @@ class CartByRestCheckoutDataResourceRelationshipPluginTest extends Unit
         $this->assertEmpty($restCheckoutDataResource->getRelationships());
     }
 
-    /**
-     * @return void
-     */
     public function testAddResourceRelationshipsWillNotAddCartsResourcesIfRestCheckoutDataTransferIsNotProvided(): void
     {
         // Arrange
@@ -123,9 +111,6 @@ class CartByRestCheckoutDataResourceRelationshipPluginTest extends Unit
         $this->assertEmpty($restCheckoutDataResource->getRelationships());
     }
 
-    /**
-     * @return void
-     */
     public function testAddResourceRelationshipsWillNotAddCartsResourcesForGuestUser(): void
     {
         // Arrange

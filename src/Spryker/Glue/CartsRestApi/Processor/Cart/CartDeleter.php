@@ -55,11 +55,6 @@ class CartDeleter implements CartDeleterInterface
         $this->customerExpanderPlugins = $customerExpanderPlugins;
     }
 
-    /**
-     * @param \Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface $restRequest
-     *
-     * @return \Spryker\Glue\GlueApplication\Rest\JsonApi\RestResponseInterface
-     */
     public function delete(RestRequestInterface $restRequest): RestResponseInterface
     {
         $quoteTransfer = $this->cartMapper->mapRestRequestToQuoteTransfer($restRequest, new QuoteTransfer());
@@ -74,12 +69,6 @@ class CartDeleter implements CartDeleterInterface
         return $this->cartRestResponseBuilder->createRestResponse();
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\CustomerTransfer $customerTransfer
-     * @param \Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface $restRequest
-     *
-     * @return \Generated\Shared\Transfer\CustomerTransfer
-     */
     protected function executeCustomerExpanderPlugins(CustomerTransfer $customerTransfer, RestRequestInterface $restRequest): CustomerTransfer
     {
         foreach ($this->customerExpanderPlugins as $customerExpanderPlugin) {

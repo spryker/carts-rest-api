@@ -11,10 +11,5 @@ use Symfony\Component\HttpFoundation\Request;
 
 interface RequestExpanderInterface
 {
-    /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     *
-     * @return void
-     */
     public function expandRequestWithCustomerReference(Request $request): void;
 }

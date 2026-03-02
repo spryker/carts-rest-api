@@ -120,9 +120,6 @@ class CartsRestApiBusinessTester extends Actor
         ],
     ];
 
-    /**
-     * @return \Generated\Shared\Transfer\QuoteResponseTransfer
-     */
     public function prepareQuoteResponseTransfer(): QuoteResponseTransfer
     {
         return (new QuoteResponseBuilder([
@@ -131,9 +128,6 @@ class CartsRestApiBusinessTester extends Actor
         ]))->build();
     }
 
-    /**
-     * @return \Generated\Shared\Transfer\QuoteResponseTransfer
-     */
     public function prepareQuoteResponseTransferWithQuote(): QuoteResponseTransfer
     {
         $quoteOverride = [
@@ -153,43 +147,28 @@ class CartsRestApiBusinessTester extends Actor
             ->build();
     }
 
-    /**
-     * @return \Generated\Shared\Transfer\QuoteResponseTransfer
-     */
     public function prepareQuoteResponseTransferWithoutQuote(): QuoteResponseTransfer
     {
         return (new QuoteResponseBuilder(['isSuccessful' => false]))->build();
     }
 
-    /**
-     * @return \Generated\Shared\Transfer\QuoteCriteriaFilterTransfer
-     */
     public function prepareQuoteCriteriaFilterTransfer(): QuoteCriteriaFilterTransfer
     {
         return (new QuoteCriteriaFilterBuilder(['customerReference' => static::TEST_CUSTOMER_REFERENCE]))
             ->build();
     }
 
-    /**
-     * @return \Generated\Shared\Transfer\QuoteCriteriaFilterTransfer
-     */
     public function prepareQuoteCriteriaFilterTransferForGuest(): QuoteCriteriaFilterTransfer
     {
         return (new QuoteCriteriaFilterBuilder(['customerReference' => static::TEST_ANONYMOUS_CUSTOMER_REFERENCE]))
             ->build();
     }
 
-    /**
-     * @return \Generated\Shared\Transfer\QuoteCriteriaFilterTransfer
-     */
     public function prepareEmptyQuoteCriteriaFilterTransfer(): QuoteCriteriaFilterTransfer
     {
         return (new QuoteCriteriaFilterBuilder())->build();
     }
 
-    /**
-     * @return \Generated\Shared\Transfer\QuoteTransfer
-     */
     public function prepareQuoteTransfer(): QuoteTransfer
     {
         return (new QuoteBuilder(
@@ -201,9 +180,6 @@ class CartsRestApiBusinessTester extends Actor
         ))->build();
     }
 
-    /**
-     * @return \Generated\Shared\Transfer\QuoteTransfer
-     */
     public function prepareQuoteTransferForGuest(): QuoteTransfer
     {
         return (new QuoteBuilder(
@@ -216,9 +192,6 @@ class CartsRestApiBusinessTester extends Actor
         ))->build();
     }
 
-    /**
-     * @return \Generated\Shared\Transfer\QuoteTransfer
-     */
     public function prepareEmptyQuoteTransferForGuest(): QuoteTransfer
     {
         return (new QuoteBuilder(
@@ -230,9 +203,6 @@ class CartsRestApiBusinessTester extends Actor
         ))->build();
     }
 
-    /**
-     * @return \Generated\Shared\Transfer\QuoteTransfer
-     */
     public function prepareQuoteTransferWithoutCustomer(): QuoteTransfer
     {
         return (new QuoteBuilder(
@@ -243,9 +213,6 @@ class CartsRestApiBusinessTester extends Actor
         ))->build();
     }
 
-    /**
-     * @return \Generated\Shared\Transfer\RestCartItemsAttributesTransfer
-     */
     public function prepareRestCartItemsAttributesTransferWithoutQuantity(): RestCartItemsAttributesTransfer
     {
         return (new RestCartItemsAttributesBuilder(
@@ -257,9 +224,6 @@ class CartsRestApiBusinessTester extends Actor
         ))->build();
     }
 
-    /**
-     * @return \Generated\Shared\Transfer\RestCartItemsAttributesTransfer
-     */
     public function prepareRestCartItemsAttributesTransferWithQuantity(): RestCartItemsAttributesTransfer
     {
         $restCartItemsAttributesTransfer = (new RestCartItemsAttributesBuilder(
@@ -278,9 +242,6 @@ class CartsRestApiBusinessTester extends Actor
         return $restCartItemsAttributesTransfer;
     }
 
-    /**
-     * @return \Generated\Shared\Transfer\RestCartItemsAttributesTransfer
-     */
     public function prepareRestCartItemsAttributesTransferForSecondItem(): RestCartItemsAttributesTransfer
     {
         $restCartItemsAttributesTransfer = (new RestCartItemsAttributesBuilder(
@@ -299,9 +260,6 @@ class CartsRestApiBusinessTester extends Actor
         return $restCartItemsAttributesTransfer;
     }
 
-    /**
-     * @return \Generated\Shared\Transfer\RestCartItemsAttributesTransfer
-     */
     public function prepareRestCartItemsAttributesTransferWithoutCustomerReference(): RestCartItemsAttributesTransfer
     {
         return (new RestCartItemsAttributesBuilder(
@@ -313,9 +271,6 @@ class CartsRestApiBusinessTester extends Actor
         ))->build();
     }
 
-    /**
-     * @return \Generated\Shared\Transfer\CartItemRequestTransfer
-     */
     public function prepareCartItemRequestTransferWithQuantity(): CartItemRequestTransfer
     {
         return (new CartItemRequestBuilder(
@@ -328,9 +283,6 @@ class CartsRestApiBusinessTester extends Actor
         ))->build();
     }
 
-    /**
-     * @return \Generated\Shared\Transfer\CartItemRequestTransfer
-     */
     public function prepareCartItemRequestTransferWithoutCustomer(): CartItemRequestTransfer
     {
         return (new CartItemRequestBuilder(
@@ -342,9 +294,6 @@ class CartsRestApiBusinessTester extends Actor
         ))->build();
     }
 
-    /**
-     * @return \Generated\Shared\Transfer\OauthResponseTransfer
-     */
     public function prepareOauthResponseTransfer(): OauthResponseTransfer
     {
         return (new OauthResponseBuilder(
@@ -355,9 +304,6 @@ class CartsRestApiBusinessTester extends Actor
         ))->build();
     }
 
-    /**
-     * @return \Generated\Shared\Transfer\OauthResponseTransfer
-     */
     public function prepareOauthResponseTransferWithoutCustomerReference(): OauthResponseTransfer
     {
         return (new OauthResponseBuilder(
@@ -367,9 +313,6 @@ class CartsRestApiBusinessTester extends Actor
         ))->build();
     }
 
-    /**
-     * @return \Generated\Shared\Transfer\OauthResponseTransfer
-     */
     public function prepareOauthResponseTransferWithoutAnonymousCustomerReference(): OauthResponseTransfer
     {
         return (new OauthResponseBuilder(
@@ -379,9 +322,6 @@ class CartsRestApiBusinessTester extends Actor
         ))->build();
     }
 
-    /**
-     * @return \Generated\Shared\Transfer\CartItemRequestTransfer
-     */
     public function prepareCartItemRequestTransferWithoutQuantity(): CartItemRequestTransfer
     {
         return (new CartItemRequestBuilder(
@@ -393,9 +333,6 @@ class CartsRestApiBusinessTester extends Actor
         ))->build();
     }
 
-    /**
-     * @return \Generated\Shared\Transfer\CartItemRequestTransfer
-     */
     public function prepareCartItemRequestTransferWithoutUuid(): CartItemRequestTransfer
     {
         return (new CartItemRequestBuilder(
@@ -407,9 +344,6 @@ class CartsRestApiBusinessTester extends Actor
         ))->build();
     }
 
-    /**
-     * @return \Generated\Shared\Transfer\CartItemRequestTransfer
-     */
     public function prepareCartItemRequestTransferWithoutSku(): CartItemRequestTransfer
     {
         return (new CartItemRequestBuilder(
@@ -421,9 +355,6 @@ class CartsRestApiBusinessTester extends Actor
         ))->build();
     }
 
-    /**
-     * @return \Generated\Shared\Transfer\AssignGuestQuoteRequestTransfer
-     */
     public function prepareAssignGuestQuoteRequestTransfer(): AssignGuestQuoteRequestTransfer
     {
         return (new AssignGuestQuoteRequestBuilder(
@@ -434,9 +365,6 @@ class CartsRestApiBusinessTester extends Actor
         ))->build();
     }
 
-    /**
-     * @return \Generated\Shared\Transfer\AssignGuestQuoteRequestTransfer
-     */
     public function prepareAssignGuestQuoteRequestTransferWithoutCustomerReference(): AssignGuestQuoteRequestTransfer
     {
         return (new AssignGuestQuoteRequestBuilder(
@@ -446,9 +374,6 @@ class CartsRestApiBusinessTester extends Actor
         ))->build();
     }
 
-    /**
-     * @return \Generated\Shared\Transfer\AssignGuestQuoteRequestTransfer
-     */
     public function prepareAssignGuestQuoteRequestTransferWithoutAnonymousCustomerReference(): AssignGuestQuoteRequestTransfer
     {
         return (new AssignGuestQuoteRequestBuilder(
@@ -458,9 +383,6 @@ class CartsRestApiBusinessTester extends Actor
         ))->build();
     }
 
-    /**
-     * @return \Generated\Shared\Transfer\RestCartItemsAttributesTransfer
-     */
     public function prepareRestCartItemsAttributesTransferWithoutSku(): RestCartItemsAttributesTransfer
     {
         return (new RestCartItemsAttributesBuilder(
@@ -472,9 +394,6 @@ class CartsRestApiBusinessTester extends Actor
         ))->build();
     }
 
-    /**
-     * @return \Generated\Shared\Transfer\RestCartItemsAttributesTransfer
-     */
     public function prepareRestCartItemsAttributesTransferWithoutUuid(): RestCartItemsAttributesTransfer
     {
         return (new RestCartItemsAttributesBuilder(
@@ -486,33 +405,21 @@ class CartsRestApiBusinessTester extends Actor
         ))->build();
     }
 
-    /**
-     * @return \Generated\Shared\Transfer\QuoteTransfer
-     */
     public function prepareQuoteTransferWithoutCustomerReference(): QuoteTransfer
     {
         return (new QuoteBuilder(['uuid' => static::TEST_QUOTE_UUID]))->build();
     }
 
-    /**
-     * @return \Generated\Shared\Transfer\QuoteTransfer
-     */
     public function prepareQuoteTransferWithoutCartUuid(): QuoteTransfer
     {
         return (new QuoteBuilder(['customerReference' => static::TEST_CUSTOMER_REFERENCE]))->build();
     }
 
-    /**
-     * @return \Generated\Shared\Transfer\QuoteCollectionTransfer
-     */
     public function prepareEmptyQuoteCollectionTransfer(): QuoteCollectionTransfer
     {
         return (new QuoteCollectionBuilder())->build();
     }
 
-    /**
-     * @return \Generated\Shared\Transfer\QuoteCollectionTransfer
-     */
     public function prepareQuotesCollectionTransfer(): QuoteCollectionTransfer
     {
         $quoteCollectionTransfer = new QuoteCollectionTransfer();
@@ -523,11 +430,6 @@ class CartsRestApiBusinessTester extends Actor
         return $quoteCollectionTransfer;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\CustomerTransfer $customerTransfer
-     *
-     * @return \Generated\Shared\Transfer\QuoteTransfer
-     */
     public function buildQuoteTransfer(CustomerTransfer $customerTransfer): QuoteTransfer
     {
         return (new QuoteBuilder(
@@ -538,11 +440,6 @@ class CartsRestApiBusinessTester extends Actor
         ))->build();
     }
 
-    /**
-     * @param string $customerReference
-     *
-     * @return \Generated\Shared\Transfer\OauthResponseTransfer
-     */
     public function buildOauthResponseTransfer(string $customerReference): OauthResponseTransfer
     {
         return (new OauthResponseBuilder(
@@ -553,11 +450,6 @@ class CartsRestApiBusinessTester extends Actor
         ))->build();
     }
 
-    /**
-     * @param string $customerReference
-     *
-     * @return \Generated\Shared\Transfer\QuoteCriteriaFilterTransfer
-     */
     public function buildQuoteCriteriaFilterTransfer(string $customerReference): QuoteCriteriaFilterTransfer
     {
         return (new QuoteCriteriaFilterBuilder(
@@ -567,11 +459,6 @@ class CartsRestApiBusinessTester extends Actor
         ))->build();
     }
 
-    /**
-     * @param string $customerReference
-     *
-     * @return \Generated\Shared\Transfer\QuoteCriteriaFilterTransfer
-     */
     public function createQuoteCriteriaFilterTransfer(string $customerReference): QuoteCriteriaFilterTransfer
     {
         return (new QuoteCriteriaFilterTransfer())->setCustomerReference($customerReference);

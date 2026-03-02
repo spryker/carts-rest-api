@@ -98,11 +98,6 @@ class QuoteItemAdder implements QuoteItemAdderInterface
         return $this->addToCart($cartItemRequestTransfer);
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\CartItemRequestTransfer $cartItemRequestTransfer
-     *
-     * @return \Generated\Shared\Transfer\QuoteResponseTransfer
-     */
     public function addToCart(CartItemRequestTransfer $cartItemRequestTransfer): QuoteResponseTransfer
     {
         $cartItemRequestTransfer
@@ -150,12 +145,6 @@ class QuoteItemAdder implements QuoteItemAdderInterface
         return $quoteResponseTransfer->setQuoteTransfer($quoteTransfer);
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
-     * @param \Generated\Shared\Transfer\CartItemRequestTransfer $cartItemRequestTransfer
-     *
-     * @return \Generated\Shared\Transfer\PersistentCartChangeTransfer
-     */
     protected function createPersistentCartChangeTransfer(
         QuoteTransfer $quoteTransfer,
         CartItemRequestTransfer $cartItemRequestTransfer
@@ -171,12 +160,6 @@ class QuoteItemAdder implements QuoteItemAdderInterface
         return $this->executeCartItemMapperPlugins($cartItemRequestTransfer, $persistentCartChangeTransfer);
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\CartItemRequestTransfer $cartItemRequestTransfer
-     * @param \Generated\Shared\Transfer\PersistentCartChangeTransfer $persistentCartChangeTransfer
-     *
-     * @return \Generated\Shared\Transfer\PersistentCartChangeTransfer
-     */
     protected function executeCartItemMapperPlugins(
         CartItemRequestTransfer $cartItemRequestTransfer,
         PersistentCartChangeTransfer $persistentCartChangeTransfer

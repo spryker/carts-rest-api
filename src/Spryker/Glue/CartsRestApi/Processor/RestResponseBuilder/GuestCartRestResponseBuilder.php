@@ -64,20 +64,11 @@ class GuestCartRestResponseBuilder implements GuestCartRestResponseBuilderInterf
         $this->cartItemFilterPlugins = $cartItemFilterPlugins;
     }
 
-    /**
-     * @return \Spryker\Glue\GlueApplication\Rest\JsonApi\RestResponseInterface
-     */
     public function createEmptyGuestCartRestResponse(): RestResponseInterface
     {
         return $this->restResourceBuilder->createRestResponse();
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
-     * @param string $localeName
-     *
-     * @return \Spryker\Glue\GlueApplication\Rest\JsonApi\RestResponseInterface
-     */
     public function createGuestCartRestResponse(QuoteTransfer $quoteTransfer, string $localeName): RestResponseInterface
     {
         $guestCartResource = $this->restResourceBuilder->createRestResource(
@@ -118,13 +109,6 @@ class GuestCartRestResponseBuilder implements GuestCartRestResponseBuilderInterf
         return $restResponse;
     }
 
-    /**
-     * @param \Spryker\Glue\GlueApplication\Rest\JsonApi\RestResourceInterface $guestCartResource
-     * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
-     * @param string $localeName
-     *
-     * @return \Spryker\Glue\GlueApplication\Rest\JsonApi\RestResourceInterface
-     */
     protected function addGuestCartItemsRelationship(
         RestResourceInterface $guestCartResource,
         QuoteTransfer $quoteTransfer,

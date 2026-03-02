@@ -27,22 +27,12 @@ class SingleQuoteCreator implements SingleQuoteCreatorInterface
      */
     protected $cartsRestApiClient;
 
-    /**
-     * @param \Spryker\Glue\CartsRestApi\Processor\Cart\CartReaderInterface $cartReader
-     * @param \Spryker\Client\CartsRestApi\CartsRestApiClientInterface $cartsRestApiClient
-     */
     public function __construct(CartReaderInterface $cartReader, CartsRestApiClientInterface $cartsRestApiClient)
     {
         $this->cartReader = $cartReader;
         $this->cartsRestApiClient = $cartsRestApiClient;
     }
 
-    /**
-     * @param \Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface $restRequest
-     * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
-     *
-     * @return \Generated\Shared\Transfer\QuoteResponseTransfer
-     */
     public function createQuote(RestRequestInterface $restRequest, QuoteTransfer $quoteTransfer): QuoteResponseTransfer
     {
         $quoteCollectionTransfer = $this->cartReader->getCustomerQuotes($restRequest);
