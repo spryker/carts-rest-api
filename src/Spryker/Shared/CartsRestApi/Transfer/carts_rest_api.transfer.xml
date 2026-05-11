@@ -97,6 +97,10 @@
         <property name="priceMode" type="string" description="The mode for price calculation, typically &quot;GROSS_MODE&quot; or &quot;NET_MODE&quot;."/>
         <property name="voucherDiscounts" type="Discount[]" singular="voucherDiscount" description="A collection of discounts applied from voucher codes."/>
         <property name="cartRuleDiscounts" type="Discount[]" singular="cartRuleDiscount" description="A collection of discounts applied based on cart-level rules."/>
+        <property name="giftCards" type="GiftCard[]" singular="giftCard" description="A collection of gift cards."/>
+        <property name="promotionItems" type="PromotionItem[]" singular="promotionItem" description="A collection of items that are part of a promotion."/>
+        <property name="shareDetails" type="ShareDetail[]" singular="shareDetail" description="A collection of share-cart details — who the cart is shared with and at what permission group."/>
+        <property name="bundleItems" type="Item[]" singular="bundleItem" description="A collection of items in a product bundle."/>
         <property name="customer" type="Customer" description="A data object representing a customer."/>
         <property name="currency" type="Currency" description="The currency used for a transaction or price."/>
         <property name="items" type="Item[]" singular="item" description="A collection of items, typically in a cart, order, or list."/>
@@ -153,6 +157,10 @@
 
     <transfer name="Currency">
         <property name="code" type="string" description="A unique code, often for currency, country, or barcode."/>
+    </transfer>
+
+    <transfer name="Locale">
+        <property name="localeName" type="string" description="The name of a locale, such as 'en_US' or 'de_DE'."/>
     </transfer>
 
     <transfer name="Totals">
@@ -214,6 +222,15 @@
 
     <transfer name="RestCheckoutData">
         <property name="quote" type="Quote" description="A data object representing a shopping cart before it becomes an order."/>
+    </transfer>
+
+    <transfer name="GiftCard">
+    </transfer>
+
+    <transfer name="PromotionItem">
+    </transfer>
+
+    <transfer name="ShareDetail">
     </transfer>
 
 </transfers>

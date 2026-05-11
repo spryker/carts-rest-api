@@ -1,0 +1,212 @@
+resource:
+    name: Carts
+    shortName: carts
+    description: 'Cart management for authenticated customers'
+
+    provider: Spryker\Glue\CartsRestApi\Api\Storefront\Provider\CartsStorefrontProvider
+    processor: Spryker\Glue\CartsRestApi\Api\Storefront\Processor\CartsStorefrontProcessor
+
+    paginationEnabled: false
+
+    security: "is_granted('ROLE_CUSTOMER')"
+
+    operations:
+        - type: GetCollection
+          description: 'Retrieve all carts for the authenticated customer'
+
+        - type: Post
+          description: 'Create a new cart for the authenticated customer'
+          extraProperties:
+              entityTag: write
+
+        - type: Get
+          description: 'Retrieve a specific cart by UUID'
+          extraProperties:
+              entityTag: read
+
+        - type: Patch
+          description: 'Update cart properties'
+          extraProperties:
+              entityTag: write
+              ifMatchRequired: true
+
+        - type: Delete
+          description: 'Delete a cart'
+
+    includes:
+        - relationshipName: items
+          targetResource: CartItems
+          resolverClass: Spryker\Glue\CartsRestApi\Api\Storefront\Relationship\CartsItemsRelationshipResolver
+        - relationshipName: vouchers
+          targetResource: Vouchers
+          resolverClass: Spryker\Glue\CartCodesRestApi\Api\Storefront\Relationship\CartsVouchersRelationshipResolver
+        - relationshipName: cart-rules
+          targetResource: CartRules
+          resolverClass: Spryker\Glue\CartCodesRestApi\Api\Storefront\Relationship\CartsCartRulesRelationshipResolver
+        - relationshipName: promotional-items
+          targetResource: PromotionalItems
+          resolverClass: Spryker\Glue\DiscountPromotionsRestApi\Api\Storefront\Relationship\CartsPromotionalItemsRelationshipResolver
+        - relationshipName: gift-cards
+          targetResource: GiftCards
+          resolverClass: Spryker\Glue\GiftCardsRestApi\Api\Storefront\Relationship\CartsGiftCardsRelationshipResolver
+        - relationshipName: cart-permission-groups
+          targetResource: CartPermissionGroups
+          resolverClass: Spryker\Glue\CartPermissionGroupsRestApi\Api\Storefront\Relationship\CartsCartPermissionGroupsRelationshipResolver
+        - relationshipName: shared-carts
+          targetResource: SharedCarts
+          resolverClass: Spryker\Glue\SharedCartsRestApi\Api\Storefront\Relationship\CartsSharedCartsRelationshipResolver
+        - relationshipName: bundle-items
+          targetResource: BundleItems
+          resolverClass: Spryker\Glue\ProductBundleCartsRestApi\Api\Storefront\Relationship\CartsBundleItemsRelationshipResolver
+
+    properties:
+        uuid:
+            type: string
+            identifier: true
+            writable: false
+            readable: true
+            required: false
+            description: 'Unique cart identifier'
+            openapiContext:
+                example: '1ce91011-8d60-59ef-9fe0-4493ef36c4f0'
+
+        priceMode:
+            type: string
+            writable: true
+            readable: true
+            required: false
+            description: 'Price mode for the cart (GROSS_MODE or NET_MODE)'
+            openapiContext:
+                example: 'GROSS_MODE'
+
+        currency:
+            type: string
+            writable: true
+            readable: true
+            required: false
+            description: 'Currency code for the cart'
+            openapiContext:
+                example: 'EUR'
+
+        store:
+            type: string
+            writable: true
+            readable: true
+            required: false
+            description: 'Store name for the cart'
+            openapiContext:
+                example: 'DE'
+
+        name:
+            type: string
+            writable: true
+            readable: true
+            required: false
+            description: 'Cart name'
+            openapiContext:
+                example: 'My Cart'
+
+        isDefault:
+            type: boolean
+            writable: false
+            readable: true
+            required: false
+            description: 'Whether this cart is the default cart'
+
+        totals:
+            type: array
+            writable: false
+            readable: true
+            required: false
+            description: 'Calculated cart totals in cents. `subtotal` is items × prices before any discount/tax; `discountTotal` is the sum of all applied discounts; `taxTotal` is tax computed against the discounted base; `expenseTotal` is the sum of shipping/handling expenses; `grandTotal` is what the customer pays; `priceToPay` is the same value adjusted for any pre-paid amount (e.g. gift cards).'
+            openapiContext:
+                example:
+                    expenseTotal: 0
+                    discountTotal: 1457
+                    taxTotal: 2562
+                    subtotal: 16058
+                    grandTotal: 14601
+                    priceToPay: 14601
+
+        discounts:
+            type: array
+            writable: false
+            readable: true
+            required: false
+            description: 'Discounts currently applied to the cart, summarized for display. Each entry carries the discount `displayName`, total `amount` in cents, and the `code` used to apply it (empty for rule-based discounts).'
+            openapiContext:
+                example:
+                    - displayName: '10% Discount for all orders above'
+                      amount: 1457
+                      code: 'VOUCHER10'
+
+        thresholds:
+            type: array
+            writable: false
+            readable: true
+            required: false
+            description: 'Sales-order threshold messages produced by `SalesOrderThresholdConfig` rules. Each entry tells the customer how their cart relates to a configured threshold (soft warnings, hard blockers, free-shipping nudges).'
+            openapiContext:
+                example:
+                    - type: 'soft'
+                      message: 'You are €5.00 short of free shipping'
+                      deltaWithSubtotal: 500
+                      fee: 590
+
+        amendmentOrderReference:
+            type: string
+            writable: false
+            readable: true
+            required: false
+            description: 'Order reference when the cart is an amendment of an existing order'
+            openapiContext:
+                example: 'DE--1'
+
+        voucherDiscounts:
+            type: array
+            writable: false
+            readable: false
+            required: false
+            description: 'Voucher-code discounts currently applied to the cart, surfaced as the `vouchers` relationship when the response is requested with `?include=vouchers`.'
+
+        cartRuleDiscounts:
+            type: array
+            writable: false
+            readable: false
+            required: false
+            description: 'Automatic (rule-based) discounts currently applied to the cart, surfaced as the `cart-rules` relationship when the response is requested with `?include=cart-rules`.'
+
+        promotionItems:
+            type: array
+            writable: false
+            readable: false
+            required: false
+            description: 'Promotional items the customer is eligible to add to the cart based on active discount promotions, surfaced as the `promotional-items` relationship when requested with `?include=promotional-items`.'
+
+        giftCards:
+            type: array
+            writable: false
+            readable: false
+            required: false
+            description: 'Gift cards already redeemed against the cart, surfaced as the `gift-cards` relationship when requested with `?include=gift-cards`.'
+
+        shareDetails:
+            type: array
+            writable: false
+            readable: false
+            required: false
+            description: 'Other company users this cart is shared with and their permission groups, surfaced as the `shared-carts` relationship when requested with `?include=shared-carts`.'
+
+        bundleItems:
+            type: array
+            writable: false
+            readable: false
+            required: false
+            description: 'Bundle parent records for cart items that originate from a product bundle. Used both by the `bundle-items` relationship and by the `items` relationship — bundled-out concrete items are folded back into a single bundle entry so the customer sees one row per bundle instead of N rows per component.'
+
+        items:
+            type: array
+            writable: false
+            readable: false
+            required: false
+            description: 'All cart items (incl. bundled-out components and configured-bundle slots), surfaced as the `items` relationship when requested with `?include=items`. The configured `CartItemFilterPluginInterface` chain runs over this collection — for example, bundled items are collapsed into their bundle parents.'

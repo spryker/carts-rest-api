@@ -23,6 +23,7 @@
         "spryker/zed-request": "^3.6.0"
     },
     "require-dev": {
+        "spryker/api-platform": "^1.0.0",
         "spryker/calculation": "*",
         "spryker/code-sniffer": "*",
         "spryker/container": "*",
@@ -36,6 +37,7 @@
         "spryker/testify": "*"
     },
     "suggest": {
+        "spryker/api-platform": "If you want to expose CartsRestApi resources through the API Platform stack.",
         "spryker/auth-rest-api": "If you want to authorize and authenticate customers via access tokens.",
         "spryker/authorization": "If you want to use multiple authorization strategies, minimum required version: 1.2.0.",
         "spryker/rest-request-validator": "If you want to use rest request validation.",

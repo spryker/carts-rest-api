@@ -1,0 +1,220 @@
+resource:
+    name: CartItems
+    shortName: items
+    description: 'Cart item management for authenticated customer carts'
+
+    processor: Spryker\Glue\CartsRestApi\Api\Storefront\Processor\CartItemsStorefrontProcessor
+
+    security: "is_granted('ROLE_CUSTOMER')"
+
+    operations:
+        - type: Get
+          description: 'Retrieve a specific cart item'
+          uriTemplate: '/carts/{cartId}/items/{groupKey}'
+          read: false
+          uriVariables:
+              cartId:
+                  toProperty: 'cart'
+                  fromClass: CartsStorefrontResource
+              groupKey:
+                  fromClass: CartItemsStorefrontResource
+
+        - type: Post
+          description: 'Add an item to a cart'
+          uriTemplate: '/carts/{cartId}/items'
+          uriVariables:
+              cartId:
+                  toProperty: 'cart'
+                  fromClass: CartsStorefrontResource
+
+        - type: Patch
+          description: 'Update item quantity in a cart'
+          uriTemplate: '/carts/{cartId}/items/{groupKey}'
+          read: false
+          uriVariables:
+              cartId:
+                  identifiers: [cartId]
+              groupKey:
+                  identifiers: [groupKey]
+
+        - type: Delete
+          description: 'Remove an item from a cart'
+          uriTemplate: '/carts/{cartId}/items/{groupKey}'
+          read: false
+          uriVariables:
+              cartId:
+                  identifiers: [cartId]
+              groupKey:
+                  identifiers: [groupKey]
+
+    includes:
+        - relationshipName: concrete-products
+          targetResource: ConcreteProducts
+          uriVariableMappings:
+              sku: sku
+        - relationshipName: abstract-products
+          targetResource: AbstractProducts
+          uriVariableMappings:
+              abstractSku: sku
+        - relationshipName: merchants
+          targetResource: Merchants
+          uriVariableMappings:
+              merchantReference: merchantReference
+        - relationshipName: sales-units
+          targetResource: SalesUnits
+          uriVariableMappings:
+              idProductMeasurementSalesUnit: idProductMeasurementSalesUnit
+
+    includableIn:
+        - resource: Carts
+          relationshipName: items
+          uriVariableMappings:
+              cartId: uuid
+
+    properties:
+        groupKey:
+            type: string
+            identifier: true
+            writable: false
+            readable: true
+            required: false
+            description: 'Unique item group key identifier'
+            openapiContext:
+                example: '035_17360369'
+
+        sku:
+            type: string
+            writable: true
+            readable: true
+            required: true
+            description: 'Product SKU'
+            openapiContext:
+                example: '035_17360369'
+
+        quantity:
+            type: integer
+            writable: true
+            readable: true
+            required: true
+            description: 'Item quantity'
+            openapiContext:
+                example: 1
+
+        abstractSku:
+            type: string
+            writable: false
+            readable: true
+            required: false
+            description: 'Abstract product SKU'
+            openapiContext:
+                example: '035'
+
+        merchantReference:
+            type: string
+            writable: false
+            readable: true
+            required: false
+            description: 'Merchant reference owning the item (marketplace)'
+            openapiContext:
+                example: 'MER000001'
+
+        productOfferReference:
+            type: string
+            writable: true
+            readable: true
+            required: false
+            description: 'Product offer reference owning the item (marketplace)'
+
+        idProductMeasurementSalesUnit:
+            type: string
+            writable: false
+            readable: true
+            required: false
+            description: 'Selected sales unit identifier'
+
+        amount:
+            type: string
+            writable: false
+            readable: true
+            required: false
+            description: 'Amount for measurement unit or packaging unit items'
+
+        calculations:
+            type: map
+            writable: false
+            readable: true
+            required: false
+            description: 'Item price calculations including unit and sum prices'
+
+        productConfigurationInstance:
+            type: mixed
+            writable: true
+            readable: true
+            required: false
+            description: 'Product configuration instance data'
+
+        idPromotionalItem:
+            type: string
+            writable: true
+            readable: false
+            required: false
+            description: 'Discount promotion UUID for promotional items'
+            openapiContext:
+                example: 'discount-promotion-uuid-example'
+
+        salesUnit:
+            type: mixed
+            writable: true
+            readable: true
+            required: false
+            description: 'Sales-unit selection for products priced by a measurement unit (e.g. kg, m, L). Carries the sales-unit identifier and the chosen amount in that unit; required when adding/updating items of measurable products.'
+            openapiContext:
+                example:
+                    id: 1
+                    amount: 5
+
+        selectedProductOptions:
+            type: array
+            writable: true
+            readable: true
+            required: false
+            description: 'Product options chosen by the customer for this cart item (e.g. gift wrap, warranty extension). On write: array of `idProductOptionValue` integers. On read: enriched product-option payloads carrying option group, value, and price.'
+            openapiContext:
+                example:
+                    - idProductOptionValue: 3
+                      optionGroupName: 'Warranty'
+                      optionName: 'Two (2) year limited warranty'
+                      price: 1000
+                      currencyIsoCode: 'EUR'
+
+        configuredBundle:
+            type: mixed
+            writable: false
+            readable: true
+            required: false
+            description: 'Set when the cart item belongs to a customer-assembled configurable bundle. Identifies the bundle instance by `groupKey` and references the bundle template the customer started from.'
+            openapiContext:
+                example:
+                    groupKey: 'bundle-group-key-example'
+                    templateUuid: 'bundle-template-uuid-example'
+                    templateName: 'Living Room Set'
+                    quantity: 1
+
+        configuredBundleItem:
+            type: mixed
+            writable: false
+            readable: true
+            required: false
+            description: 'Set when the cart item is one slot of a configured bundle. Points back to the parent bundle (`groupKey`) and identifies which template slot this concrete product fulfils.'
+            openapiContext:
+                example:
+                    groupKey: 'bundle-group-key-example'
+                    slotUuid: 'bundle-slot-uuid-example'
+                    templateSlotName: 'Sofa'
+
+        cart:
+            type: CartsStorefrontResource
+            writable: false
+            readable: false
+            required: false
+            description: 'The parent cart'

@@ -1,0 +1,136 @@
+resource:
+    name: CustomersCarts
+    shortName: customers-carts
+    description: 'Cart listing for a specific customer'
+
+    provider: Spryker\Glue\CartsRestApi\Api\Storefront\Provider\CustomersCartsStorefrontProvider
+
+    uriVariables:
+        customerReference:
+            type: string
+            description: 'The customer reference'
+            example: 'DE--123'
+
+    paginationEnabled: false
+
+    operations:
+        - type: GetCollection
+          description: 'Retrieve all carts for the authenticated customer'
+          security: "is_granted('ROLE_CUSTOMER') and is_granted('CUSTOMER_OWNER')"
+          uriTemplate: '/customers/{customerReference}/carts'
+          uriVariables:
+              customerReference:
+                  identifiers: [customerReference]
+          openapiContext:
+              summary: 'List customer carts'
+              description: 'Returns all carts belonging to the authenticated customer. Requires ownership.'
+              responses:
+                  200:
+                      description: 'Cart collection returned.'
+                  401:
+                      description: 'Missing or invalid access token.'
+                  403:
+                      description: 'Access denied — customer reference does not belong to the authenticated user.'
+
+    properties:
+        uuid:
+            type: string
+            identifier: true
+            writable: false
+            readable: true
+            required: false
+            description: 'Unique cart identifier'
+            openapiContext:
+                example: '1ce91011-8d60-59ef-9fe0-4493ef36c4f0'
+
+        priceMode:
+            type: string
+            writable: false
+            readable: true
+            required: false
+            description: 'Price mode for the cart (GROSS_MODE or NET_MODE)'
+            openapiContext:
+                example: 'GROSS_MODE'
+
+        currency:
+            type: string
+            writable: false
+            readable: true
+            required: false
+            description: 'Currency code for the cart'
+            openapiContext:
+                example: 'EUR'
+
+        store:
+            type: string
+            writable: false
+            readable: true
+            required: false
+            description: 'Store name for the cart'
+            openapiContext:
+                example: 'DE'
+
+        name:
+            type: string
+            writable: false
+            readable: true
+            required: false
+            description: 'Cart name'
+            openapiContext:
+                example: 'My Cart'
+
+        isDefault:
+            type: boolean
+            writable: false
+            readable: true
+            required: false
+            description: 'Whether this is the default cart'
+
+        totals:
+            type: array
+            writable: false
+            readable: true
+            required: false
+            description: 'Calculated cart totals in cents. `subtotal` is items × prices before any discount/tax; `discountTotal` is the sum of all applied discounts; `taxTotal` is tax computed against the discounted base; `expenseTotal` is the sum of shipping/handling expenses; `grandTotal` is what the customer pays; `priceToPay` is the same value adjusted for any pre-paid amount (e.g. gift cards).'
+            openapiContext:
+                example:
+                    expenseTotal: 0
+                    discountTotal: 1457
+                    taxTotal: 2562
+                    subtotal: 16058
+                    grandTotal: 14601
+                    priceToPay: 14601
+
+        discounts:
+            type: array
+            writable: false
+            readable: true
+            required: false
+            description: 'Discounts currently applied to the cart, summarized for display. Each entry carries the discount `displayName`, total `amount` in cents, and the `code` used to apply it (empty for rule-based discounts).'
+            openapiContext:
+                example:
+                    - displayName: '10% Discount for all orders above'
+                      amount: 1457
+                      code: 'VOUCHER10'
+
+        thresholds:
+            type: array
+            writable: false
+            readable: true
+            required: false
+            description: 'Sales-order threshold messages produced by `SalesOrderThresholdConfig` rules. Each entry tells the customer how their cart relates to a configured threshold (soft warnings, hard blockers, free-shipping nudges).'
+            openapiContext:
+                example:
+                    - type: 'soft'
+                      message: 'You are €5.00 short of free shipping'
+                      deltaWithSubtotal: 500
+                      fee: 590
+
+        amendmentOrderReference:
+            type: string
+            writable: false
+            readable: true
+            required: false
+            description: 'Order reference when the cart is an amendment of an existing order'
+            openapiContext:
+                example: 'DE--1'

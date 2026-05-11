@@ -1,0 +1,17 @@
+post:
+    priceMode:
+        - NotBlank
+    currency:
+        - NotBlank
+    store:
+        - NotBlank
+    name:
+        - NotBlank
+        - Length:
+              max: 30
+
+patch:
+    name:
+        - NotBlank
+        - Length:
+              max: 30
