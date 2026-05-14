@@ -153,15 +153,6 @@ resource:
                       deltaWithSubtotal: 500
                       fee: 590
 
-        amendmentOrderReference:
-            type: string
-            writable: false
-            readable: true
-            required: false
-            description: 'Order reference when the cart is an amendment of an existing order'
-            openapiContext:
-                example: 'DE--1'
-
         voucherDiscounts:
             type: array
             writable: false
