@@ -63,7 +63,7 @@ resource:
         - relationshipName: sales-units
           targetResource: SalesUnits
           uriVariableMappings:
-              idProductMeasurementSalesUnit: idProductMeasurementSalesUnit
+              sku: concreteProductSku
 
     includableIn:
         - resource: Carts
@@ -111,7 +111,7 @@ resource:
 
         merchantReference:
             type: string
-            writable: false
+            writable: true
             readable: true
             required: false
             description: 'Merchant reference owning the item (marketplace)'
@@ -175,17 +175,27 @@ resource:
 
         selectedProductOptions:
             type: array
-            writable: true
+            writable: false
             readable: true
             required: false
-            description: 'Product options chosen by the customer for this cart item (e.g. gift wrap, warranty extension). On write: array of `idProductOptionValue` integers. On read: enriched product-option payloads carrying option group, value, and price.'
+            description: 'Enriched product-option payloads on the cart item: option group, value, and price. Set by the response mapper from the persisted cart item.'
             openapiContext:
                 example:
-                    - idProductOptionValue: 3
-                      optionGroupName: 'Warranty'
+                    - optionGroupName: 'Warranty'
                       optionName: 'Two (2) year limited warranty'
+                      sku: 'OP_2_year_warranty'
                       price: 1000
-                      currencyIsoCode: 'EUR'
+
+        productOptions:
+            type: array
+            writable: true
+            readable: false
+            required: false
+            description: 'Product options chosen by the customer on cart-item create/update. Each entry carries the option-value `sku`; the cart item is recalculated with the matching `idProductOptionValue` resolved server-side.'
+            openapiContext:
+                example:
+                    - sku: 'OP_2_year_warranty'
+                    - sku: 'OP_gift_wrap'
 
         configuredBundle:
             type: mixed
