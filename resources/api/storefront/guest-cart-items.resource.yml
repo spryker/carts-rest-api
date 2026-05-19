@@ -62,8 +62,7 @@ resource:
               merchantReference: merchantReference
         - relationshipName: sales-units
           targetResource: SalesUnits
-          uriVariableMappings:
-              sku: concreteProductSku
+          resolverClass: Spryker\Glue\ProductMeasurementUnitsRestApi\Api\Storefront\Relationship\CartItemSalesUnitsRelationshipResolver
 
     includableIn:
         - resource: GuestCarts
