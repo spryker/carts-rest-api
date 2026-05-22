@@ -64,12 +64,6 @@ resource:
           targetResource: SalesUnits
           resolverClass: Spryker\Glue\ProductMeasurementUnitsRestApi\Api\Storefront\Relationship\CartItemSalesUnitsRelationshipResolver
 
-    includableIn:
-        - resource: Carts
-          relationshipName: items
-          uriVariableMappings:
-              cartId: uuid
-
     properties:
         groupKey:
             type: string
