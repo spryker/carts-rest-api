@@ -123,7 +123,7 @@ resource:
             writable: false
             readable: true
             required: false
-            description: 'Selected sales unit identifier'
+            description: 'DEPRECATED: this property is declared by ProductMeasurementUnitsRestApi which owns the product-measurement-units domain. Kept here for backward compatibility; will be removed in the next major. Selected sales unit identifier'
 
         amount:
             type: string
@@ -144,14 +144,14 @@ resource:
             writable: true
             readable: true
             required: false
-            description: 'Product configuration instance data'
+            description: 'DEPRECATED: this property is declared by ProductConfigurationsRestApi which owns the product-configuration domain. Kept here for backward compatibility; will be removed in the next major. Product configuration instance data'
 
         idPromotionalItem:
             type: string
             writable: true
             readable: false
             required: false
-            description: 'Discount promotion UUID for promotional items'
+            description: 'DEPRECATED: this property is declared by DiscountPromotionsRestApi which owns the discount-promotions domain. Kept here for backward compatibility; will be removed in the next major. Discount promotion UUID for promotional items'
             openapiContext:
                 example: 'discount-promotion-uuid-example'
 
@@ -160,7 +160,7 @@ resource:
             writable: true
             readable: true
             required: false
-            description: 'Sales-unit selection for products priced by a measurement unit (e.g. kg, m, L). Carries the sales-unit identifier and the chosen amount in that unit; required when adding/updating items of measurable products.'
+            description: 'DEPRECATED: this property is declared by ProductMeasurementUnitsRestApi which owns the product-measurement-units domain. Kept here for backward compatibility; will be removed in the next major. Sales-unit selection for products priced by a measurement unit (e.g. kg, m, L). Carries the sales-unit identifier and the chosen amount in that unit; required when adding/updating items of measurable products.'
             openapiContext:
                 example:
                     id: 1
@@ -171,7 +171,7 @@ resource:
             writable: false
             readable: true
             required: false
-            description: 'Enriched product-option payloads on the cart item: option group, value, and price. Set by the response mapper from the persisted cart item.'
+            description: 'DEPRECATED: this property is declared by ProductOptionsRestApi which owns the product-options domain. Kept here for backward compatibility; will be removed in the next major. Enriched product-option payloads on the cart item: option group, value, and price. Set by the response mapper from the persisted cart item.'
             openapiContext:
                 example:
                     - optionGroupName: 'Warranty'
@@ -184,7 +184,7 @@ resource:
             writable: true
             readable: false
             required: false
-            description: 'Product options chosen by the customer on cart-item create/update. Each entry carries the option-value `sku`; the cart item is recalculated with the matching `idProductOptionValue` resolved server-side.'
+            description: 'DEPRECATED: this property is declared by ProductOptionsRestApi which owns the product-options domain. Kept here for backward compatibility; will be removed in the next major. Product options chosen by the customer on cart-item create/update. Each entry carries the option-value `sku`; the cart item is recalculated with the matching `idProductOptionValue` resolved server-side.'
             openapiContext:
                 example:
                     - sku: 'OP_2_year_warranty'
@@ -195,7 +195,7 @@ resource:
             writable: false
             readable: true
             required: false
-            description: 'Set when the cart item belongs to a customer-assembled configurable bundle. Identifies the bundle instance by `groupKey` and references the bundle template the customer started from.'
+            description: 'DEPRECATED: this property is declared by ConfigurableBundleCartsRestApi which owns the configurable-bundle-carts domain. Kept here for backward compatibility; will be removed in the next major. Set when the cart item belongs to a customer-assembled configurable bundle. Identifies the bundle instance by `groupKey` and references the bundle template the customer started from.'
             openapiContext:
                 example:
                     groupKey: 'bundle-group-key-example'
@@ -208,7 +208,7 @@ resource:
             writable: false
             readable: true
             required: false
-            description: 'Set when the cart item is one slot of a configured bundle. Points back to the parent bundle (`groupKey`) and identifies which template slot this concrete product fulfils.'
+            description: 'DEPRECATED: this property is declared by ConfigurableBundleCartsRestApi which owns the configurable-bundle-carts domain. Kept here for backward compatibility; will be removed in the next major. Set when the cart item is one slot of a configured bundle. Points back to the parent bundle (`groupKey`) and identifies which template slot this concrete product fulfils.'
             openapiContext:
                 example:
                     groupKey: 'bundle-group-key-example'
