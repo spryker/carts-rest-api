@@ -2,6 +2,7 @@ resource:
     name: CartItems
     shortName: items
     description: 'Cart item management for authenticated customer carts'
+    resourceAttributesClassName: 'Generated\Shared\Transfer\RestCartItemsAttributesTransfer'
 
     processor: Spryker\Glue\CartsRestApi\Api\Storefront\Processor\CartItemsStorefrontProcessor
 

@@ -2,6 +2,7 @@ resource:
     name: GuestCartItems
     shortName: guest-cart-items
     description: 'Guest cart item management for anonymous users'
+    resourceAttributesClassName: 'Generated\Shared\Transfer\RestCartItemsAttributesTransfer'
 
     processor: Spryker\Glue\CartsRestApi\Api\Storefront\Processor\GuestCartItemsStorefrontProcessor
 
