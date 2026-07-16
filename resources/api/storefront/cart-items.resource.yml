@@ -120,13 +120,6 @@ resource:
             required: false
             description: 'Product offer reference owning the item (marketplace)'
 
-        idProductMeasurementSalesUnit:
-            type: string
-            writable: false
-            readable: true
-            required: false
-            description: 'DEPRECATED: this property is declared by ProductMeasurementUnitsRestApi which owns the product-measurement-units domain. Kept here for backward compatibility; will be removed in the next major. Selected sales unit identifier'
-
         amount:
             type: string
             writable: false
@@ -135,87 +128,121 @@ resource:
             description: 'Amount for measurement unit or packaging unit items'
 
         calculations:
-            type: map
+            type: object
+            objectName: Calculations
             writable: false
             readable: true
             required: false
             description: 'Item price calculations including unit and sum prices'
-
-        productConfigurationInstance:
-            type: mixed
-            writable: true
-            readable: true
-            required: false
-            description: 'DEPRECATED: this property is declared by ProductConfigurationsRestApi which owns the product-configuration domain. Kept here for backward compatibility; will be removed in the next major. Product configuration instance data'
-
-        idPromotionalItem:
-            type: string
-            writable: true
-            readable: false
-            required: false
-            description: 'DEPRECATED: this property is declared by DiscountPromotionsRestApi which owns the discount-promotions domain. Kept here for backward compatibility; will be removed in the next major. Discount promotion UUID for promotional items'
-            openapiContext:
-                example: 'discount-promotion-uuid-example'
-
-        salesUnit:
-            type: mixed
-            writable: true
-            readable: true
-            required: false
-            description: 'DEPRECATED: this property is declared by ProductMeasurementUnitsRestApi which owns the product-measurement-units domain. Kept here for backward compatibility; will be removed in the next major. Sales-unit selection for products priced by a measurement unit (e.g. kg, m, L). Carries the sales-unit identifier and the chosen amount in that unit; required when adding/updating items of measurable products.'
-            openapiContext:
-                example:
-                    id: 1
-                    amount: 5
-
-        selectedProductOptions:
-            type: array
-            writable: false
-            readable: true
-            required: false
-            description: 'DEPRECATED: this property is declared by ProductOptionsRestApi which owns the product-options domain. Kept here for backward compatibility; will be removed in the next major. Enriched product-option payloads on the cart item: option group, value, and price. Set by the response mapper from the persisted cart item.'
-            openapiContext:
-                example:
-                    - optionGroupName: 'Warranty'
-                      optionName: 'Two (2) year limited warranty'
-                      sku: 'OP_2_year_warranty'
-                      price: 1000
-
-        productOptions:
-            type: array
-            writable: true
-            readable: false
-            required: false
-            description: 'DEPRECATED: this property is declared by ProductOptionsRestApi which owns the product-options domain. Kept here for backward compatibility; will be removed in the next major. Product options chosen by the customer on cart-item create/update. Each entry carries the option-value `sku`; the cart item is recalculated with the matching `idProductOptionValue` resolved server-side.'
-            openapiContext:
-                example:
-                    - sku: 'OP_2_year_warranty'
-                    - sku: 'OP_gift_wrap'
-
-        configuredBundle:
-            type: mixed
-            writable: false
-            readable: true
-            required: false
-            description: 'DEPRECATED: this property is declared by ConfigurableBundleCartsRestApi which owns the configurable-bundle-carts domain. Kept here for backward compatibility; will be removed in the next major. Set when the cart item belongs to a customer-assembled configurable bundle. Identifies the bundle instance by `groupKey` and references the bundle template the customer started from.'
-            openapiContext:
-                example:
-                    groupKey: 'bundle-group-key-example'
-                    templateUuid: 'bundle-template-uuid-example'
-                    templateName: 'Living Room Set'
-                    quantity: 1
-
-        configuredBundleItem:
-            type: mixed
-            writable: false
-            readable: true
-            required: false
-            description: 'DEPRECATED: this property is declared by ConfigurableBundleCartsRestApi which owns the configurable-bundle-carts domain. Kept here for backward compatibility; will be removed in the next major. Set when the cart item is one slot of a configured bundle. Points back to the parent bundle (`groupKey`) and identifies which template slot this concrete product fulfils.'
-            openapiContext:
-                example:
-                    groupKey: 'bundle-group-key-example'
-                    slotUuid: 'bundle-slot-uuid-example'
-                    templateSlotName: 'Sofa'
+            properties:
+                unitPrice:
+                    type: integer
+                    description: 'Unit price in cents (gross or net per price mode).'
+                    openapiContext:
+                        example: 3979
+                sumPrice:
+                    type: integer
+                    description: 'Sum price in cents (unit price × quantity).'
+                    openapiContext:
+                        example: 3979
+                unitGrossPrice:
+                    type: integer
+                    description: 'Unit gross price in cents.'
+                    openapiContext:
+                        example: 3979
+                sumGrossPrice:
+                    type: integer
+                    description: 'Sum gross price in cents.'
+                    openapiContext:
+                        example: 3979
+                unitNetPrice:
+                    type: integer
+                    description: 'Unit net price in cents.'
+                    openapiContext:
+                        example: 0
+                sumNetPrice:
+                    type: integer
+                    description: 'Sum net price in cents.'
+                    openapiContext:
+                        example: 0
+                # BC: the legacy RestCartItemCalculationsTransfer exposes the full set of
+                # tax/aggregation fields. The initial migration truncated the object to the price
+                # fields above, dropping taxRate + the *PriceToPayAggregation/*SubtotalAggregation
+                # fields that cart/guest-cart item tests assert. The mapper already populates them
+                # (fromArray passthrough); declare them so they serialize again. (The discount and
+                # product-option aggregation fields are owned by DiscountsRestApi and
+                # ProductOptionsRestApi respectively; they are also re-declared below, deprecated,
+                # so a partial update lacking those new modules still serializes them.)
+                taxRate:
+                    type: integer
+                    description: 'Tax rate applied to the item, in percent.'
+                    openapiContext:
+                        example: 19
+                unitTaxAmountFullAggregation:
+                    type: integer
+                    description: 'Aggregated tax amount per unit in cents.'
+                    openapiContext:
+                        example: 635
+                sumTaxAmountFullAggregation:
+                    type: integer
+                    description: 'Aggregated tax amount for the sum in cents.'
+                    openapiContext:
+                        example: 635
+                unitPriceToPayAggregation:
+                    type: integer
+                    description: 'Price to pay per unit after all aggregations, in cents.'
+                    openapiContext:
+                        example: 3616
+                sumPriceToPayAggregation:
+                    type: integer
+                    description: 'Price to pay for the sum after all aggregations, in cents.'
+                    openapiContext:
+                        example: 3616
+                unitSubtotalAggregation:
+                    type: integer
+                    description: 'Aggregated subtotal per unit in cents.'
+                    openapiContext:
+                        example: 3979
+                sumSubtotalAggregation:
+                    type: integer
+                    description: 'Aggregated subtotal for the sum in cents.'
+                    openapiContext:
+                        example: 3979
+                # Deprecated dual-declaration: the six fields below are owned by DiscountsRestApi
+                # (discount*) and ProductOptionsRestApi (productOption*). Re-declared here, identical,
+                # so a partial update shipping the new CartsRestApi without the new domain modules
+                # still serializes them. Deep-merge unions them when those modules are present, so
+                # this is idempotent. Kept one release cycle, then removed.
+                unitDiscountAmountAggregation:
+                    type: integer
+                    description: 'Deprecated here (owned by DiscountsRestApi); kept one release cycle for partial-update safety. Aggregated discount amount per unit in cents.'
+                    openapiContext:
+                        example: 363
+                sumDiscountAmountAggregation:
+                    type: integer
+                    description: 'Deprecated here (owned by DiscountsRestApi); kept one release cycle for partial-update safety. Aggregated discount amount for the sum in cents.'
+                    openapiContext:
+                        example: 363
+                unitDiscountAmountFullAggregation:
+                    type: integer
+                    description: 'Deprecated here (owned by DiscountsRestApi); kept one release cycle for partial-update safety. Fully aggregated discount amount per unit in cents.'
+                    openapiContext:
+                        example: 363
+                sumDiscountAmountFullAggregation:
+                    type: integer
+                    description: 'Deprecated here (owned by DiscountsRestApi); kept one release cycle for partial-update safety. Fully aggregated discount amount for the sum in cents.'
+                    openapiContext:
+                        example: 363
+                unitProductOptionPriceAggregation:
+                    type: integer
+                    description: 'Deprecated here (owned by ProductOptionsRestApi); kept one release cycle for partial-update safety. Aggregated product option price per unit in cents.'
+                    openapiContext:
+                        example: 0
+                sumProductOptionPriceAggregation:
+                    type: integer
+                    description: 'Deprecated here (owned by ProductOptionsRestApi); kept one release cycle for partial-update safety. Aggregated product option price for the sum in cents.'
+                    openapiContext:
+                        example: 0
 
         cart:
             type: CartsStorefrontResource
