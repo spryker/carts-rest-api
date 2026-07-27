@@ -59,7 +59,7 @@ class CartsItemsRelationshipResolver extends AbstractRelationshipResolver
                 continue;
             }
 
-            $items = $this->filterItems($parent->items ?? [], $parent->bundleItems ?? []);
+            $items = $this->filterItems($parent->items, $parent->bundleItems);
 
             foreach ($items as $itemTransfer) {
                 $resources[] = $this->mapItemToResource($itemTransfer, $localeName, $parent);
