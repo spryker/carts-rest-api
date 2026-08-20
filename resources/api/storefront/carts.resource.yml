@@ -13,25 +13,81 @@ resource:
     operations:
         - type: GetCollection
           description: 'Retrieve all carts for the authenticated customer'
+          openapiContext:
+              responses:
+                  200:
+                      description: 'Cart collection returned.'
+                  401:
+                      description: 'Invalid access token.'
+                  403:
+                      description: 'Missing access token or insufficient scope.'
 
         - type: Post
           description: 'Create a new cart for the authenticated customer'
           extraProperties:
               entityTag: write
+          openapiContext:
+              responses:
+                  201:
+                      description: 'Cart created.'
+                  401:
+                      description: 'Invalid access token.'
+                  403:
+                      description: 'Missing access token or insufficient scope.'
+                  422:
+                      description: 'Cart attributes failed validation, or the cart could not be created.'
 
         - type: Get
           description: 'Retrieve a specific cart by UUID'
           extraProperties:
               entityTag: read
+          openapiContext:
+              responses:
+                  200:
+                      description: 'Cart returned.'
+                  401:
+                      description: 'Invalid access token.'
+                  403:
+                      description: 'Missing access token or insufficient scope.'
+                  404:
+                      description: 'Cart not found.'
 
+        # No 404: `ifMatchRequired` is evaluated before the processor, and an unknown uuid has no
+        # stored entity tag, so an unknown cart is answered with 412 rather than 404.
         - type: Patch
           description: 'Update cart properties'
           extraProperties:
               entityTag: write
               ifMatchRequired: true
+          openapiContext:
+              responses:
+                  200:
+                      description: 'Cart updated.'
+                  401:
+                      description: 'Invalid access token.'
+                  403:
+                      description: 'Missing access token or insufficient scope.'
+                  412:
+                      description: 'If-Match header does not match the current entity tag.'
+                  422:
+                      description: 'Cart attributes failed validation, or the cart could not be updated.'
+                  428:
+                      description: 'If-Match header is missing.'
 
         - type: Delete
           description: 'Delete a cart'
+          openapiContext:
+              responses:
+                  204:
+                      description: 'Cart deleted.'
+                  401:
+                      description: 'Invalid access token.'
+                  403:
+                      description: 'Missing access token or insufficient scope.'
+                  404:
+                      description: 'Cart not found.'
+                  422:
+                      description: 'Cart could not be deleted — a customer always keeps one cart.'
 
     includes:
         - relationshipName: items

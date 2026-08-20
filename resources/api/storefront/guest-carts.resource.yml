@@ -8,15 +8,41 @@ resource:
 
     paginationEnabled: false
 
+    # Guest operations are unsecured but identify their cart owner through the
+    # `X-Anonymous-Customer-Unique-Id` header, so each of them answers 400 when it is absent.
     operations:
         - type: GetCollection
           description: 'Retrieve all guest carts for the anonymous user'
+          openapiContext:
+              responses:
+                  200:
+                      description: 'Guest cart collection returned.'
+                  400:
+                      description: 'X-Anonymous-Customer-Unique-Id header is missing.'
 
         - type: Get
           description: 'Retrieve a specific guest cart by UUID'
+          openapiContext:
+              responses:
+                  200:
+                      description: 'Guest cart returned.'
+                  400:
+                      description: 'X-Anonymous-Customer-Unique-Id header is missing.'
+                  404:
+                      description: 'Guest cart not found.'
 
         - type: Patch
           description: 'Update guest cart properties'
+          openapiContext:
+              responses:
+                  200:
+                      description: 'Guest cart updated.'
+                  400:
+                      description: 'X-Anonymous-Customer-Unique-Id header is missing.'
+                  404:
+                      description: 'Guest cart not found.'
+                  422:
+                      description: 'Guest cart attributes failed validation, or the cart could not be updated.'
 
     includes:
         - relationshipName: guest-cart-items

@@ -23,6 +23,14 @@ resource:
           name: createGuestCartItem
           description: 'Add an item to a guest cart, auto-creating the cart if needed'
           uriTemplate: '/guest-cart-items'
+          openapiContext:
+              responses:
+                  201:
+                      description: 'Item added; the updated guest cart is returned.'
+                  400:
+                      description: 'X-Anonymous-Customer-Unique-Id header is missing.'
+                  422:
+                      description: 'Item attributes failed validation, or the item could not be added.'
 
         - type: Post
           name: createGuestCartItemForCart
@@ -32,6 +40,14 @@ resource:
               cartId:
                   toProperty: 'guestCart'
                   fromClass: GuestCartsStorefrontResource
+          openapiContext:
+              responses:
+                  201:
+                      description: 'Item added; the updated guest cart is returned.'
+                  400:
+                      description: 'X-Anonymous-Customer-Unique-Id header is missing.'
+                  422:
+                      description: 'Item attributes failed validation, or the item could not be added.'
 
         - type: Patch
           description: 'Update item quantity in a guest cart'
@@ -42,6 +58,16 @@ resource:
                   identifiers: [cartId]
               groupKey:
                   identifiers: [groupKey]
+          openapiContext:
+              responses:
+                  200:
+                      description: 'Item quantity updated; the updated guest cart is returned.'
+                  400:
+                      description: 'X-Anonymous-Customer-Unique-Id header is missing.'
+                  404:
+                      description: 'Guest cart or guest cart item not found.'
+                  422:
+                      description: 'Item attributes failed validation, or the item could not be updated.'
 
         - type: Delete
           description: 'Remove an item from a guest cart'
@@ -52,6 +78,14 @@ resource:
                   identifiers: [cartId]
               groupKey:
                   identifiers: [groupKey]
+          openapiContext:
+              responses:
+                  204:
+                      description: 'Item removed.'
+                  400:
+                      description: 'X-Anonymous-Customer-Unique-Id header is missing.'
+                  404:
+                      description: 'Guest cart or guest cart item not found.'
 
     includes:
         - relationshipName: concrete-products

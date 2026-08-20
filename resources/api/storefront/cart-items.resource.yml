@@ -28,6 +28,18 @@ resource:
               cartId:
                   toProperty: 'cart'
                   fromClass: CartsStorefrontResource
+          openapiContext:
+              responses:
+                  201:
+                      description: 'Item added; the updated cart is returned.'
+                  401:
+                      description: 'Invalid access token.'
+                  403:
+                      description: 'Missing access token or insufficient scope.'
+                  404:
+                      description: 'Cart not found.'
+                  422:
+                      description: 'Item attributes failed validation, or the item could not be added.'
 
         - type: Patch
           description: 'Update item quantity in a cart'
@@ -38,6 +50,18 @@ resource:
                   identifiers: [cartId]
               groupKey:
                   identifiers: [groupKey]
+          openapiContext:
+              responses:
+                  200:
+                      description: 'Item quantity updated; the updated cart is returned.'
+                  401:
+                      description: 'Invalid access token.'
+                  403:
+                      description: 'Missing access token or insufficient scope.'
+                  404:
+                      description: 'Cart or cart item not found.'
+                  422:
+                      description: 'Item attributes failed validation, or the item could not be updated.'
 
         - type: Delete
           description: 'Remove an item from a cart'
@@ -48,6 +72,16 @@ resource:
                   identifiers: [cartId]
               groupKey:
                   identifiers: [groupKey]
+          openapiContext:
+              responses:
+                  204:
+                      description: 'Item removed.'
+                  401:
+                      description: 'Invalid access token.'
+                  403:
+                      description: 'Missing access token or insufficient scope.'
+                  404:
+                      description: 'Cart or cart item not found.'
 
     includes:
         - relationshipName: concrete-products

@@ -28,9 +28,9 @@ resource:
                   200:
                       description: 'Cart collection returned.'
                   401:
-                      description: 'Missing or invalid access token.'
+                      description: 'Invalid access token.'
                   403:
-                      description: 'Access denied — customer reference does not belong to the authenticated user.'
+                      description: 'Missing access token, or the customer reference does not belong to the authenticated user.'
 
     properties:
         uuid:
