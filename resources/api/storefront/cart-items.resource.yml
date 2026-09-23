@@ -64,6 +64,9 @@ resource:
                       description: 'Item attributes failed validation, or the item could not be updated.'
 
         - type: Delete
+          extraProperties:
+              notFoundCode: '101'
+              notFoundMessage: 'Cart with given uuid not found.'
           description: 'Remove an item from a cart'
           uriTemplate: '/carts/{cartId}/items/{groupKey}'
           read: false

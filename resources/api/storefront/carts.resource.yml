@@ -40,6 +40,8 @@ resource:
         - type: Get
           description: 'Retrieve a specific cart by UUID'
           extraProperties:
+              notFoundCode: '101'
+              notFoundMessage: 'Cart with given uuid not found.'
               entityTag: read
           openapiContext:
               responses:
@@ -75,6 +77,9 @@ resource:
                       description: 'If-Match header is missing.'
 
         - type: Delete
+          extraProperties:
+              notFoundCode: '101'
+              notFoundMessage: 'Cart with given uuid not found.'
           description: 'Delete a cart'
           openapiContext:
               responses:
