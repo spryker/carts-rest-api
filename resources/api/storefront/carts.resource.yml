@@ -184,32 +184,38 @@ resource:
             properties:
                 subtotal:
                     type: integer
-                    description: 'Items × prices before any discount/tax.'
+                    responseOptional: true
+                    description: "Items × prices before any discount/tax. The calculator writes the cart's totals, so a cart that holds nothing - a cart just created, or one whose last item was removed - carries none."
                     openapiContext:
                         example: 16058
                 discountTotal:
                     type: integer
-                    description: 'Sum of all applied discounts.'
+                    responseOptional: true
+                    description: "Sum of all applied discounts. The calculator writes the cart's totals, so a cart that holds nothing - a cart just created, or one whose last item was removed - carries none."
                     openapiContext:
                         example: 1457
                 taxTotal:
                     type: integer
-                    description: 'Tax computed against the discounted base.'
+                    responseOptional: true
+                    description: "Tax computed against the discounted base. The calculator writes the cart's totals, so a cart that holds nothing - a cart just created, or one whose last item was removed - carries none."
                     openapiContext:
                         example: 2562
                 expenseTotal:
                     type: integer
-                    description: 'Sum of shipping/handling expenses.'
+                    responseOptional: true
+                    description: "Sum of shipping/handling expenses. The calculator writes the cart's totals, so a cart that holds nothing - a cart just created, or one whose last item was removed - carries none."
                     openapiContext:
                         example: 0
                 grandTotal:
                     type: integer
-                    description: 'What the customer pays.'
+                    responseOptional: true
+                    description: "What the customer pays. The calculator writes the cart's totals, so a cart that holds nothing - a cart just created, or one whose last item was removed - carries none."
                     openapiContext:
                         example: 14601
                 priceToPay:
                     type: integer
-                    description: 'Grand total adjusted for any pre-paid amount (e.g. gift cards).'
+                    responseOptional: true
+                    description: "Grand total adjusted for any pre-paid amount (e.g. gift cards). The calculator writes the cart's totals, so a cart that holds nothing - a cart just created, or one whose last item was removed - carries none."
                     openapiContext:
                         example: 14601
 

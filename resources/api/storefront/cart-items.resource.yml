@@ -10,10 +10,19 @@ resource:
     security: "is_granted('ROLE_CUSTOMER')"
 
     operations:
+        # Not servable, and never was: the legacy Glue route plugin registered only POST/PATCH/DELETE,
+        # so before this change the operation answered `200 null` rather than a cart item. API Platform
+        # still needs it to mint the IRI (`id` / `links.self`) of every cart item nested in a cart
+        # response, so the operation stays while `NotFoundAction` + `openapi: false` keep it unreachable
+        # and unadvertised, and `internal: true` states that intent for the contract coverage gate.
         - type: Get
-          description: 'Retrieve a specific cart item'
+          description: 'Internal IRI anchor for cart items; not a reachable endpoint.'
           uriTemplate: '/carts/{cartId}/items/{groupKey}'
+          controller: ApiPlatform\Symfony\Action\NotFoundAction
+          internal: true
           read: false
+          output: false
+          openapi: false
           uriVariables:
               cartId:
                   toProperty: 'cart'
@@ -146,7 +155,8 @@ resource:
             writable: true
             readable: true
             required: false
-            description: 'Merchant reference owning the item (marketplace)'
+            responseOptional: true
+            description: 'Merchant reference owning the item (marketplace). Answered alongside `productOfferReference`, and `null` with it for an item added by SKU alone.'
             openapiContext:
                 example: 'MER000001'
 
@@ -155,14 +165,16 @@ resource:
             writable: true
             readable: true
             required: false
-            description: 'Product offer reference owning the item (marketplace)'
+            responseOptional: true
+            description: 'Product offer reference owning the item (marketplace). Answered only for an item added against a product offer; an item added by SKU alone answers `null`.'
 
         amount:
             type: string
             writable: false
             readable: true
             required: false
-            description: 'Amount for measurement unit or packaging unit items'
+            responseOptional: true
+            description: 'Amount for measurement unit or packaging unit items. Answered only for an item sold in such a unit; an item of a plain product carries none.'
 
         calculations:
             type: object
