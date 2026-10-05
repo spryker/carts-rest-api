@@ -30,7 +30,12 @@ resource:
                   401:
                       description: 'Invalid access token.'
                   403:
-                      description: 'Missing access token, or the customer reference does not belong to the authenticated user.'
+                      description: 'Missing access token, or the customer reference does not belong to the authenticated user (code 802).'
+                      codes:
+                          - code: '002'
+                            description: 'Missing access token.'
+                          - code: '802'
+                            description: 'The customer reference belongs to another customer.'
 
     properties:
         uuid:

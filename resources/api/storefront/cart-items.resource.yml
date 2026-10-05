@@ -49,6 +49,13 @@ resource:
                       description: 'Cart not found.'
                   422:
                       description: 'Item attributes failed validation, or the item could not be added.'
+                      codes:
+                          - code: '102'
+                            description: 'The item failed the cart validation.'
+                          - code: '113'
+                            description: 'The item could not be added to the cart.'
+                          - code: '901'
+                            description: 'Request validation failed.'
 
         - type: Patch
           description: 'Update item quantity in a cart'
@@ -71,6 +78,8 @@ resource:
                       description: 'Cart or cart item not found.'
                   422:
                       description: 'Item attributes failed validation, or the item could not be updated.'
+                      codes:
+                          - '901'
 
         - type: Delete
           extraProperties:

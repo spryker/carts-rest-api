@@ -10,6 +10,11 @@ resource:
 
     security: "is_granted('ROLE_CUSTOMER')"
 
+    commonErrorCodes:
+        - status: 422
+          code: '901'
+          description: 'Request validation failed.'
+
     operations:
         - type: GetCollection
           description: 'Retrieve all carts for the authenticated customer'
@@ -35,7 +40,16 @@ resource:
                   403:
                       description: 'Missing access token or insufficient scope.'
                   422:
-                      description: 'Cart attributes failed validation, or the cart could not be created.'
+                      description: 'Cart attributes failed validation, the store is not the current store (code 112), the currency is not available (code 117), the price mode is not available (code 119), or the cart could not be created (code 107).'
+                      codes:
+                          - code: '107'
+                            description: 'The cart could not be created.'
+                          - code: '112'
+                            description: 'The store is not the current store.'
+                          - code: '117'
+                            description: 'The currency is not available.'
+                          - code: '119'
+                            description: 'The price mode is not available.'
 
         - type: Get
           description: 'Retrieve a specific cart by UUID'
@@ -72,7 +86,14 @@ resource:
                   412:
                       description: 'If-Match header does not match the current entity tag.'
                   422:
-                      description: 'Cart attributes failed validation, or the cart could not be updated.'
+                      description: 'Cart attributes failed validation, the currency is not available (code 117), the price mode is not available (code 119), or the price mode cannot change while the cart holds items (code 111).'
+                      codes:
+                          - code: '111'
+                            description: 'The price mode cannot change while the cart holds items.'
+                          - code: '117'
+                            description: 'The currency is not available.'
+                          - code: '119'
+                            description: 'The price mode is not available.'
                   428:
                       description: 'If-Match header is missing.'
 
@@ -154,7 +175,7 @@ resource:
             writable: true
             readable: true
             required: false
-            description: 'Store name for the cart'
+            description: 'Store name for the cart. Ignored on update — a cart keeps the store it was created in.'
             openapiContext:
                 example: 'DE'
 
@@ -224,8 +245,23 @@ resource:
             writable: false
             readable: true
             required: false
-            description: 'Discounts currently applied to the cart, summarized for display. Each entry carries the discount `displayName`, total `amount` in cents, and the `code` used to apply it (empty for rule-based discounts).'
+            description: 'Discounts currently applied to the cart, summarized for display. Each entry carries the discount `displayName`, total `amount` in cents, and the `code` used to apply it (null for rule-based discounts).'
             openapiContext:
+                items:
+                    type: object
+                    required:
+                        - displayName
+                        - amount
+                        - code
+                    properties:
+                        displayName:
+                            type: string
+                        amount:
+                            type: integer
+                        code:
+                            type: string
+                            nullable: true
+                            description: 'Voucher code; null for a rule-based discount.'
                 example:
                     - displayName: '10% Discount for all orders above'
                       amount: 1457
@@ -238,8 +274,30 @@ resource:
             required: false
             description: 'Sales-order threshold messages produced by `SalesOrderThresholdConfig` rules. Each entry tells the customer how their cart relates to a configured threshold (soft warnings, hard blockers, free-shipping nudges).'
             openapiContext:
+                items:
+                    type: object
+                    required:
+                        - type
+                        - threshold
+                        - fee
+                        - deltaWithSubtotal
+                        - message
+                    properties:
+                        type:
+                            type: string
+                        threshold:
+                            type: integer
+                        fee:
+                            type: integer
+                            nullable: true
+                        deltaWithSubtotal:
+                            type: integer
+                        message:
+                            type: string
+                            nullable: true
                 example:
-                    - type: 'soft'
+                    - type: 'soft-minimum-threshold'
+                      threshold: 5000
                       message: 'You are €5.00 short of free shipping'
                       deltaWithSubtotal: 500
                       fee: 590

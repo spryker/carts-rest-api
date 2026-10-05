@@ -40,6 +40,13 @@ resource:
                       description: 'X-Anonymous-Customer-Unique-Id header is missing.'
                   422:
                       description: 'Item attributes failed validation, or the item could not be added.'
+                      codes:
+                          - code: '102'
+                            description: 'The item failed the cart validation.'
+                          - code: '113'
+                            description: 'The item could not be added to the cart.'
+                          - code: '901'
+                            description: 'Request validation failed.'
 
         - type: Post
           name: createGuestCartItemForCart
@@ -57,6 +64,8 @@ resource:
                       description: 'X-Anonymous-Customer-Unique-Id header is missing.'
                   422:
                       description: 'Item attributes failed validation, or the item could not be added.'
+                      codes:
+                          - '901'
 
         - type: Patch
           description: 'Update item quantity in a guest cart'
@@ -77,6 +86,8 @@ resource:
                       description: 'Guest cart or guest cart item not found.'
                   422:
                       description: 'Item attributes failed validation, or the item could not be updated.'
+                      codes:
+                          - '901'
 
         - type: Delete
           description: 'Remove an item from a guest cart'
