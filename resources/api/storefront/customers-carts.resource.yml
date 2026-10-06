@@ -141,8 +141,23 @@ resource:
             writable: false
             readable: true
             required: false
-            description: 'Discounts currently applied to the cart, summarized for display. Each entry carries the discount `displayName`, total `amount` in cents, and the `code` used to apply it (empty for rule-based discounts).'
+            description: 'Discounts currently applied to the cart, summarized for display. Each entry carries the discount `displayName`, total `amount` in cents, and the `code` used to apply it (null for rule-based discounts).'
             openapiContext:
+                items:
+                    type: object
+                    required:
+                        - displayName
+                        - amount
+                        - code
+                    properties:
+                        displayName:
+                            type: string
+                        amount:
+                            type: integer
+                        code:
+                            type: string
+                            nullable: true
+                            description: 'Voucher code; null for a rule-based discount.'
                 example:
                     - displayName: '10% Discount for all orders above'
                       amount: 1457
@@ -155,8 +170,30 @@ resource:
             required: false
             description: 'Sales-order threshold messages produced by `SalesOrderThresholdConfig` rules. Each entry tells the customer how their cart relates to a configured threshold (soft warnings, hard blockers, free-shipping nudges).'
             openapiContext:
+                items:
+                    type: object
+                    required:
+                        - type
+                        - threshold
+                        - fee
+                        - deltaWithSubtotal
+                        - message
+                    properties:
+                        type:
+                            type: string
+                        threshold:
+                            type: integer
+                        fee:
+                            type: integer
+                            nullable: true
+                        deltaWithSubtotal:
+                            type: integer
+                        message:
+                            type: string
+                            nullable: true
                 example:
-                    - type: 'soft'
+                    - type: 'soft-minimum-threshold'
+                      threshold: 5000
                       message: 'You are €5.00 short of free shipping'
                       deltaWithSubtotal: 500
                       fee: 590

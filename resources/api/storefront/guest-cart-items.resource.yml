@@ -134,6 +134,7 @@ resource:
         sku:
             type: string
             writable: true
+            writableOn: ['Post']
             readable: true
             required: true
             description: 'Product SKU'
@@ -161,6 +162,7 @@ resource:
         merchantReference:
             type: string
             writable: true
+            writableOn: ['Post']
             readable: true
             required: false
             responseOptional: true
@@ -171,6 +173,7 @@ resource:
         productOfferReference:
             type: string
             writable: true
+            writableOn: ['Post']
             readable: true
             required: false
             responseOptional: true
