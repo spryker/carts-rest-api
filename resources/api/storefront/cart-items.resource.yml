@@ -130,7 +130,7 @@ resource:
             required: false
             description: 'Unique item group key identifier'
             openapiContext:
-                example: '035_17360369'
+                example: '093_24495843'
 
         sku:
             type: string
@@ -140,7 +140,7 @@ resource:
             required: true
             description: 'Product SKU'
             openapiContext:
-                example: '035_17360369'
+                example: '093_24495843'
 
         quantity:
             type: integer
@@ -158,7 +158,7 @@ resource:
             required: false
             description: 'Abstract product SKU'
             openapiContext:
-                example: '035'
+                example: '093'
 
         merchantReference:
             type: string
@@ -179,6 +179,8 @@ resource:
             required: false
             responseOptional: true
             description: 'Product offer reference owning the item (marketplace). Answered only for an item added against a product offer; an item added by SKU alone answers `null`.'
+            openapiContext:
+                example: 'offer1'
 
         amount:
             type: string

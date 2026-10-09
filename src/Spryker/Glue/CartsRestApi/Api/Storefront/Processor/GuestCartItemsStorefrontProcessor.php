@@ -22,6 +22,8 @@ use Spryker\Glue\CartsRestApi\Api\Storefront\Exception\CartsExceptionFactory;
 use Spryker\Glue\CartsRestApi\Api\Storefront\Mapper\StorefrontCartItemMapperInterface;
 use Spryker\Glue\CartsRestApi\Api\Storefront\Mapper\StorefrontCartMapperInterface;
 use Spryker\Glue\CartsRestApi\CartsRestApiConfig;
+use Spryker\Glue\GlueApplication\Compatibility\Transfer\NullCollectionNormalizer;
+use Spryker\Glue\GlueApplication\Compatibility\Transfer\NullCollectionNormalizerInterface;
 use Spryker\Service\Container\Attributes\Plugins;
 use Spryker\Service\Serializer\SerializerServiceInterface;
 
@@ -52,6 +54,7 @@ class GuestCartItemsStorefrontProcessor extends AbstractStorefrontProcessor
         protected array $cartItemExpanderPlugins = [],
         #[Plugins(dependencyProviderMethod: 'getCartItemFilterPlugins')]
         protected array $cartItemFilterPlugins = [],
+        protected NullCollectionNormalizerInterface $nullCollectionNormalizer = new NullCollectionNormalizer(),
     ) {
     }
 
@@ -229,7 +232,10 @@ class GuestCartItemsStorefrontProcessor extends AbstractStorefrontProcessor
             : (array)$data;
 
         return (new RestCartItemsAttributesTransfer())->fromArray(
-            array_filter($payload, static fn ($value): bool => $value !== null),
+            $this->nullCollectionNormalizer->normalize(
+                RestCartItemsAttributesTransfer::class,
+                array_filter($payload, static fn ($value): bool => $value !== null),
+            ),
             true,
         );
     }
