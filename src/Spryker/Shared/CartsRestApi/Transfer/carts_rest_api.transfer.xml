@@ -233,4 +233,8 @@
     <transfer name="ShareDetail">
     </transfer>
 
+    <transfer name="Message">
+        <property name="value" type="string"/>
+    </transfer>
+
 </transfers>

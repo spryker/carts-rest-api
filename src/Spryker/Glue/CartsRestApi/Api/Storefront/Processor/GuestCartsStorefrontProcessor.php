@@ -17,6 +17,7 @@ use Spryker\ApiPlatform\State\Processor\AbstractStorefrontProcessor;
 use Spryker\Client\CartsRestApi\CartsRestApiClientInterface;
 use Spryker\Glue\CartsRestApi\Api\Storefront\Exception\CartsExceptionFactory;
 use Spryker\Glue\CartsRestApi\Api\Storefront\Mapper\StorefrontCartMapperInterface;
+use Spryker\Glue\CartsRestApi\Api\Storefront\Reader\CartUpdateMessageReaderInterface;
 use Spryker\Glue\CartsRestApi\CartsRestApiConfig;
 use Spryker\Service\Serializer\SerializerServiceInterface;
 
@@ -34,6 +35,7 @@ class GuestCartsStorefrontProcessor extends AbstractStorefrontProcessor
         protected StorefrontCartMapperInterface $cartMapper,
         protected SerializerServiceInterface $serializer,
         protected CartsExceptionFactory $exceptionFactory,
+        protected CartUpdateMessageReaderInterface $cartUpdateMessageReader,
     ) {
     }
 
@@ -65,7 +67,11 @@ class GuestCartsStorefrontProcessor extends AbstractStorefrontProcessor
             );
         }
 
-        return $this->mapQuoteTransferToResource($quoteResponseTransfer->getQuoteTransferOrFail());
+        $messages = $this->cartUpdateMessageReader->getLastUpdateMessages();
+        $resource = $this->mapQuoteTransferToResource($quoteResponseTransfer->getQuoteTransferOrFail());
+        $resource->messages = $messages;
+
+        return $resource;
     }
 
     /**

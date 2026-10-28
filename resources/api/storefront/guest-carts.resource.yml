@@ -234,6 +234,28 @@ resource:
                       deltaWithSubtotal: 500
                       fee: 590
 
+        messages:
+            type: array
+            writable: false
+            readable: true
+            required: false
+            responseOptional: true
+            description: 'Informational messages produced while the guest cart was updated, such as an item removed because it has no price in the newly selected currency or a soft sales-order threshold the guest cart stays below. Each entry carries the message `type` and its `value`, the text translated by Zed (the glossary key when no translation exists). Only an update reports messages; every read answers an empty list.'
+            openapiContext:
+                items:
+                    type: object
+                    required:
+                        - type
+                        - value
+                    properties:
+                        type:
+                            type: string
+                        value:
+                            type: string
+                example:
+                    - type: 'info'
+                      value: 'price-cart-connector.info.concrete-product-without-price.removed'
+
         amendmentOrderReference:
             type: string
             writable: false
