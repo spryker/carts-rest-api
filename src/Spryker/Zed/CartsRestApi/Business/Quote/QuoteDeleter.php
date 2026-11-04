@@ -54,7 +54,7 @@ class QuoteDeleter implements QuoteDeleterInterface
         $originalQuoteTransfer = $quoteResponseTransfer->getQuoteTransfer();
         $quoteTransfer->setIdQuote($quoteResponseTransfer->getQuoteTransfer()->getIdQuote());
 
-        if (!$this->quotePermissionChecker->checkQuoteWritePermission($quoteTransfer)) {
+        if (!$this->quotePermissionChecker->checkQuoteWritePermission($quoteResponseTransfer->getQuoteTransferOrFail())) {
             return $quoteResponseTransfer
                 ->setIsSuccessful(false)
                 ->addError((new QuoteErrorTransfer())

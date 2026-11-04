@@ -82,7 +82,7 @@ resource:
                   401:
                       description: 'Invalid access token.'
                   403:
-                      description: 'Missing access token or insufficient scope.'
+                      description: 'Missing access token or insufficient scope, or the cart is shared with the company user read-only (code 115).'
                   412:
                       description: 'If-Match header does not match the current entity tag.'
                   422:
@@ -109,7 +109,7 @@ resource:
                   401:
                       description: 'Invalid access token.'
                   403:
-                      description: 'Missing access token or insufficient scope.'
+                      description: 'Missing access token or insufficient scope, or the cart is shared with the company user read-only (code 115).'
                   404:
                       description: 'Cart not found.'
                   422:

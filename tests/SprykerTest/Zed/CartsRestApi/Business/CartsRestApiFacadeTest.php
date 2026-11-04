@@ -8,12 +8,17 @@
 namespace SprykerTest\Zed\CartsRestApi\Business;
 
 use Codeception\Test\Unit;
+use Generated\Shared\Transfer\CompanyUserTransfer;
+use Generated\Shared\Transfer\CustomerTransfer;
 use Generated\Shared\Transfer\QuoteResponseTransfer;
 use Generated\Shared\Transfer\QuoteTransfer;
 use Generated\Shared\Transfer\StoreTransfer;
+use Spryker\Shared\CartsRestApi\CartsRestApiConfig as CartsRestApiSharedConfig;
 use Spryker\Shared\Kernel\Transfer\Exception\RequiredTransferPropertyException;
 use Spryker\Zed\Cart\Business\CartFacade;
 use Spryker\Zed\CartsRestApi\Business\CartsRestApiBusinessFactory;
+use Spryker\Zed\CartsRestApi\Business\PermissionChecker\QuotePermissionChecker;
+use Spryker\Zed\CartsRestApi\Business\PermissionChecker\QuotePermissionCheckerInterface;
 use Spryker\Zed\CartsRestApi\Business\Reloader\QuoteReloader;
 use Spryker\Zed\CartsRestApi\CartsRestApiConfig;
 use Spryker\Zed\CartsRestApi\Dependency\Facade\CartsRestApiToCartFacadeBridge;
@@ -38,6 +43,15 @@ use Spryker\Zed\Store\Business\StoreFacade;
  */
 class CartsRestApiFacadeTest extends Unit
 {
+    /**
+     * @uses \Spryker\Client\SharedCart\Plugin\ReadSharedCartPermissionPlugin::KEY
+     */
+    protected const string PERMISSION_PLUGIN_KEY_READ_SHARED_CART = 'ReadSharedCartPermissionPlugin';
+
+    protected const string SHARED_CART_CUSTOMER_REFERENCE = 'DE--777';
+
+    protected const int SHARED_CART_ID_COMPANY_USER = 777;
+
     /**
      * @var \SprykerTest\Zed\CartsRestApi\CartsRestApiBusinessTester
      */
@@ -148,6 +162,65 @@ class CartsRestApiFacadeTest extends Unit
 
         $this->assertInstanceOf(QuoteResponseTransfer::class, $quoteResponseTransfer);
         $this->assertTrue($quoteResponseTransfer->getIsSuccessful());
+    }
+
+    public function testGivenReadOnlySharedCartUserWhenUpdateQuoteIsCalledThenUnauthorizedCartActionIsReturned(): void
+    {
+        // Arrange
+        $this->cartsRestApiFacade->setFactory($this->getMockCartsRestApiBusinessFactory($this->createReadOnlyQuotePermissionChecker()));
+
+        // Act
+        $quoteResponseTransfer = $this->cartsRestApiFacade->updateQuote($this->createSharedCartUserQuoteTransfer());
+
+        // Assert
+        $this->assertFalse($quoteResponseTransfer->getIsSuccessful());
+        $this->assertSame(
+            CartsRestApiSharedConfig::ERROR_IDENTIFIER_UNAUTHORIZED_CART_ACTION,
+            $quoteResponseTransfer->getErrors()->offsetGet(0)->getErrorIdentifier(),
+        );
+    }
+
+    public function testGivenReadOnlySharedCartUserWhenDeleteQuoteIsCalledThenUnauthorizedCartActionIsReturned(): void
+    {
+        // Arrange
+        $this->cartsRestApiFacade->setFactory($this->getMockCartsRestApiBusinessFactory($this->createReadOnlyQuotePermissionChecker()));
+
+        // Act
+        $quoteResponseTransfer = $this->cartsRestApiFacade->deleteQuote($this->createSharedCartUserQuoteTransfer());
+
+        // Assert
+        $this->assertFalse($quoteResponseTransfer->getIsSuccessful());
+        $this->assertSame(
+            CartsRestApiSharedConfig::ERROR_IDENTIFIER_UNAUTHORIZED_CART_ACTION,
+            $quoteResponseTransfer->getErrors()->offsetGet(0)->getErrorIdentifier(),
+        );
+    }
+
+    public function testGivenQuoteOwnerWhenCheckQuoteWritePermissionIsCalledThenTrueIsReturned(): void
+    {
+        // Arrange
+        $quoteTransfer = $this->tester->prepareQuoteResponseTransferWithQuote()->getQuoteTransferOrFail()
+            ->setCustomer((new CustomerTransfer())->setCustomerReference($this->tester::TEST_CUSTOMER_REFERENCE));
+
+        // Act
+        $isWritable = $this->cartsRestApiFacade->checkQuoteWritePermission($quoteTransfer);
+
+        // Assert
+        $this->assertTrue($isWritable);
+    }
+
+    public function testGivenReadOnlySharedCartUserWhenCheckQuoteWritePermissionIsCalledThenFalseIsReturned(): void
+    {
+        // Arrange
+        $this->cartsRestApiFacade->setFactory($this->getMockCartsRestApiBusinessFactory($this->createReadOnlyQuotePermissionChecker()));
+        $quoteTransfer = $this->tester->prepareQuoteResponseTransferWithQuote()->getQuoteTransferOrFail()
+            ->setCustomer($this->createSharedCartUserCustomerTransfer());
+
+        // Act
+        $isWritable = $this->cartsRestApiFacade->checkQuoteWritePermission($quoteTransfer);
+
+        // Assert
+        $this->assertFalse($isWritable);
     }
 
     public function testDeleteQuoteWillNotAllowDeleteQuoteWithoutCustomer(): void
@@ -457,8 +530,9 @@ class CartsRestApiFacadeTest extends Unit
     /**
      * @return \Spryker\Zed\CartsRestApi\Business\CartsRestApiBusinessFactory|\PHPUnit\Framework\MockObject\MockObject
      */
-    protected function getMockCartsRestApiBusinessFactory(): CartsRestApiBusinessFactory
-    {
+    protected function getMockCartsRestApiBusinessFactory(
+        ?QuotePermissionCheckerInterface $quotePermissionChecker = null
+    ): CartsRestApiBusinessFactory {
         $cartsRestApiBusinessFactoryMock = $this->createPartialMock(
             CartsRestApiBusinessFactory::class,
             [
@@ -472,8 +546,12 @@ class CartsRestApiFacadeTest extends Unit
                 'getCartItemMapperPlugins',
                 'getQuoteItemReadValidatorPlugins',
                 'createQuoteReloader',
+                'createQuotePermissionChecker',
             ],
         );
+
+        $cartsRestApiBusinessFactoryMock->method('createQuotePermissionChecker')
+            ->willReturn($quotePermissionChecker ?? new QuotePermissionChecker());
 
         $cartsRestApiBusinessFactoryMock = $this->addMockQuoteFacade($cartsRestApiBusinessFactoryMock);
         $cartsRestApiBusinessFactoryMock = $this->addMockCartFacade($cartsRestApiBusinessFactoryMock);
@@ -615,5 +693,29 @@ class CartsRestApiFacadeTest extends Unit
             ->willReturn($mockQuoteCreatorPlugin);
 
         return $cartsRestApiBusinessFactoryMock;
+    }
+
+    protected function createReadOnlyQuotePermissionChecker(): QuotePermissionCheckerInterface
+    {
+        $quotePermissionCheckerMock = $this->createPartialMock(QuotePermissionChecker::class, ['can']);
+        $quotePermissionCheckerMock->method('can')
+            ->willReturnCallback(static fn (string $permissionKey): bool => $permissionKey === static::PERMISSION_PLUGIN_KEY_READ_SHARED_CART);
+
+        return $quotePermissionCheckerMock;
+    }
+
+    protected function createSharedCartUserQuoteTransfer(): QuoteTransfer
+    {
+        return (new QuoteTransfer())
+            ->setUuid($this->tester::TEST_QUOTE_UUID)
+            ->setCustomerReference(static::SHARED_CART_CUSTOMER_REFERENCE)
+            ->setCustomer($this->createSharedCartUserCustomerTransfer());
+    }
+
+    protected function createSharedCartUserCustomerTransfer(): CustomerTransfer
+    {
+        return (new CustomerTransfer())
+            ->setCustomerReference(static::SHARED_CART_CUSTOMER_REFERENCE)
+            ->setCompanyUserTransfer((new CompanyUserTransfer())->setIdCompanyUser(static::SHARED_CART_ID_COMPANY_USER));
     }
 }

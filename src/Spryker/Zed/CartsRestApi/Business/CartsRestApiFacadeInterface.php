@@ -284,4 +284,20 @@ interface CartsRestApiFacadeInterface
      * @return \Generated\Shared\Transfer\QuoteResponseTransfer
      */
     public function assignGuestCartToRegisteredCustomer(AssignGuestQuoteRequestTransfer $assignGuestQuoteRequestTransfer): QuoteResponseTransfer;
+
+    /**
+     * Specification:
+     * - Requires `QuoteTransfer.idQuote`.
+     * - Expects the persisted quote, e.g. as returned by {@link findQuoteByUuid()}, so `QuoteTransfer.customerReference` is the owner's.
+     * - Returns true when `QuoteTransfer.customer` owns the quote.
+     * - Otherwise returns true when `QuoteTransfer.customer.companyUserTransfer.idCompanyUser` holds the permission to write the shared cart.
+     * - Returns false in every other case.
+     *
+     * @api
+     *
+     * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
+     *
+     * @return bool
+     */
+    public function checkQuoteWritePermission(QuoteTransfer $quoteTransfer): bool;
 }

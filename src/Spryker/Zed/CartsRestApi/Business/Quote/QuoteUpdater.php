@@ -81,7 +81,7 @@ class QuoteUpdater implements QuoteUpdaterInterface
 
         $quoteTransfer->setIdQuote($quoteResponseTransfer->getQuoteTransfer()->getIdQuote());
 
-        if (!$this->quotePermissionChecker->checkQuoteWritePermission($quoteTransfer)) {
+        if (!$this->quotePermissionChecker->checkQuoteWritePermission($quoteResponseTransfer->getQuoteTransferOrFail())) {
             return $quoteResponseTransfer
                 ->setIsSuccessful(false)
                 ->addError((new QuoteErrorTransfer())
