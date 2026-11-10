@@ -7,9 +7,9 @@
 
 namespace Spryker\Shared\CartsRestApi;
 
-use Spryker\Shared\Kernel\AbstractBundleConfig;
+use Spryker\Shared\Kernel\AbstractSharedConfig;
 
-class CartsRestApiConfig extends AbstractBundleConfig
+class CartsRestApiConfig extends AbstractSharedConfig
 {
     /**
      * @api
