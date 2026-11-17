@@ -26,6 +26,9 @@ use Spryker\Glue\GlueApplication\Compatibility\Transfer\NullCollectionNormalizer
 use Spryker\Service\Container\Attributes\Plugins;
 use Spryker\Service\Serializer\SerializerServiceInterface;
 
+/**
+ * @SuppressWarnings(PHPMD.UnusedLocalVariable)
+ */
 class CartItemsStorefrontProcessor extends AbstractStorefrontProcessor
 {
     protected const string KEY_CART_ID = 'cartId';

@@ -12,6 +12,9 @@ use Spryker\Glue\Kernel\AbstractBundleConfig;
 use Spryker\Shared\CartsRestApi\CartsRestApiConfig as CartsRestApiSharedConfig;
 use Symfony\Component\HttpFoundation\Response;
 
+/**
+ * @SuppressWarnings(PHPMD.BooleanGetMethodName)
+ */
 class CartsRestApiConfig extends AbstractBundleConfig
 {
     /**
