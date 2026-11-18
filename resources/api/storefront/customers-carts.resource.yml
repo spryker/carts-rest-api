@@ -17,6 +17,9 @@ resource:
         - type: GetCollection
           description: 'Retrieve all carts for the authenticated customer'
           security: "is_granted('ROLE_CUSTOMER') and is_granted('CUSTOMER_OWNER')"
+          extraProperties:
+              securityOwnership:
+                  ownerUriVariable: customerReference
           uriTemplate: '/customers/{customerReference}/carts'
           uriVariables:
               customerReference:
